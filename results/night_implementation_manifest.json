@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-11-06T01:58:36.358968+08:00",
+  "training_lineage": "runs/boq_b2_night_v1/train/lineage.json",
+  "sha256": {
+    "configs/boq_b2_night_v1.json": "6f10d68cdc1f4d3915baa96e085651cc875e05cee14227d5764088f795775271",
+    "docs/NIGHT_ADAPTATION.md": "dd97e62d3a7202fb6add72bec4dc75757d2b45df03d11c22d7338fab8ac4a0e6",
+    "reproduction/asym_model.py": "66864a537248b28e63e4cc47f330864c2faa523f8b7a01f0a4b32bf573e42057",
+    "reproduction/night_data.py": "d9bcd2e8c2f1f5fdbcc56cfea56c9b27d1578399e70d5966127ede6b1d6b8310",
+    "reproduction/night_eval.py": "3a5396590e238b3886326ea538aa1b86e0cf5fac64addabb44bc9da5fa4c2af0",
+    "reproduction/night_finalize.py": "e7800cb6bf393adc744a852e0d4769ec423bed4a5212deffe3f9af4673f94a54",
+    "reproduction/night_launch.sh": "798b3b1b1d90efd696f046deaae11510327820bf498c60bbbc9a02fc4ba42a7a",
+    "reproduction/night_objective.py": "66389deed5d2e03cf1aab2c1765054bcb887ed4359b8a9d41fdead8bab27c1a0",
+    "reproduction/night_train.py": "eb756fa77c146ec563bce3de83a791210820aa640ff7977904c9122de303dc3a",
+    "tests/test_night_data.py": "51e3ab8fc0514efd6c0c26ff9e4ac59ba68898be23874d916aa4699ecd55400f",
+    "tests/test_night_eval.py": "9229b63f9a3cd8c519d1e8594e55de9e2817b9fc85b885c4324f6ae34ae1c3a6",
+    "tests/test_night_finalize.py": "afca31c4b51f9690435be44d1a1d17d9404bdf34d9d32555502824a990803cb9",
+    "tests/test_night_objective.py": "293ee6c10ca0762cf866b30c9e1baf1e32f72724c6e4be6afaf43780ae817358",
+    "tests/test_night_train.py": "3f6bb361033de0fcea2bbf06fa1191746a26c7ee988c7a7e57068ac3ba9b7a74"
+  },
+  "tests_passed": 105
+}

@@ -1,0 +1,74 @@
+{
+  "recorded_at": "2026-11-06T01:58:36.339758+08:00",
+  "recorded_status": "running",
+  "dashboard": "http://127.0.0.1:8765",
+  "snapshot_task": "09f58d89c504",
+  "teacher_prepare_task": "3afe2826f895",
+  "first40_task": "36ddd22580cf",
+  "training_task": "539c22d03c8d",
+  "config": "configs/boq_b2_night_v1.json",
+  "inputs": "runs/boq_b2_night_v1/inputs/summary.json",
+  "snapshot_counts": {
+    "total": 30579,
+    "train": 29050,
+    "val": 1529,
+    "places": {
+      "total": 30579,
+      "train": 29050,
+      "val": 1529
+    },
+    "manifest_sha256": "5bad1c9e167aba58c0ab177f494902785cb30f1a999c13743e327cfcf63f31cb",
+    "excluded_reasons": {}
+  },
+  "training_log": "runs/boq_b2_night_v1/train/logs/metrics.jsonl",
+  "stdout": "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/539c22d03c8d/output.log",
+  "steps_per_epoch": 908,
+  "total_steps": 9080,
+  "baseline_step": 0,
+  "baseline": {
+    "synthetic": {
+      "R@1": 99.60758665794637,
+      "R@5": 99.86919555264879,
+      "R@10": 99.9345977763244
+    },
+    "msls": {
+      "R@1": 92.16216216216216,
+      "R@5": 96.21621621621622,
+      "R@10": 96.35135135135135
+    },
+    "svox_dev": {
+      "R@1": 80.49921996879876,
+      "R@5": 89.70358814352574,
+      "R@10": 92.1996879875195
+    }
+  },
+  "bounded_check": {
+    "steps": 40,
+    "exit_code": 0,
+    "warm_images_per_second": 182.70025725852022,
+    "peak_allocated_gib": 25.19608783721924,
+    "resumed_successfully": true
+  },
+  "final_report_when_complete": "runs/boq_b2_night_v1/NIGHT_REPORT.md",
+  "note": "This is a launch/verification record, not a claim that training or final evaluation has completed. Current status comes from Trainroom and the run completion/finalization receipts.",
+  "cpu_tests_passed": 105,
+  "post_training_module": "reproduction/night_finalize.py",
+  "post_training_evaluation": "Automatic fixed five-dataset comparison plus official-label Tokyo night105 diagnostic; isolated student query caches and verified gallery reuse.",
+  "first_epoch": {
+    "epoch": 1,
+    "step": 908,
+    "eligible_for_selection": true,
+    "msls_delta_pp": -0.2702702702702595,
+    "svox_night_dev": {
+      "R@1": 87.83151326053043,
+      "R@5": 94.38377535101404,
+      "R@10": 95.3198127925117
+    },
+    "msls_guard": {
+      "R@1": 91.8918918918919,
+      "R@5": 96.21621621621622,
+      "R@10": 96.35135135135135
+    },
+    "svox_r1_improvement_pp": 7.332293291731673
+  }
+}

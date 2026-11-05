@@ -52,12 +52,15 @@ class GalleryBoQ(nn.Module):
 
 
 def asym_loss(q, g, place_ids, centroids, variances, temperature=0.05,
-              gamma=15., chunk_size=4096):
+              gamma=15., chunk_size=4096, reduction='mean'):
     """Eq. (8), all other places as negatives, unnormalised arithmetic centroids.
 
     Chunk the fixed bank to bound temporary logits. Autograd saves the chunks
     and computes the exact logsumexp over the complete geographical bank.
+    reduction='none' returns each query's loss for separately weighted groups.
     """
+    if reduction not in ('mean', 'none'):
+        raise ValueError('Asymmetric loss reduction must be mean or none')
     positive = (q * g).sum(-1) / temperature
     regularizer = gamma / (2 * temperature ** 2) * (q.square() * variances[place_ids]).sum(-1)
     negative_lse = torch.full_like(positive, -torch.inf)
@@ -68,4 +71,5 @@ def asym_loss(q, g, place_ids, centroids, variances, temperature=0.05,
         rows = own.nonzero(as_tuple=True)[0]
         logits[rows, place_ids[rows] - start] = -torch.inf
         negative_lse = torch.logaddexp(negative_lse, torch.logsumexp(logits, dim=-1))
-    return F.softplus(negative_lse + regularizer - positive).mean()
+    losses = F.softplus(negative_lse + regularizer - positive)
+    return losses.mean() if reduction == 'mean' else losses

@@ -8,6 +8,20 @@
 没有重复启动训练。训练来源与文件 SHA256 见 [training_history.json](results/training_history.json)。
 另外三种 SALAD/MobileViTv2 组合和论文全部消融不属于当前已完成实验。
 
+## 生成夜图后续微调
+
+已新增 [夜间适配流程](docs/NIGHT_ADAPTATION.md)，从原 epoch 9 最佳权重继续训练，
+固定使用 `WORKSPACE/outputs/night_place_fast_v1` 和 `night_cluster_v1` 中已完成的 **30,579** 张生成夜图。
+其中 29,050 张训练、1,529 张按地点留出；配合全局白天回放与冻结教师的日夜融合目标。
+真实 SVOX night 开发集用于选模，MSLS val 保留能力约束为相对初始值下降不超过 1 个百分点。
+
+本轮计划 10 epochs / 9,080 updates，FP32，32 night + 32 day。
+已通过前 40 个真实更新及完整状态恢复检查，正式任务 `539c22d03c8d` 已从 step 40 续跑。
+进度以 [Trainroom](http://127.0.0.1:8765) 为准；结构化日志为
+`runs/boq_b2_night_v1/train/logs/metrics.jsonl`，配置为 [boq_b2_night_v1.json](configs/boq_b2_night_v1.json)。
+训练完成后自动执行固定最终评测并生成 `runs/boq_b2_night_v1/NIGHT_REPORT.md`。
+生成图仍保留原待语义审核状态；教师一致性权重不等同于审核通过。
+
 ## 已完成的训练结果
 
 | MSLS validation，Recall % | R@1 | R@5 | R@10 |
