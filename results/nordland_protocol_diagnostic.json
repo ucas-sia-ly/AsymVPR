@@ -1,0 +1,12 @@
+{
+  "note": "Diagnostic only: reuse the same frozen checkpoint predictions; published SALAD positives use +/-1 raw reference frame, while the main reproduction follows the paper text +/-3. Not used for model selection.",
+  "ground_truth_path": "/home/admin123/third_party/salad/datasets/Nordland/Nordland_gt.npy",
+  "ground_truth_sha256": "0d523784bb8fb2f12adf228b445463da62f46245a5648fbe8a3d84e3d1090ea9",
+  "metrics_percent": {
+    "R@1": 72.21014492753623,
+    "R@5": 86.34057971014492,
+    "R@10": 89.7463768115942
+  },
+  "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+  "predictions_sha256": "adbd474a395b9286f1c921881de1203355338858824c2b24f6156679abc21245"
+}

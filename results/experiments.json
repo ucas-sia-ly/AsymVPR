@@ -1,0 +1,31 @@
+{
+  "dashboard": "http://127.0.0.1:8765",
+  "runs": {
+    "training": {
+      "id": "223b8a23c9b2",
+      "status": "completed",
+      "source": "artifacts/training_logs",
+      "kind": "historical completed training"
+    },
+    "independent_msls": {
+      "id": "c9336b2dd2da",
+      "status": "completed",
+      "kind": "new evaluation",
+      "metrics": "results/evaluation/msls_metrics.json"
+    },
+    "inference_timing": {
+      "id": "b74eda557252",
+      "status": "completed",
+      "kind": "new inference timing",
+      "metrics": "results/efficiency.json"
+    },
+    "five_benchmark_suite": {
+      "id": "0be0f8e4e2e9",
+      "kind": "new evaluation",
+      "execution": "results/evaluation/execution.json",
+      "metrics": "results/evaluation/summary.json",
+      "status": "completed",
+      "exit_code": 0
+    }
+  }
+}

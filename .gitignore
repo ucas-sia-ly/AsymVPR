@@ -1,0 +1,8 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+runs/
+artifacts/
+checkpoints/
+results/evaluation_cache/

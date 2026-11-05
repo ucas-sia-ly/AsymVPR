@@ -1,0 +1,475 @@
+{
+  "schema": 1,
+  "checkpoint": "/home/admin123/github/AsymVPR/checkpoints/boq_b2_best.pt",
+  "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "config_sha256": "b8c2893044d8b711da9f3532b7366c7867b62373ad85fd9707f04a85805e32c4",
+  "precision": "float32",
+  "tf32": false,
+  "search": "exact chunked inner product, deterministic index ties",
+  "datasets": {
+    "msls": {
+      "dataset": "msls",
+      "root": "/home/admin123/github/datasets/msls_val",
+      "references": {
+        "count": 18871,
+        "ordered_paths_sha256": "0d2da9e15f27e7a5302e987dbc2f006eda297b3f343ab208e7e869fed1ce9f5a",
+        "input_file_stats_sha256": "67550943050f024ea0360bf209989b88abdaaef97478f830245dc0d1bda66026"
+      },
+      "queries": {
+        "count": 740,
+        "ordered_paths_sha256": "ade29b12a278696a30c92fc6e40c85a212d7099b36894489327c9a1fb56fd348",
+        "input_file_stats_sha256": "5a3f60351a0582a0100e129f0fb80ae6cab49d34f468c7e7c9453b09dbe783e6"
+      },
+      "protocol": {
+        "split": "validation",
+        "positives": "official pIdx, 25 m geographical threshold",
+        "query_selection": "official qIdx, queries with known positives",
+        "all_query_count": 747,
+        "selected_query_count": 740
+      },
+      "ground_truth_sha256": "74892b864d92046a0199e89675292a39b43efbb555925b8bcb8f789b9ca2ee1d",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/msls_val/msls_val_dbImages.npy": "d9f42e1addc5a4a72d12950a351ea095c6281d0b6373d1fe57a1c0ec21aae88b",
+        "/home/admin123/github/datasets/msls_val/msls_val_qImages.npy": "e0fed29d6e7f3dcf49b0a369208117ca1dbc96abb2b333bbfc2faaea862a52f8",
+        "/home/admin123/github/datasets/msls_val/msls_val_qIdx.npy": "86450683428acb010038137355748049b665ab86e68d2a09d5a3631de251a382",
+        "/home/admin123/github/datasets/msls_val/msls_val_pIdx.npy": "96dfa5b174c8cb805992a70aa28f8eaf48fd7fac2c44e93dac248ee23ab84427"
+      },
+      "manifest_sha256": "918e30643cac742f9d8c1800c516ef23470b8e8a383379d2b5d314fcb377b647",
+      "metrics_percent": {
+        "R@1": 92.16216216216216,
+        "R@5": 96.21621621621622,
+        "R@10": 96.35135135135135
+      },
+      "paper_table1_percent": {
+        "R@1": 92.3,
+        "R@5": 95.9
+      },
+      "difference_percentage_points": {
+        "R@1": -0.13783783783783576,
+        "R@5": 0.316216216216219
+      },
+      "search_seconds": 6.777746279956773,
+      "search_memory": {
+        "mode": "cuda_resident",
+        "reference_bank_option": "auto",
+        "device": "cuda",
+        "total_bytes": 50865438720,
+        "bank_bytes": 927547392,
+        "workspace_budget_bytes": 105906176,
+        "reserve_bytes": 4294967296,
+        "free_bytes": 49166680064,
+        "required_bytes": 5328420864,
+        "fits": true
+      },
+      "gallery_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/msls/gallery.npy",
+        "feature_sha256": "272191ba4960a379ebb9b9707f8dc80fcdddd9337e14956e63844689308adbd5",
+        "provenance": {
+          "schema": 1,
+          "role": "gallery_teacher",
+          "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 18871,
+            "ordered_paths_sha256": "0d2da9e15f27e7a5302e987dbc2f006eda297b3f343ab208e7e869fed1ce9f5a",
+            "input_file_stats_sha256": "67550943050f024ea0360bf209989b88abdaaef97478f830245dc0d1bda66026"
+          }
+        }
+      },
+      "query_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/msls/query.npy",
+        "feature_sha256": "5c0ae3383cd2ac68e32336f4b1bd17a058cc0425a1824af3735ea45942ebecb9",
+        "provenance": {
+          "schema": 1,
+          "role": "query_student",
+          "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 740,
+            "ordered_paths_sha256": "ade29b12a278696a30c92fc6e40c85a212d7099b36894489327c9a1fb56fd348",
+            "input_file_stats_sha256": "5a3f60351a0582a0100e129f0fb80ae6cab49d34f468c7e7c9453b09dbe783e6"
+          }
+        }
+      },
+      "predictions_sha256": "a7da273719d3e204a48386e4d47a76e30f3e3bdade6c951fd1ac985b78aeca7d"
+    },
+    "pitts250k": {
+      "dataset": "pitts250k",
+      "root": "/home/admin123/github/datasets/Pittsburgh/Pittsburgh",
+      "references": {
+        "count": 83952,
+        "ordered_paths_sha256": "3a566682ea477d05dae42819d639bb8dec7102bc9165d4ad0af878401a961d0a",
+        "input_file_stats_sha256": "1168a0bf0ffd02e6be8f9af90e641fdd73386aca7adcaef68f68bea50223ed54"
+      },
+      "queries": {
+        "count": 8280,
+        "ordered_paths_sha256": "bd1adff434c755c0685b54b928fc4abd8dfbf45c1528f4c3ebb6efe8822cb938",
+        "input_file_stats_sha256": "11259b04fcbb8518e279539bb9bc9069524b02e35e3672763a98e8c893234063"
+      },
+      "protocol": {
+        "split": "pitts250k_test",
+        "positives": "official GSV-Cities/SALAD ground truth, 25 m",
+        "source_mat_audit": "all image IDs/order and all 25 m positive sets match exactly"
+      },
+      "ground_truth_sha256": "2bb5903d567d6348ea4231e5c3d19df23c5399e03db54395434f09ad4652e420",
+      "metadata_sha256": {
+        "/home/admin123/third_party/salad/datasets/Pittsburgh/pitts250k_test_dbImages.npy": "54ed33dcd72d9e0e9ce2e5d286fd3ad3383b79a6688c345a7bd7251a872865e6",
+        "/home/admin123/third_party/salad/datasets/Pittsburgh/pitts250k_test_qImages.npy": "c0c17f00abb53b7582ebac058ea4f76dfbdd4733551d51400c7e7372b915cb74",
+        "/home/admin123/third_party/salad/datasets/Pittsburgh/pitts250k_test_gt.npy": "cd0d4b7d9e05e7beb980fd8c0c3d5435545e51d2b0e485125f163e83f6fdb676",
+        "/home/admin123/github/datasets/Pittsburgh/Pittsburgh/datasets/pitts250k_test.mat": "50f1f9204e4d656d672a2a23be2cd166fc024d48002e6bc631124727fe80b057"
+      },
+      "manifest_sha256": "acf2b1f2eff766cf4abd519f91acac6258ac41d162deeb9b30f605975b7ec331",
+      "metrics_percent": {
+        "R@1": 94.79468599033817,
+        "R@5": 98.29710144927536,
+        "R@10": 98.98550724637681
+      },
+      "paper_table1_percent": {
+        "R@1": 95.4,
+        "R@5": 98.5
+      },
+      "difference_percentage_points": {
+        "R@1": -0.6053140096618392,
+        "R@5": -0.20289855072464036
+      },
+      "search_seconds": 56.0178364260355,
+      "search_memory": {
+        "mode": "cuda_resident",
+        "reference_bank_option": "auto",
+        "device": "cuda",
+        "total_bytes": 50865438720,
+        "bank_bytes": 4126408704,
+        "workspace_budget_bytes": 105906176,
+        "reserve_bytes": 4294967296,
+        "free_bytes": 47528935424,
+        "required_bytes": 8527282176,
+        "fits": true
+      },
+      "gallery_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/pitts250k/gallery.npy",
+        "feature_sha256": "3edd56b1a382c7b10c47ef1e9f5a4461fffb6f7c0a5b93b4ac79787abcfc36d2",
+        "provenance": {
+          "schema": 1,
+          "role": "gallery_teacher",
+          "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 83952,
+            "ordered_paths_sha256": "3a566682ea477d05dae42819d639bb8dec7102bc9165d4ad0af878401a961d0a",
+            "input_file_stats_sha256": "1168a0bf0ffd02e6be8f9af90e641fdd73386aca7adcaef68f68bea50223ed54"
+          }
+        }
+      },
+      "query_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/pitts250k/query.npy",
+        "feature_sha256": "63f816f15d6edb11f324b3312f5d430d35a04f1e970629e12e190d6357e852d7",
+        "provenance": {
+          "schema": 1,
+          "role": "query_student",
+          "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 8280,
+            "ordered_paths_sha256": "bd1adff434c755c0685b54b928fc4abd8dfbf45c1528f4c3ebb6efe8822cb938",
+            "input_file_stats_sha256": "11259b04fcbb8518e279539bb9bc9069524b02e35e3672763a98e8c893234063"
+          }
+        }
+      },
+      "predictions_sha256": "1572700f0be7bb6a7874c25004897250b8c2aba4dc9ccaaf1443b1f928498ed1"
+    },
+    "tokyo247": {
+      "dataset": "tokyo247",
+      "root": "/home/admin123/github/datasets/tokyo247",
+      "references": {
+        "count": 75984,
+        "ordered_paths_sha256": "136f9d3a7bc180b55bedecc61fd7f696f2b51403a4ec34881ca0abeb023aeb8b",
+        "input_file_stats_sha256": "025c10fde7d37eba355f3279ec5be3c1d1bde1ac728731ebc0c594c9879eed01"
+      },
+      "queries": {
+        "count": 315,
+        "ordered_paths_sha256": "095239fabecea98a2a28bb72cc75555991cdb9ac50f85cb5fa0540ee999a90e2",
+        "input_file_stats_sha256": "1ad7fcaafce8d2df0a78cdb7a988a39c46a2b9b4e775e6b0e5a5c22e5c02791a"
+      },
+      "protocol": {
+        "split": "Tokyo24/7, published 315-query subset",
+        "positives": "UTM coordinates encoded in official paths; Euclidean distance <= 25 m",
+        "resolution": "original VGA, deterministic resize to configured input size"
+      },
+      "ground_truth_sha256": "9b9e4a46ba814ffebc08771a9d6c4d9e6288e78337a121ebd2b399925c2e555f",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/tokyo247/tokyo247_dbImages.npy": "c3fd5340470c52690db3b56e27c042015f4323637521faf871f813ec14548a39",
+        "/home/admin123/github/datasets/tokyo247/tokyo247_qImages.npy": "dec2f5bc78cf92739176f04eddb0647fbdfd36b4ddf7506c7d8d9ba89a7e0bcd"
+      },
+      "manifest_sha256": "54cd1f48c55f9f01e1359eb334d6b8350fca0a1e337125668986698b5ddd989c",
+      "metrics_percent": {
+        "R@1": 91.74603174603175,
+        "R@5": 96.19047619047619,
+        "R@10": 97.14285714285714
+      },
+      "paper_table1_percent": {
+        "R@1": 92.7,
+        "R@5": 96.5
+      },
+      "difference_percentage_points": {
+        "R@1": -0.9539682539682559,
+        "R@5": -0.3095238095238102
+      },
+      "search_seconds": 20.830045916954987,
+      "search_memory": {
+        "mode": "cuda_resident",
+        "reference_bank_option": "auto",
+        "device": "cuda",
+        "total_bytes": 50865438720,
+        "bank_bytes": 3734765568,
+        "workspace_budget_bytes": 105906176,
+        "reserve_bytes": 4294967296,
+        "free_bytes": 43400953856,
+        "required_bytes": 8135639040,
+        "fits": true
+      },
+      "gallery_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/tokyo247/gallery.npy",
+        "feature_sha256": "64e1aedf306654362b5a6ce4b08e48fb47e41a0222c94616d3f086adbaa8cd77",
+        "provenance": {
+          "schema": 1,
+          "role": "gallery_teacher",
+          "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 75984,
+            "ordered_paths_sha256": "136f9d3a7bc180b55bedecc61fd7f696f2b51403a4ec34881ca0abeb023aeb8b",
+            "input_file_stats_sha256": "025c10fde7d37eba355f3279ec5be3c1d1bde1ac728731ebc0c594c9879eed01"
+          }
+        }
+      },
+      "query_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/tokyo247/query.npy",
+        "feature_sha256": "8b78c5516b1c2a82016c357b6988e8453c7953d89b64e9cfaf9b8fb935b99346",
+        "provenance": {
+          "schema": 1,
+          "role": "query_student",
+          "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 315,
+            "ordered_paths_sha256": "095239fabecea98a2a28bb72cc75555991cdb9ac50f85cb5fa0540ee999a90e2",
+            "input_file_stats_sha256": "1ad7fcaafce8d2df0a78cdb7a988a39c46a2b9b4e775e6b0e5a5c22e5c02791a"
+          }
+        }
+      },
+      "predictions_sha256": "e17e328bb26f97ea3134fe4b3a181689e5b7fb9322ee8e77f571999e96e8b6c6"
+    },
+    "nordland": {
+      "dataset": "nordland",
+      "root": "/home/admin123/github/icra/third_party/VLAD-BUFF/logs/nordland_official_protocol/data/Nordland",
+      "references": {
+        "count": 27592,
+        "ordered_paths_sha256": "9dd6d8782bceb9fbc18f3b143e93f389781b9394587ad533eb120a12664aeb99",
+        "input_file_stats_sha256": "f49420d3081b60e5c4a7b5678a283efc4d9fbaf79e11acd46f623b5248a01dea"
+      },
+      "queries": {
+        "count": 2760,
+        "ordered_paths_sha256": "9ea78dc6cb48dd62b671111536a2170cc24df8152a501be74c7cf66d18724555",
+        "input_file_stats_sha256": "b135979ced50ab40b85c469949655fcc0d8ef59398da776f6cdebd4d4f6b5554"
+      },
+      "protocol": {
+        "split": "VPR-Bench sampled summer queries / winter references",
+        "positives": "reference sequence frame +/- 3 inclusive",
+        "query_frame": "query ordinal * 10",
+        "protocol_variant": "paper",
+        "published_gt_differing_rows": 2760,
+        "image_layout": "original VPR-Bench release ref/query"
+      },
+      "ground_truth_sha256": "c6eb6f24deb095ff5a89ec01ee176eb8970b130411f3ec2aafca66b54c25be2d",
+      "metadata_sha256": {
+        "/home/admin123/third_party/salad/datasets/Nordland/Nordland_dbImages.npy": "57ddf16a7db2cbb6fb3933faa60df25f881a002232ddf8ffe5bbdac3a5247050",
+        "/home/admin123/third_party/salad/datasets/Nordland/Nordland_qImages.npy": "44c19608e365283b92abdcc38a725b113dfc48f0614da26fcfa9849b60b31b33",
+        "/home/admin123/third_party/salad/datasets/Nordland/Nordland_gt.npy": "0d523784bb8fb2f12adf228b445463da62f46245a5648fbe8a3d84e3d1090ea9",
+        "/home/admin123/github/icra/third_party/VLAD-BUFF/logs/nordland_official_protocol/provenance.json": "75d4732c903f3dee0764213ac757e6d98ae389bba9057c6363d14e5b783239f4"
+      },
+      "manifest_sha256": "bc1300c5c36eb6d77904652cf632804f01eed11583431348c7c837f47a23ac7e",
+      "metrics_percent": {
+        "R@1": 78.51449275362319,
+        "R@5": 88.91304347826086,
+        "R@10": 91.88405797101449
+      },
+      "paper_table1_percent": {
+        "R@1": 74.6,
+        "R@5": 88.3
+      },
+      "difference_percentage_points": {
+        "R@1": 3.9144927536231933,
+        "R@5": 0.6130434782608631
+      },
+      "search_seconds": 10.542307232040912,
+      "search_memory": {
+        "mode": "cuda_resident",
+        "reference_bank_option": "auto",
+        "device": "cuda",
+        "total_bytes": 50865438720,
+        "bank_bytes": 1356201984,
+        "workspace_budget_bytes": 105906176,
+        "reserve_bytes": 4294967296,
+        "free_bytes": 43404689408,
+        "required_bytes": 5757075456,
+        "fits": true
+      },
+      "gallery_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/nordland/gallery.npy",
+        "feature_sha256": "ff91d07b9369b08dda2b6726b7a123a96b9c5c9738344c790d0471191864e44e",
+        "provenance": {
+          "schema": 1,
+          "role": "gallery_teacher",
+          "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 27592,
+            "ordered_paths_sha256": "9dd6d8782bceb9fbc18f3b143e93f389781b9394587ad533eb120a12664aeb99",
+            "input_file_stats_sha256": "f49420d3081b60e5c4a7b5678a283efc4d9fbaf79e11acd46f623b5248a01dea"
+          }
+        }
+      },
+      "query_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/nordland/query.npy",
+        "feature_sha256": "9d189eeb8791dcf4c8946fd6501cff185c4ca90b3906d56e80b71b9b1b6df10f",
+        "provenance": {
+          "schema": 1,
+          "role": "query_student",
+          "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 2760,
+            "ordered_paths_sha256": "9ea78dc6cb48dd62b671111536a2170cc24df8152a501be74c7cf66d18724555",
+            "input_file_stats_sha256": "b135979ced50ab40b85c469949655fcc0d8ef59398da776f6cdebd4d4f6b5554"
+          }
+        }
+      },
+      "predictions_sha256": "adbd474a395b9286f1c921881de1203355338858824c2b24f6156679abc21245"
+    },
+    "amstertime": {
+      "dataset": "amstertime",
+      "root": "/home/admin123/github/datasets/amstertime",
+      "references": {
+        "count": 1231,
+        "ordered_paths_sha256": "5d98ead07f8df4a448a4044d16d4a39bf93db7c78bc2c76c42732744b047b162",
+        "input_file_stats_sha256": "358d7d9f4dbadf26d0dda3a2d3ffd57e7a011c650801db73bde1902fc5b9ebc5"
+      },
+      "queries": {
+        "count": 1231,
+        "ordered_paths_sha256": "c2fea77b6cba15d2ff7e7d4f4cc9c3805f022f4ed7ed3c3a9c593f7c38aef8d2",
+        "input_file_stats_sha256": "145bceb13b1aad46bc61eb2f46d0070f125408f61904b09c16f162ee26ec99ea"
+      },
+      "protocol": {
+        "split": "all 1231 published pairs",
+        "references": "new images",
+        "queries": "old images",
+        "positives": "image_pairs.csv old_num -> new_num; no coordinate proxy"
+      },
+      "ground_truth_sha256": "8a69c22ab799a2028eaeddaa69251f7559b80b8435743bb8579e5ff4a7fce271",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/amstertime/amstertime_dbImages.npy": "7bf7f7138427b9ae5a19a357ebb42a6f6b8941e652decc22774caa59f24b2ffd",
+        "/home/admin123/github/datasets/amstertime/amstertime_qImages.npy": "359764fc5055ed0dc575a716f03ce2fcba4a5b89753eac21f1aa5fac00f7c861",
+        "/home/admin123/github/datasets/amstertime/image_pairs.csv": "34fb75be5de1fed4facfd036a2cd4ecc41b6ac95cf6febc4df9826b958912f54"
+      },
+      "manifest_sha256": "c6c9f092956758e0af40aca53005f36d4eefc0e14e3d390498a669a780485e44",
+      "metrics_percent": {
+        "R@1": 47.603574329813156,
+        "R@5": 69.2932575142161,
+        "R@10": 74.73598700243704
+      },
+      "paper_table1_percent": {
+        "R@1": 48.6,
+        "R@5": 71.3
+      },
+      "difference_percentage_points": {
+        "R@1": -0.996425670186845,
+        "R@5": -2.006742485783903
+      },
+      "search_seconds": 0.17084021808113903,
+      "search_memory": {
+        "mode": "cuda_resident",
+        "reference_bank_option": "auto",
+        "device": "cuda",
+        "total_bytes": 50865438720,
+        "bank_bytes": 60506112,
+        "workspace_budget_bytes": 18587392,
+        "reserve_bytes": 4294967296,
+        "free_bytes": 43405082624,
+        "required_bytes": 4374060800,
+        "fits": true
+      },
+      "gallery_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/amstertime/gallery.npy",
+        "feature_sha256": "1492ee0b7f84bc9138c56ae94654e60c4725b425b9826703c86c9524995b4208",
+        "provenance": {
+          "schema": 1,
+          "role": "gallery_teacher",
+          "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 1231,
+            "ordered_paths_sha256": "5d98ead07f8df4a448a4044d16d4a39bf93db7c78bc2c76c42732744b047b162",
+            "input_file_stats_sha256": "358d7d9f4dbadf26d0dda3a2d3ffd57e7a011c650801db73bde1902fc5b9ebc5"
+          }
+        }
+      },
+      "query_cache": {
+        "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/amstertime/query.npy",
+        "feature_sha256": "9716ac904f79ea63d3ff70a4c27c559de679108dd3991aa0a126825b2a7dafc7",
+        "provenance": {
+          "schema": 1,
+          "role": "query_student",
+          "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 1231,
+            "ordered_paths_sha256": "c2fea77b6cba15d2ff7e7d4f4cc9c3805f022f4ed7ed3c3a9c593f7c38aef8d2",
+            "input_file_stats_sha256": "145bceb13b1aad46bc61eb2f46d0070f125408f61904b09c16f162ee26ec99ea"
+          }
+        }
+      },
+      "predictions_sha256": "c25d7dc19291100ef31d484e7117c2f09e2aeb0c6b38c75748e9dbd19e538107"
+    }
+  }
+}

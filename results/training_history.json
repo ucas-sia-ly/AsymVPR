@@ -1,0 +1,200 @@
+{
+  "status": "imported_completed_training",
+  "source_project": "/home/admin123/github/Bag-of-Queries",
+  "trainroom_id": "223b8a23c9b2",
+  "source_code_files": [
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/reproduction/__init__.py",
+      "sha256": "5a3046d94d388b91478200857cf3e66fcf495e2f00fcedb918615d3e2c99b549"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/reproduction/asym_model.py",
+      "sha256": "a971301e529d6343b450307c1edf2d0c0b5fa4fe56bae4d3f3d7ad2460f98af8"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/reproduction/benchmark_gallery.py",
+      "sha256": "df448cc16b74c45e3c88c31c9ea79800752bb862591903f3012dee8dd8148bdf"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/reproduction/data.py",
+      "sha256": "25b24207822c746db693a68813cd1716d8efe9a9b5714aef19cb7b0e0729680b"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/reproduction/run.py",
+      "sha256": "1946fac68b73c573fad047ff267bd483d4cbf548baa7c581ca98ecd7b74284c6"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/reproduction/smoke.py",
+      "sha256": "bb6966b9eeb0261ae5a67b6529b978393656cc037d84e2dfb16ab8d1462aee8e"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/src/boq.py",
+      "sha256": "289343f5f7d41c47b6a3b604af61479b384f0edd223f85d3bef6ea3929c75c1c"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/src/backbones.py",
+      "sha256": "c9c2924e462a207e35098caf627fd8cc9bdab6b701fe8a234a9993a540df05e4"
+    },
+    {
+      "source": "/home/admin123/github/Bag-of-Queries/configs/asym_boq_efficientvit_b2.json",
+      "sha256": "f041a5bec92b69516a46e63e3ead568f3e11791854c3a0999ac37109a7556860"
+    }
+  ],
+  "training": {
+    "epochs": 15,
+    "steps": 124110,
+    "best_msls_r1": 92.16216216216216
+  },
+  "best_checkpoint": {
+    "path": "checkpoints/boq_b2_best.pt",
+    "sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+    "selected_by": "MSLS validation Recall@1",
+    "epoch": 9,
+    "step": 74466
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "step": 8274,
+      "msls-val/R@1": 89.32432432432432,
+      "msls-val/R@5": 94.86486486486486,
+      "msls-val/R@10": 95.94594594594594
+    },
+    {
+      "epoch": 2,
+      "step": 16548,
+      "msls-val/R@1": 90.67567567567568,
+      "msls-val/R@5": 95.54054054054055,
+      "msls-val/R@10": 96.21621621621622
+    },
+    {
+      "epoch": 3,
+      "step": 24822,
+      "msls-val/R@1": 90.81081081081082,
+      "msls-val/R@5": 95.94594594594594,
+      "msls-val/R@10": 96.21621621621622
+    },
+    {
+      "epoch": 4,
+      "step": 33096,
+      "msls-val/R@1": 92.02702702702703,
+      "msls-val/R@5": 95.94594594594594,
+      "msls-val/R@10": 96.21621621621622
+    },
+    {
+      "epoch": 5,
+      "step": 41370,
+      "msls-val/R@1": 90.94594594594595,
+      "msls-val/R@5": 95.8108108108108,
+      "msls-val/R@10": 96.35135135135135
+    },
+    {
+      "epoch": 6,
+      "step": 49644,
+      "msls-val/R@1": 91.75675675675676,
+      "msls-val/R@5": 96.21621621621622,
+      "msls-val/R@10": 96.48648648648648
+    },
+    {
+      "epoch": 7,
+      "step": 57918,
+      "msls-val/R@1": 90.94594594594595,
+      "msls-val/R@5": 96.08108108108108,
+      "msls-val/R@10": 96.21621621621622
+    },
+    {
+      "epoch": 8,
+      "step": 66192,
+      "msls-val/R@1": 91.8918918918919,
+      "msls-val/R@5": 96.08108108108108,
+      "msls-val/R@10": 96.35135135135135
+    },
+    {
+      "epoch": 9,
+      "step": 74466,
+      "msls-val/R@1": 92.16216216216216,
+      "msls-val/R@5": 96.21621621621622,
+      "msls-val/R@10": 96.35135135135135
+    },
+    {
+      "epoch": 10,
+      "step": 82740,
+      "msls-val/R@1": 91.48648648648648,
+      "msls-val/R@5": 96.21621621621622,
+      "msls-val/R@10": 96.35135135135135
+    },
+    {
+      "epoch": 11,
+      "step": 91014,
+      "msls-val/R@1": 92.16216216216216,
+      "msls-val/R@5": 96.08108108108108,
+      "msls-val/R@10": 96.21621621621622
+    },
+    {
+      "epoch": 12,
+      "step": 99288,
+      "msls-val/R@1": 92.02702702702703,
+      "msls-val/R@5": 96.21621621621622,
+      "msls-val/R@10": 96.62162162162163
+    },
+    {
+      "epoch": 13,
+      "step": 107562,
+      "msls-val/R@1": 91.75675675675676,
+      "msls-val/R@5": 96.08108108108108,
+      "msls-val/R@10": 96.62162162162163
+    },
+    {
+      "epoch": 14,
+      "step": 115836,
+      "msls-val/R@1": 92.02702702702703,
+      "msls-val/R@5": 96.21621621621622,
+      "msls-val/R@10": 96.62162162162163
+    },
+    {
+      "epoch": 15,
+      "step": 124110,
+      "msls-val/R@1": 91.8918918918919,
+      "msls-val/R@5": 96.21621621621622,
+      "msls-val/R@10": 96.62162162162163
+    }
+  ],
+  "teacher_baseline": {
+    "protocol": "symmetric frozen gallery baseline",
+    "msls-val/R@1": 93.78378378378378,
+    "msls-val/R@5": 96.75675675675676,
+    "msls-val/R@10": 97.02702702702702
+  },
+  "dataset": {
+    "signature": "07b1eaead2ac4631ea6a51a79575f1fa36da2891b127721748cba2bf13383c7e",
+    "num_images": 529506,
+    "num_places": 64394,
+    "cities": [
+      "Bangkok",
+      "Barcelona",
+      "Boston",
+      "Brussels",
+      "BuenosAires",
+      "Chicago",
+      "Lisbon",
+      "London",
+      "LosAngeles",
+      "Madrid",
+      "Medellin",
+      "Melbourne",
+      "MexicoCity",
+      "Miami",
+      "Minneapolis",
+      "OSL",
+      "Osaka",
+      "PRG",
+      "PRS",
+      "Phoenix",
+      "Rome",
+      "TRT",
+      "WashingtonDC"
+    ],
+    "root": "/home/admin123/github/WORKSPACE/dataset/gsv-cities"
+  },
+  "note": "Historical metrics imported from an already completed local independent reproduction; this invocation did not retrain."
+}

@@ -1,0 +1,92 @@
+{
+  "dataset": "pitts250k",
+  "root": "/home/admin123/github/datasets/Pittsburgh/Pittsburgh",
+  "references": {
+    "count": 83952,
+    "ordered_paths_sha256": "3a566682ea477d05dae42819d639bb8dec7102bc9165d4ad0af878401a961d0a",
+    "input_file_stats_sha256": "1168a0bf0ffd02e6be8f9af90e641fdd73386aca7adcaef68f68bea50223ed54"
+  },
+  "queries": {
+    "count": 8280,
+    "ordered_paths_sha256": "bd1adff434c755c0685b54b928fc4abd8dfbf45c1528f4c3ebb6efe8822cb938",
+    "input_file_stats_sha256": "11259b04fcbb8518e279539bb9bc9069524b02e35e3672763a98e8c893234063"
+  },
+  "protocol": {
+    "split": "pitts250k_test",
+    "positives": "official GSV-Cities/SALAD ground truth, 25 m",
+    "source_mat_audit": "all image IDs/order and all 25 m positive sets match exactly"
+  },
+  "ground_truth_sha256": "2bb5903d567d6348ea4231e5c3d19df23c5399e03db54395434f09ad4652e420",
+  "metadata_sha256": {
+    "/home/admin123/third_party/salad/datasets/Pittsburgh/pitts250k_test_dbImages.npy": "54ed33dcd72d9e0e9ce2e5d286fd3ad3383b79a6688c345a7bd7251a872865e6",
+    "/home/admin123/third_party/salad/datasets/Pittsburgh/pitts250k_test_qImages.npy": "c0c17f00abb53b7582ebac058ea4f76dfbdd4733551d51400c7e7372b915cb74",
+    "/home/admin123/third_party/salad/datasets/Pittsburgh/pitts250k_test_gt.npy": "cd0d4b7d9e05e7beb980fd8c0c3d5435545e51d2b0e485125f163e83f6fdb676",
+    "/home/admin123/github/datasets/Pittsburgh/Pittsburgh/datasets/pitts250k_test.mat": "50f1f9204e4d656d672a2a23be2cd166fc024d48002e6bc631124727fe80b057"
+  },
+  "manifest_sha256": "acf2b1f2eff766cf4abd519f91acac6258ac41d162deeb9b30f605975b7ec331",
+  "metrics_percent": {
+    "R@1": 94.79468599033817,
+    "R@5": 98.29710144927536,
+    "R@10": 98.98550724637681
+  },
+  "paper_table1_percent": {
+    "R@1": 95.4,
+    "R@5": 98.5
+  },
+  "difference_percentage_points": {
+    "R@1": -0.6053140096618392,
+    "R@5": -0.20289855072464036
+  },
+  "search_seconds": 56.0178364260355,
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 4126408704,
+    "workspace_budget_bytes": 105906176,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 47528935424,
+    "required_bytes": 8527282176,
+    "fits": true
+  },
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/pitts250k/gallery.npy",
+    "feature_sha256": "3edd56b1a382c7b10c47ef1e9f5a4461fffb6f7c0a5b93b4ac79787abcfc36d2",
+    "provenance": {
+      "schema": 1,
+      "role": "gallery_teacher",
+      "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 83952,
+        "ordered_paths_sha256": "3a566682ea477d05dae42819d639bb8dec7102bc9165d4ad0af878401a961d0a",
+        "input_file_stats_sha256": "1168a0bf0ffd02e6be8f9af90e641fdd73386aca7adcaef68f68bea50223ed54"
+      }
+    }
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/pitts250k/query.npy",
+    "feature_sha256": "63f816f15d6edb11f324b3312f5d430d35a04f1e970629e12e190d6357e852d7",
+    "provenance": {
+      "schema": 1,
+      "role": "query_student",
+      "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 8280,
+        "ordered_paths_sha256": "bd1adff434c755c0685b54b928fc4abd8dfbf45c1528f4c3ebb6efe8822cb938",
+        "input_file_stats_sha256": "11259b04fcbb8518e279539bb9bc9069524b02e35e3672763a98e8c893234063"
+      }
+    }
+  },
+  "predictions_sha256": "1572700f0be7bb6a7874c25004897250b8c2aba4dc9ccaaf1443b1f928498ed1"
+}

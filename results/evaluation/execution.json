@@ -1,0 +1,24 @@
+{
+  "status": "completed",
+  "started_time": 1793871763.9467032,
+  "arguments": [
+    "--config",
+    "configs/boq_b2.json",
+    "--checkpoint",
+    "checkpoints/boq_b2_best.pt",
+    "--dataset",
+    "all",
+    "--cache-dir",
+    "results/evaluation_cache",
+    "--output-dir",
+    "results/evaluation",
+    "--batch-size",
+    "128",
+    "--workers",
+    "4",
+    "--reference-bank",
+    "auto"
+  ],
+  "trainroom_directory": "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/0be0f8e4e2e9",
+  "ended_time": 1793872746.9168274
+}
