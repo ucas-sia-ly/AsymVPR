@@ -1,0 +1,329 @@
+{
+  "experiment": "boq_b2_night_only_v1",
+  "status": "running",
+  "recorded_at": "2026-11-05T19:33:28.701663+00:00",
+  "trainroom_url": "http://127.0.0.1:8765",
+  "trainroom_id": "eca6f5624673",
+  "bounded_trainroom_id": "b1088f8f618d",
+  "config": "configs/boq_b2_night_only_v1.json",
+  "config_sha256": "9568b2e92ebcdf95a50bb262f4d36df6ba754c5308ff1ad09772c7bb308f6040",
+  "output_dir": "runs/boq_b2_night_only_v1/train",
+  "log_source": "/home/admin123/github/AsymVPR/runs/boq_b2_night_only_v1/train/logs/metrics.jsonl",
+  "query_domain": "night_only",
+  "night_target": "teacher_night",
+  "day_query_replay": false,
+  "selection_policy": "svox_night_r1",
+  "max_msls_drop_pp": null,
+  "frozen_nights": 30579,
+  "training_nights": 29050,
+  "heldout_synthetic_nights": 1529,
+  "planned_epochs": 10,
+  "planned_optimizer_steps": 9080,
+  "planned_night_image_exposures": 290500,
+  "cpu_tests": {
+    "passed": 130,
+    "command": "/home/admin123/miniconda3/envs/boq/bin/python -m pytest -q tests"
+  },
+  "bounded_check": {
+    "status": "passed",
+    "bounded_trainroom_id": "b1088f8f618d",
+    "exit_code": 0,
+    "optimizer_step": 40,
+    "epoch": 0,
+    "next_batch": 40,
+    "scheduler_last_epoch": 0,
+    "full_optimizer_state": true,
+    "source_lineage_unchanged": true,
+    "real_metrics_copied_from": "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/b1088f8f618d/metrics.jsonl",
+    "first_loss": 1.3331058025360107,
+    "last_window_loss": 0.8718069136142731,
+    "steady_night_images_per_second": 216.01758023582528,
+    "peak_allocated_gib": 16.285195350646973,
+    "validation_baseline": {
+      "synthetic": {
+        "metrics_percent": {
+          "R@1": 99.60758665794637,
+          "R@5": 99.86919555264879,
+          "R@10": 99.9345977763244
+        },
+        "teacher_night_percent": {
+          "R@1": 99.86919555264879,
+          "R@5": 99.86919555264879,
+          "R@10": 99.86919555264879
+        },
+        "num_references": 30579,
+        "num_queries": 1529,
+        "heldout_places": 1529,
+        "definition": {
+          "protocol": "new synthetic augmentations held out by place; all frozen source-day references",
+          "snapshot_sha256": "0f1aeafa6ab9ef509bed433cf287330b3ca44e451cf6211e51d8300351e43081",
+          "ground_truth_sha256": "c69b49cf5d0dcb6155883390becb848859be39525745fc1cf1f5fe3fefbb3b45",
+          "source_gallery": {
+            "source": "/home/admin123/github/Bag-of-Queries/logs/asym_boq_b2/cache/train_features.npy",
+            "provenance": {
+              "manifest": "07b1eaead2ac4631ea6a51a79575f1fa36da2891b127721748cba2bf13383c7e",
+              "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+              "image_size": 322,
+              "descriptor_dim": 12288,
+              "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+              "precision": "float32"
+            },
+            "selected_source_indices_sha256": "30727b2105cb1dd4a5a59b0cb517b28eb4ceefcc3f6954f5cdece1b1d1bcfe41",
+            "original_feature_file_size": 26026279040,
+            "original_feature_file_mtime_ns": 1793621159042241674,
+            "limitation": "Inherited original GSV bank has no complete feature-file checksum; source mapping and teacher identity checked"
+          },
+          "night_teacher_cache_identity": {
+            "schema": 1,
+            "role": "night_teacher",
+            "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+            "image_size": 322,
+            "descriptor_dim": 12288,
+            "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+            "precision": "float32",
+            "tf32": false,
+            "paths": {
+              "count": 30579,
+              "ordered_paths_sha256": "aef8c7d333a55a7247016457be617a5b08775815e16915f552e8c8fd0d25edfa",
+              "input_file_stats_sha256": "38d3f4e35fbde1fe3da09a453d70441586c2e2655dc86831970d3b4d6fea4c60"
+            }
+          },
+          "night_teacher_cache_receipt": {
+            "path": "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/cache/night_teacher.npy",
+            "feature_sha256": "5c5fb153571dad19b138735c5c3ce9b215da5343aef999367a6c949fbfa2a9a5"
+          },
+          "scope": "Initial checkpoint already saw heldout GSV daytime places; not unseen-location evaluation",
+          "semantic_status": "Pending verification is preserved; teacher consistency is not semantic approval"
+        },
+        "epoch": 0,
+        "step": 0,
+        "precision": "float32",
+        "tf32": false,
+        "predictions_sha256": "c78f1872913a921f10c5cf1b11b287fd8e4af491d03eafc729e6cb6b3e07f52c"
+      },
+      "msls": {
+        "metrics_percent": {
+          "R@1": 92.16216216216216,
+          "R@5": 96.21621621621622,
+          "R@10": 96.35135135135135
+        },
+        "num_references": 18871,
+        "num_queries": 740,
+        "definition": {
+          "dataset": "msls",
+          "root": "/home/admin123/github/datasets/msls_val",
+          "references": {
+            "count": 18871,
+            "ordered_paths_sha256": "0d2da9e15f27e7a5302e987dbc2f006eda297b3f343ab208e7e869fed1ce9f5a",
+            "input_file_stats_sha256": "67550943050f024ea0360bf209989b88abdaaef97478f830245dc0d1bda66026"
+          },
+          "queries": {
+            "count": 740,
+            "ordered_paths_sha256": "ade29b12a278696a30c92fc6e40c85a212d7099b36894489327c9a1fb56fd348",
+            "input_file_stats_sha256": "5a3f60351a0582a0100e129f0fb80ae6cab49d34f468c7e7c9453b09dbe783e6"
+          },
+          "protocol": {
+            "split": "validation",
+            "positives": "official pIdx, 25 m geographical threshold",
+            "query_selection": "official qIdx, queries with known positives",
+            "all_query_count": 747,
+            "selected_query_count": 740
+          },
+          "ground_truth_sha256": "74892b864d92046a0199e89675292a39b43efbb555925b8bcb8f789b9ca2ee1d",
+          "metadata_sha256": {
+            "/home/admin123/github/datasets/msls_val/msls_val_dbImages.npy": "d9f42e1addc5a4a72d12950a351ea095c6281d0b6373d1fe57a1c0ec21aae88b",
+            "/home/admin123/github/datasets/msls_val/msls_val_qImages.npy": "e0fed29d6e7f3dcf49b0a369208117ca1dbc96abb2b333bbfc2faaea862a52f8",
+            "/home/admin123/github/datasets/msls_val/msls_val_qIdx.npy": "86450683428acb010038137355748049b665ab86e68d2a09d5a3631de251a382",
+            "/home/admin123/github/datasets/msls_val/msls_val_pIdx.npy": "96dfa5b174c8cb805992a70aa28f8eaf48fd7fac2c44e93dac248ee23ab84427"
+          },
+          "manifest_sha256": "918e30643cac742f9d8c1800c516ef23470b8e8a383379d2b5d314fcb377b647"
+        },
+        "teacher_gallery_identity": {
+          "schema": 1,
+          "role": "gallery_teacher",
+          "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+          "image_size": 322,
+          "descriptor_dim": 12288,
+          "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+          "precision": "float32",
+          "tf32": false,
+          "paths": {
+            "count": 18871,
+            "ordered_paths_sha256": "0d2da9e15f27e7a5302e987dbc2f006eda297b3f343ab208e7e869fed1ce9f5a",
+            "input_file_stats_sha256": "67550943050f024ea0360bf209989b88abdaaef97478f830245dc0d1bda66026"
+          }
+        },
+        "teacher_gallery_receipt": {
+          "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/msls/gallery.npy",
+          "feature_sha256": "272191ba4960a379ebb9b9707f8dc80fcdddd9337e14956e63844689308adbd5"
+        },
+        "epoch": 0,
+        "step": 0,
+        "precision": "float32",
+        "tf32": false,
+        "predictions_sha256": "a7da273719d3e204a48386e4d47a76e30f3e3bdade6c951fd1ac985b78aeca7d"
+      },
+      "svox_dev": {
+        "metrics_percent": {
+          "R@1": 80.49921996879876,
+          "R@5": 89.70358814352574,
+          "R@10": 92.1996879875195
+        },
+        "teacher_night_percent": {
+          "R@1": 96.09984399375975,
+          "R@5": 98.12792511700468,
+          "R@10": 98.4399375975039
+        },
+        "num_references": 22232,
+        "num_queries": 641,
+        "definition": {
+          "manifest": "/home/admin123/github/WORKSPACE/outputs/qwen_curriculum/state/weather_validation/svox_train_weather.json",
+          "manifest_sha256": "e0277b43947ede70a8fe8062c5e0a4077c98417d185b2bb4574d2412ae6051ad",
+          "protocol_receipt_sha256": "a438f2951c684d5be7961452fa63488d1b80aec572fa3ba9ad3796cff32865f4",
+          "protocol": {
+            "domains": [
+              "night",
+              "rain",
+              "snow",
+              "sun",
+              "overcast"
+            ],
+            "dropped_per_domain": {
+              "night": 61,
+              "overcast": 67,
+              "rain": 65,
+              "snow": 69,
+              "sun": 68
+            },
+            "exclusion": "drop queries within 50 m of any SVOX test/val gallery or query image",
+            "gallery_images": 22232,
+            "gallery_within_buffer_of_test": 308,
+            "limitations": [
+              "Same city (Oxford) and camera as SVOX test: a validation for this target, not an unseen-domain test.",
+              "Domain queries are ~700 each: one query is ~0.15 pp; read paired counts, not small R@1 gaps."
+            ],
+            "manifest": "/home/admin123/github/WORKSPACE/outputs/qwen_curriculum/state/weather_validation/svox_train_weather.json",
+            "manifest_sha256": "e0277b43947ede70a8fe8062c5e0a4077c98417d185b2bb4574d2412ae6051ad",
+            "positive_rule": "UTM distance <= 25 m to train gallery",
+            "queries_per_domain": {
+              "night": 641,
+              "overcast": 638,
+              "rain": 685,
+              "snow": 645,
+              "sun": 644
+            },
+            "queries_without_positive": 0,
+            "role": "natural_weather_validation",
+            "root": "/home/admin123/github/WORKSPACE/dataset/svox",
+            "source": "official SVOX train split",
+            "version": 1
+          },
+          "actual_root": "/home/admin123/github/datasets/svox",
+          "reference_identity": {
+            "count": 22232,
+            "ordered_paths_sha256": "f09c766b60cec65804ec5effba7fc7dc00c7ee26849b62f3b11e17f95073bb29",
+            "input_file_stats_sha256": "37ed2d78a40b2a0d705798d046299c59ca9ba4f4aa717c2f1e12262157313b2a"
+          },
+          "query_identity": {
+            "count": 641,
+            "ordered_paths_sha256": "a9248548079a39dbe4be2f52d7879390bde802f7d878ad71d1e1648fc772d025",
+            "input_file_stats_sha256": "eab1426f427f0ef3f22b74520ffecda110c3b6a0bfcc9ec9280d3dbb57c05d17"
+          },
+          "ground_truth_sha256": "7845010978f15d6376b5c72c632f8ac104f5497a97586ebb537bc771f66de37a",
+          "purged_against_ordered_paths_sha256": "e403531b33a568621eddbbbe1bd7b2683df47bb9069d15455d52f1eb9fbb0b40",
+          "minimum_distance_to_val_test_m": 50.29590241767811,
+          "scope": "Oxford same-city, same-camera target-domain development; not unseen-domain test",
+          "teacher_gallery_identity": {
+            "schema": 1,
+            "role": "gallery_teacher",
+            "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+            "image_size": 322,
+            "descriptor_dim": 12288,
+            "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+            "precision": "float32",
+            "tf32": false,
+            "paths": {
+              "count": 22232,
+              "ordered_paths_sha256": "f09c766b60cec65804ec5effba7fc7dc00c7ee26849b62f3b11e17f95073bb29",
+              "input_file_stats_sha256": "37ed2d78a40b2a0d705798d046299c59ca9ba4f4aa717c2f1e12262157313b2a"
+            }
+          },
+          "teacher_night_identity": {
+            "schema": 1,
+            "role": "gallery_teacher",
+            "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+            "image_size": 322,
+            "descriptor_dim": 12288,
+            "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+            "precision": "float32",
+            "tf32": false,
+            "paths": {
+              "count": 641,
+              "ordered_paths_sha256": "a9248548079a39dbe4be2f52d7879390bde802f7d878ad71d1e1648fc772d025",
+              "input_file_stats_sha256": "eab1426f427f0ef3f22b74520ffecda110c3b6a0bfcc9ec9280d3dbb57c05d17"
+            }
+          },
+          "teacher_gallery_receipt": {
+            "path": "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/cache/eval/svox_dev/gallery.npy",
+            "feature_sha256": "2ef3d8a6e2247580a7fbbe8647fa426f1200b7bccd1c5b5260b9952c2a1983fc"
+          },
+          "teacher_night_receipt": {
+            "path": "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/cache/eval/svox_dev/night_teacher.npy",
+            "feature_sha256": "64e008b52357795d89bf6575a0ae44ce1f716d2d51f53576fbdce3891bc37c6b"
+          }
+        },
+        "epoch": 0,
+        "step": 0,
+        "precision": "float32",
+        "tf32": false,
+        "predictions_sha256": "b8f16b436b8af3c723191774106e29bf7bf1bb21175d985433e1bcd3981c5440"
+      }
+    }
+  },
+  "implementation_sha256": {
+    "reproduction/night_train.py": "eb756fa77c146ec563bce3de83a791210820aa640ff7977904c9122de303dc3a",
+    "reproduction/night_data.py": "d9bcd2e8c2f1f5fdbcc56cfea56c9b27d1578399e70d5966127ede6b1d6b8310",
+    "reproduction/night_eval.py": "3a5396590e238b3886326ea538aa1b86e0cf5fac64addabb44bc9da5fa4c2af0",
+    "reproduction/night_objective.py": "66389deed5d2e03cf1aab2c1765054bcb887ed4359b8a9d41fdead8bab27c1a0",
+    "reproduction/asym_model.py": "66864a537248b28e63e4cc47f330864c2faa523f8b7a01f0a4b32bf573e42057",
+    "reproduction/data.py": "25b24207822c746db693a68813cd1716d8efe9a9b5714aef19cb7b0e0729680b",
+    "reproduction/evaluate.py": "80dee4dbf2f177d2422a9bfccb870cd5390967f3462f052dbd44e1a135fae18e",
+    "reproduction/benchmarks.py": "8a8664eb03e39092f9c0e5ce8fb705f82b3e04adc48c611fb92b76118559f5fc",
+    "reproduction/path_resolver.py": "908a10c9287ebabd7bb36d3897ba03bcbf17da027c5c22ff08b10602876c7aa4",
+    "reproduction/run.py": "9b295ad6ed53492e3accd828106d4247217475a1db1839f1cd9f83e6167df5b3",
+    "reproduction/monitoring.py": "0007b78b02f1b2210d07ca5afd6120bba15df662e27ac3b62f3a38192f27481a",
+    "src/boq.py": "289343f5f7d41c47b6a3b604af61479b384f0edd223f85d3bef6ea3929c75c1c",
+    "src/backbones.py": "c9c2924e462a207e35098caf627fd8cc9bdab6b701fe8a234a9993a540df05e4",
+    "reproduction/night_only_train.py": "39943815f7f16fa0fd44c92c7505b396cfc07d0c1498c8943d9a75ab34933b03",
+    "reproduction/night_specialist.py": "13b54e9c32871fce405298fb6da4753c5115774a48a9cd8e0f1a96678851ff8e",
+    "reproduction/night_finalize.py": "6ed26e45701e5b1b67e9e2565cd3fb24615dce2780de0c4df4258c08f8a2884f",
+    "reproduction/night_only_launch.sh": "79db3dd95eddf9fb2ce122ecc25bd3d828978a2e0756ae1b917eb8a5a80da81f"
+  },
+  "final_evaluation": "Automatic after completion: original baseline and mixed best; same five datasets and fixed Tokyo105 night diagnostic",
+  "mixed_reference_summary_sha256": "a02e43d3f0c5b44aa235f7299145d850f2100d759e773d7ccd9337dbe79b243c",
+  "mixed_reference_comparison_sha256": "6237ac58ee3a1843b23e79a73c6bf8e05e809a78145da6a96483df193528a568",
+  "latest_completed_validation": {
+    "epoch": 1,
+    "optimizer_step": 908,
+    "svox_night_dev_percent": {
+      "R@1": 88.76755070202809,
+      "R@5": 94.22776911076443,
+      "R@10": 95.16380655226209
+    },
+    "msls_diagnostic_percent": {
+      "R@1": 91.48648648648648,
+      "R@5": 96.08108108108108,
+      "R@10": 96.35135135135135
+    },
+    "synthetic_holdout_percent": {
+      "R@1": 99.80379332897319,
+      "R@5": 99.86919555264879,
+      "R@10": 99.86919555264879
+    },
+    "selected_checkpoint": "runs/boq_b2_night_only_v1/train/best.pt",
+    "selected_checkpoint_sha256": "862e4a62ba1981a661af32d66ec7cbb185f5f42d84f4b5cce3b82cbe7f8261bc",
+    "mixed_same_epoch_svox_r1": 87.83151326053043,
+    "difference_vs_mixed_same_epoch_pp": 0.9360374414976604,
+    "status": "Partial result; full 10 epochs and fixed final evaluation still running"
+  }
+}

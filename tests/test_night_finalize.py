@@ -10,7 +10,7 @@ import numpy as np
 from reproduction.benchmarks import Benchmark, DATASETS, json_sha256, sha256
 from reproduction.evaluate import TRANSFORM, feature_identity
 from reproduction.night_finalize import (compare_summaries, finalize, link_gallery_cache,
-    _check_query_cache, tokyo_night_diagnostic)
+    _check_query_cache, tokyo_night_diagnostic, _mixed_reference, _receipt_identity_matches)
 
 
 def write_cache(path, identity, rows=None):
@@ -215,6 +215,99 @@ class FinalizationTests(unittest.TestCase):
             after['datasets']['tokyo247']['ground_truth_sha256'] = 'different truth'
             with self.assertRaisesRegex(ValueError, 'protocols differ'):
                 compare_summaries(initial, after)
+
+    def test_night_only_full_report_and_pinned_mixed_reference(self):
+        import torch
+        from reproduction.evaluate import load_inference_checkpoint
+        with tempfile.TemporaryDirectory() as tmp:
+            config, source, source_cache, benches, initial = self.fixture(tmp)
+
+            def fake_evaluate(command, *, cwd, env, check):
+                active = json.loads(Path(command[command.index('--config') + 1]).read_text())
+                checkpoint = Path(command[command.index('--checkpoint') + 1])
+                state = load_inference_checkpoint(checkpoint)
+                score = state['metrics']['svox_dev']['metrics_percent']['R@1']
+                best_sha = sha256(checkpoint)
+                cache = Path(command[command.index('--cache-dir') + 1])
+                output = Path(command[command.index('--output-dir') + 1])
+                final = dict(checkpoint=str(checkpoint.resolve()), checkpoint_sha256=best_sha,
+                    teacher_sha256=initial['teacher_sha256'], precision='float32', tf32=False, datasets={})
+                for b in benches:
+                    identity = feature_identity(b.queries, active, best_sha, 'query_student')
+                    query = cache / b.name / 'query.npy'; write_cache(query, identity)
+                    row = dict(initial['datasets'][b.name])
+                    row['metrics_percent'] = dict(row['metrics_percent'], **{'R@1': score})
+                    row['query_cache'] = dict(path=str(query), provenance=identity, feature_sha256=sha256(query))
+                    final['datasets'][b.name] = row
+                    np.save(output / f'{b.name}_top10.npy', np.tile(np.arange(10), (2, 1)))
+                (output / 'summary.json').write_text(json.dumps(final))
+
+            with patch('reproduction.night_finalize.SOURCE_SUMMARY', source), \
+                 patch('reproduction.night_finalize.SOURCE_CACHE', source_cache), \
+                 patch('reproduction.night_finalize._benchmarks', return_value=benches), \
+                 patch('reproduction.night_finalize.tokyo_night_diagnostic', return_value={'available': False}), \
+                 patch('reproduction.night_finalize.subprocess.run', side_effect=fake_evaluate) as run:
+                finalize(config)
+                mixed_root = Path(config['output_dir']).parent
+                mixed_summary = mixed_root / 'final_evaluation/summary.json'
+                mixed_comparison = mixed_root / 'final_evaluation/comparison.json'
+                frozen_mixed = {p: sha256(p) for p in [mixed_summary, mixed_comparison,
+                    mixed_root / 'NIGHT_REPORT.md', mixed_root / 'finalization.json']}
+                new_train = Path(tmp) / 'night_only/train'; new_train.mkdir(parents=True)
+                new = dict(config, output_dir=str(new_train), query_domain='night_only',
+                    selection_policy='svox_night_r1', max_msls_drop_pp=None,
+                    night_target='teacher_night', night_batch_size=32, replay_batch_size=0,
+                    batch_size=32, total_optimizer_steps=9080,
+                    mixed_reference_summary=str(mixed_summary),
+                    mixed_reference_summary_sha256=sha256(mixed_summary),
+                    mixed_reference_comparison=str(mixed_comparison),
+                    mixed_reference_comparison_sha256=sha256(mixed_comparison))
+                state = load_inference_checkpoint(Path(config['output_dir']) / 'best.pt')
+                state.update(config=new, epoch=3, step=9)
+                state['metrics']['svox_dev']['metrics_percent']['R@1'] = 57.
+                torch.save(state, new_train / 'best.pt')
+                (new_train / 'baseline.json').write_bytes((Path(config['output_dir']) / 'baseline.json').read_bytes())
+                (new_train / 'completed.json').write_text(json.dumps(dict(status='completed', epochs=10,
+                    steps=9080, config=new, best=dict(epoch=3, step=9, adapted=True, score=57.))))
+                result = finalize(new)
+                again = finalize(new)
+                self.assertEqual(run.call_count, 2)  # One evaluation per run, no repeat on sealed reuse.
+                self.assertEqual(result['identity'], again['identity'])
+                comparison = result['comparison']['mixed_reference_comparison']
+                self.assertEqual(comparison['svox_dev']['difference_percentage_points']['R@1'], 1.)
+                self.assertEqual(comparison['five_benchmark_comparison']['msls']['difference_percentage_points']['R@1'], 1.)
+                self.assertEqual(result['comparison']['night_target'], 'teacher_night')
+                report = (new_train.parent / 'NIGHT_REPORT.md').read_text()
+                self.assertIn('无 MSLS 白天门槛', report)
+                self.assertIn('纯 T(night)', report)
+                self.assertIn('day replay=0', report)
+                self.assertIn('9080', report)
+                self.assertIn('相对 mixed best', report)
+                self.assertIn('冻结教师夜图特征监督', report)
+                self.assertNotIn('日夜一致性权重', report)
+                self.assertEqual(frozen_mixed, {p: sha256(p) for p in frozen_mixed})
+                dev = state['metrics']['svox_dev']['definition']
+                with self.assertRaisesRegex(ValueError, 'Pinned mixed-reference SHA256'):
+                    _mixed_reference(dict(new, mixed_reference_summary_sha256='0'*64), initial, dev)
+                with self.assertRaisesRegex(ValueError, 'SVOX development'):
+                    _mixed_reference(new, initial, dict(dev, ground_truth_sha256='different positives'))
+                qmeta = mixed_root / 'final_cache/msls/query.provenance.json'
+                bad = json.loads(qmeta.read_text()); bad['model_sha256'] = 'wrong checkpoint'
+                qmeta.write_text(json.dumps(bad))
+                with self.assertRaisesRegex(ValueError, 'another checkpoint'):
+                    _mixed_reference(new, initial, dev)
+
+    def test_legacy_receipt_reuses_old_implementation_without_rewriting_history(self):
+        old = dict(config_sha256='same-config', implementation_sha256={
+            'night_finalize.py': 'historic-code', 'evaluate.py': 'unchanged'})
+        current = dict(config_sha256='same-config', implementation_sha256={
+            'night_finalize.py': 'new-finalizer-code', 'evaluate.py': 'unchanged'})
+        self.assertTrue(_receipt_identity_matches(old, current, {}))
+        self.assertFalse(_receipt_identity_matches(old, current, {'query_domain': 'night_only'}))
+        self.assertFalse(_receipt_identity_matches(old, dict(current, config_sha256='other-config'), {}))
+        different_evaluator = dict(current, implementation_sha256={
+            'night_finalize.py': 'new-finalizer-code', 'evaluate.py': 'changed-evaluator'})
+        self.assertFalse(_receipt_identity_matches(old, different_evaluator, {}))
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ import sys
 import numpy as np
 
 from reproduction.benchmarks import (DATASETS, build_benchmark, json_sha256, sha256)
-from reproduction.evaluate import (atomic_json, feature_identity, load_inference_checkpoint,
+from reproduction.evaluate import (TRANSFORM, atomic_json, feature_identity, load_inference_checkpoint,
                                    validate_inference_checkpoint)
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -50,6 +50,126 @@ def _metrics(row):
             for v in values.values()):
         raise ValueError('Expected finite R@1/5/10 percentages')
     return values
+
+
+def _night_only(config):
+    domain = config.get('query_domain', 'mixed')
+    if domain not in ('mixed', 'night_only'):
+        raise ValueError('Unsupported night-adaptation query domain')
+    if domain == 'night_only':
+        if (config.get('selection_policy') != 'svox_night_r1'
+                or config.get('max_msls_drop_pp') is not None
+                or config.get('night_target') != 'teacher_night'
+                or config.get('replay_batch_size') != 0):
+            raise ValueError('Night-only finalization requires pure teacher-night targets, zero day replay and no MSLS gate')
+        return True
+    return False
+
+
+def _dev_identity(definition):
+    """Compare the same SVOX inputs/teacher bytes across cache directory names."""
+    value = json.loads(json.dumps(definition))
+    value.pop('manifest', None)  # The metadata bytes themselves remain SHA-bound.
+    for key in ('teacher_gallery_receipt', 'teacher_night_receipt'):
+        if key in value:
+            value[key].pop('path', None)
+    return value
+
+
+def _mixed_reference(config, initial, dev_definition):
+    """Load a SHA-pinned, sealed completed mixed run without changing its files."""
+    keys = ('mixed_reference_summary', 'mixed_reference_comparison')
+    if not any(config.get(key) for key in keys):
+        return None
+    if not all(config.get(key) for key in keys):
+        raise ValueError('Mixed reference needs both summary and sealed comparison')
+    summary_path, comparison_path = (Path(config[key]).resolve(strict=True) for key in keys)
+    for key, path in zip(keys, (summary_path, comparison_path)):
+        expected = config.get(f'{key}_sha256')
+        if not isinstance(expected, str) or len(expected) != 64 or sha256(path) != expected:
+            raise ValueError(f'Pinned mixed-reference SHA256 mismatch: {key}')
+    if summary_path.parent != comparison_path.parent:
+        raise ValueError('Mixed reference summary/comparison must belong to the same final evaluation')
+    root = summary_path.parent.parent
+    receipt_path, completed_path = root / 'finalization.json', root / 'train/completed.json'
+    receipt, comparison = _read_sealed(receipt_path), _read_sealed(comparison_path)
+    summary, completed = json.loads(summary_path.read_text()), json.loads(completed_path.read_text())
+    if (receipt.get('status') != 'complete' or receipt.get('comparison') != comparison
+            or receipt.get('identity_sha256') != json_sha256(receipt.get('identity'))):
+        raise ValueError('Mixed reference comparison differs from its completed finalization identity')
+    for path in (summary_path, comparison_path):
+        if receipt['outputs_sha256'].get(str(path)) != sha256(path):
+            raise ValueError('Mixed reference output is not bound by its finalization receipt')
+    checkpoint = Path(summary['checkpoint']).resolve(strict=True)
+    if checkpoint != (root / 'train/best.pt').resolve(strict=True):
+        raise ValueError('Mixed reference summary points outside its selected best checkpoint')
+    checkpoint_sha = sha256(checkpoint)
+    state = load_inference_checkpoint(checkpoint)
+    validate_inference_checkpoint(state, config, initial['teacher_sha256'])
+    if (summary.get('checkpoint_sha256') != checkpoint_sha
+            or receipt['identity'].get('best_sha256') != checkpoint_sha
+            or receipt['identity'].get('config_sha256') != json_sha256(state['config'])
+            or receipt['identity'].get('training_completed_sha256') != sha256(completed_path)
+            or completed.get('status') != 'completed' or completed.get('config') != state['config']
+            or comparison.get('training_config') != state['config']
+            or state['config'].get('query_domain', 'mixed') != 'mixed'
+            or any(state.get(key) != completed['best'].get(key) for key in ('epoch', 'step'))
+            or comparison.get('selected') != completed['best']
+            or comparison.get('adapted') != completed['best'].get('adapted')):
+        raise ValueError('Mixed reference selected-checkpoint/config/comparison identity mismatch')
+    if (summary.get('teacher_sha256') != initial['teacher_sha256']
+            or summary.get('precision') != 'float32' or summary.get('tf32') is not False):
+        raise ValueError('Mixed reference changed teacher or evaluation precision')
+    if compare_summaries(initial, summary) != comparison['five_benchmark_comparison']:
+        raise ValueError('Mixed reference five-benchmark comparison is inconsistent with its summary')
+    mixed_dev = state['metrics']['svox_dev']
+    if (_dev_identity(mixed_dev['definition']) != _dev_identity(dev_definition)
+            or _metrics(mixed_dev) != comparison['svox_dev']['selected_percent']
+            or not np.isclose(_metrics(mixed_dev)['R@1'], completed['best']['score'], atol=1e-10, rtol=0)):
+        raise ValueError('Mixed reference SVOX development metrics/protocol do not match the new run')
+    query_evidence = {}
+    for name in DATASETS:
+        row = summary['datasets'][name]
+        identity = dict(schema=1, role='query_student', model_sha256=checkpoint_sha,
+            image_size=config['image_size'], descriptor_dim=config['descriptor_dim'],
+            transform=TRANSFORM, precision='float32', tf32=False, paths=row['queries'])
+        query = root / 'final_cache' / name / 'query.npy'
+        if (row['query_cache']['provenance'] != identity
+                or Path(row['query_cache']['path']).resolve(strict=True) != query.resolve(strict=True)
+                or row['gallery_cache']['feature_sha256'] != initial['datasets'][name]['gallery_cache']['feature_sha256']
+                or row['gallery_cache']['provenance'] != initial['datasets'][name]['gallery_cache']['provenance']):
+            raise ValueError('Mixed reference query/gallery checkpoint-space provenance mismatch')
+        _check_query_cache(query, identity)
+        query_sha = sha256(query)
+        predicted = summary_path.parent / f'{name}_top10.npy'
+        if row['query_cache']['feature_sha256'] != query_sha or row['predictions_sha256'] != sha256(predicted):
+            raise ValueError('Mixed reference feature or top-10 checksum mismatch')
+        query_evidence[name] = dict(feature_sha256=query_sha, predictions_sha256=sha256(predicted))
+    evidence = dict(summary=str(summary_path), summary_sha256=sha256(summary_path),
+        comparison=str(comparison_path), comparison_sha256=sha256(comparison_path),
+        finalization=str(receipt_path), finalization_sha256=sha256(receipt_path),
+        completed=str(completed_path), completed_sha256=sha256(completed_path),
+        checkpoint=str(checkpoint), checkpoint_sha256=checkpoint_sha,
+        svox_development_identity_sha256=json_sha256(_dev_identity(mixed_dev['definition'])),
+        query_caches=query_evidence)
+    del state
+    return dict(summary=summary, comparison=comparison, identity=evidence,
+                svox_dev_percent=_metrics(mixed_dev), tokyo_predictions=summary_path.parent / 'tokyo247_top10.npy')
+
+
+def _receipt_identity_matches(prior, current, config):
+    if not isinstance(prior, dict) or not isinstance(current, dict):
+        return False
+    if prior == current:
+        return True
+    # Previously completed v1 artifacts retain the exact old implementation
+    # identity. Reading their intact sealed outputs does not rerun that code.
+    if 'query_domain' in config or 'selection_policy' in config:
+        return False
+    old, new = json.loads(json.dumps(prior)), json.loads(json.dumps(current))
+    old.get('implementation_sha256', {}).pop('night_finalize.py', None)
+    new.get('implementation_sha256', {}).pop('night_finalize.py', None)
+    return old == new
 
 
 def compare_summaries(initial, final):
@@ -243,12 +363,21 @@ def tokyo_night_diagnostic(benchmark, initial_predictions, final_predictions,
                     limitation=source.get('local_query_release_note', '')))
 
 
-def _report(config, completed, state, baseline, comparison, tokyo, identity):
+def _report(config, completed, state, baseline, comparison, tokyo, identity, mixed=None):
     before = _metrics(baseline['svox_dev'])
     after = _metrics(state['metrics']['svox_dev'])
     selection = completed['best']
+    night_only = _night_only(config)
+    if night_only:
+        policy = ('选模仅依据 SVOX 真实夜间开发集 R@1，无 MSLS 白天门槛；白天与混合时段结果只作诊断。'
+                  '夜间目标为纯 T(night)，day replay=0。')
+        budget = (f"夜图 batch={config.get('night_batch_size')}，训练 {config['epochs']} epoch，"
+                  f"累计 {completed.get('steps', config.get('total_optimizer_steps'))} 次优化器更新。")
+    else:
+        policy = f"选模依据为 SVOX 真实夜间开发集 R@1，MSLS R@1 相对初始下降不超过 {config['max_msls_drop_pp']:g} 个百分点。"
+        budget = ''
     lines = ['# AsymVPR 夜间继续训练报告', '',
-        f"选中 epoch {state['epoch']}；adapted={selection['adapted']}。选模依据为 SVOX 真实夜间开发集 R@1，MSLS R@1 相对初始下降不超过 {config['max_msls_drop_pp']:g} 个百分点。", '',
+        f"选中 epoch {state['epoch']}；adapted={selection['adapted']}。{policy}{budget}", '',
         f"SVOX 开发集 R@1：{before['R@1']:.3f}% → {after['R@1']:.3f}%（{after['R@1']-before['R@1']:+.3f} pp）。它是同城、同相机的目标域开发集，不是未见域测试。", '',
         '| 固定数据集 | 初始 R@1 (%) | 最终 R@1 (%) | Δ (pp) | 初始 R@5 (%) | 最终 R@5 (%) |',
         '|---|---:|---:|---:|---:|---:|']
@@ -258,7 +387,20 @@ def _report(config, completed, state, baseline, comparison, tokyo, identity):
     lines += ['', 'Tokyo24/7 主表为完整 315 张混合时段查询。']
     if tokyo['available']:
         lines += [f"可靠 CSV 时间标签识别出 {tokyo['num_queries']} 张夜间查询。复用完整图库与既有 top-10，按官方 MAT 坐标派生的夜间 R@1：{tokyo['initial_percent']['R@1']:.3f}% → {tokyo['final_percent']['R@1']:.3f}%（{tokyo['difference_percentage_points']['R@1']:+.3f} pp）；修好 {tokyo['improved_at_1']}，改坏 {tokyo['regressed_at_1']}。这项固定最终诊断没有参与选模。"]
-    lines += ['', '生成图保留原始 pending_verification 状态。来源 SHA、完整解码、配对和去重检查不构成生成内容的语义审核；冻结教师日夜一致性权重也不是质量通过证明。合成验证只留出了新增夜间增强，初始模型已见过其白天地点。', '',
+    if mixed is not None:
+        a, b = mixed['svox_dev']['mixed_percent'], mixed['svox_dev']['selected_percent']
+        lines += ['', f"相对 mixed best：SVOX 夜间开发集 R@1 {a['R@1']:.3f}% → {b['R@1']:.3f}%（{b['R@1']-a['R@1']:+.3f} pp）。", '',
+                  '| 相对 mixed best | mixed R@1 (%) | 本实验 R@1 (%) | Δ (pp) |',
+                  '|---|---:|---:|---:|']
+        for name, row in mixed['five_benchmark_comparison'].items():
+            lines.append(f"| {name} | {row['initial_percent']['R@1']:.3f} | {row['final_percent']['R@1']:.3f} | {row['difference_percentage_points']['R@1']:+.3f} |")
+        diagnostic = mixed['tokyo_night']
+        if diagnostic['available']:
+            lines += ['', f"相对 mixed best 的 Tokyo105 夜间 R@1：{diagnostic['initial_percent']['R@1']:.3f}% → {diagnostic['final_percent']['R@1']:.3f}%（{diagnostic['difference_percentage_points']['R@1']:+.3f} pp）。"]
+        lines += ['', '原始模型、mixed 和本实验使用同一教师空间、输入列表及真值。SVOX 开发集已被多个实验用于选模；Tokyo 夜间结果是重复使用的固定最终诊断，不作为全新独立测试声称。']
+    supervision_note = ('冻结教师夜图特征监督也不是质量通过证明。' if night_only
+                        else '冻结教师日夜一致性权重也不是质量通过证明。')
+    lines += ['', '生成图保留原始 pending_verification 状态。来源 SHA、完整解码、配对和去重检查不构成生成内容的语义审核；' + supervision_note + '合成验证只留出了新增夜间增强，初始模型已见过其白天地点。', '',
         '所有固定测试使用同一 BoQ 教师图库；只重新提取选中学生的查询。评测为 FP32、禁用 TF32、精确内积检索；Nordland、Tokyo 等协议与初始评测保持一致。', '',
         f"Best SHA256：`{identity['best_sha256']}`。冻结夜图清单 SHA256：`{identity['snapshot_manifest_sha256']}`。", '',
         '训练配置：', '', '```json', json.dumps(config, ensure_ascii=False, indent=2), '```', '']
@@ -268,6 +410,7 @@ def _report(config, completed, state, baseline, comparison, tokyo, identity):
 def finalize(config):
     """Validate completed training, evaluate selected best once, and seal a report."""
     train = Path(config['output_dir']).resolve()
+    night_only = _night_only(config)
     root, cache, output = train.parent, train.parent / 'final_cache', train.parent / 'final_evaluation'
     root.mkdir(parents=True, exist_ok=True)
     with (root / '.finalize.lock').open('a') as lock:
@@ -280,6 +423,8 @@ def finalize(config):
         if (completed.get('status') != 'completed' or completed.get('epochs') != config['epochs']
                 or completed.get('config') != config):
             raise ValueError('Final evaluation requires this exact completed training configuration')
+        if night_only and config.get('total_optimizer_steps') is not None and completed.get('steps') != config['total_optimizer_steps']:
+            raise ValueError('Completed night-only optimizer budget differs from frozen configuration')
         teacher_sha, best_sha = sha256(config['teacher_weights']), sha256(best_path)
         state = load_inference_checkpoint(best_path)
         validate_inference_checkpoint(state, config, teacher_sha)
@@ -309,6 +454,7 @@ def finalize(config):
                 or dev_definition.get('manifest_sha256') != sha256(config['svox_dev_manifest'])
                 or dev_definition.get('protocol_receipt_sha256') != sha256(Path(config['svox_dev_manifest']).parent / 'protocol.json')):
             raise ValueError('Selected and baseline SVOX development protocols/metadata differ')
+        mixed = _mixed_reference(config, initial, dev_definition)
         receipt = root / 'finalization.json'
         identity = dict(schema=1, best_sha256=best_sha, teacher_sha256=teacher_sha,
             config_sha256=json_sha256(config), snapshot_manifest_sha256=sha256(manifest),
@@ -327,9 +473,15 @@ def finalize(config):
                 progress_sha256=sha256(SOURCE_CACHE / name / 'gallery.progress.json')) for name in DATASETS},
             implementation_sha256={p.name: sha256(p) for p in [Path(__file__), PROJECT / 'reproduction/evaluate.py',
                 PROJECT / 'reproduction/benchmarks.py', PROJECT / 'reproduction/path_resolver.py']})
+        if mixed is not None:
+            identity['mixed_reference'] = mixed['identity']
+        if night_only:
+            identity.update(query_domain='night_only', selection_policy='svox_night_r1')
         if receipt.is_file():
             prior = _read_sealed(receipt)
-            if prior.get('identity') != identity or prior.get('status') != 'complete':
+            if (not _receipt_identity_matches(prior.get('identity'), identity, config)
+                    or prior.get('status') != 'complete'
+                    or prior.get('identity_sha256') != json_sha256(prior.get('identity'))):
                 raise ValueError('Finalization inputs changed; refusing to reuse or overwrite another final result')
             for path, checksum in prior['outputs_sha256'].items():
                 if sha256(path) != checksum:
@@ -377,6 +529,27 @@ def finalize(config):
         comparison = compare_summaries(initial, final)
         tokyo = tokyo_night_diagnostic(next(b for b in benches if b.name == 'tokyo247'),
             SOURCE_SUMMARY.parent / 'tokyo247_top10.npy', output / 'tokyo247_top10.npy')
+        mixed_comparison = None
+        if mixed is not None:
+            for path_key, sha_key in [('summary', 'summary_sha256'), ('comparison', 'comparison_sha256'),
+                                     ('finalization', 'finalization_sha256'), ('checkpoint', 'checkpoint_sha256')]:
+                if sha256(mixed['identity'][path_key]) != mixed['identity'][sha_key]:
+                    raise ValueError('Mixed reference changed during final evaluation')
+            night = tokyo_night_diagnostic(next(b for b in benches if b.name == 'tokyo247'),
+                mixed['tokyo_predictions'], output / 'tokyo247_top10.npy')
+            recorded_night = mixed['comparison']['tokyo_night']
+            if night['available'] != recorded_night['available']:
+                raise ValueError('Mixed Tokyo night diagnostic uses another metadata availability protocol')
+            if night['available'] and any(night[key] != recorded_night[old_key] for key, old_key in
+                [('initial_percent', 'final_percent'), ('definition', 'definition'),
+                 ('query_ids', 'query_ids'), ('query_indices_in_full315', 'query_indices_in_full315')]):
+                raise ValueError('Mixed Tokyo night metrics/definition differ from bound top-10 predictions')
+            a, b = mixed['svox_dev_percent'], _metrics(state['metrics']['svox_dev'])
+            mixed_comparison = dict(reference=mixed['identity'],
+                five_benchmark_comparison=compare_summaries(mixed['summary'], final),
+                svox_dev=dict(mixed_percent=a, selected_percent=b,
+                              difference_percentage_points={k: b[k]-a[k] for k in a}),
+                tokyo_night=night)
         comparison_path = output / 'comparison.json'
         details = dict(adapted=completed['best']['adapted'], selected=completed['best'],
             svox_dev=dict(initial_percent=_metrics(baseline['svox_dev']),
@@ -385,9 +558,14 @@ def finalize(config):
             limitations=['Generated night images remain pending semantic verification',
                          'SVOX train-night is same-city/camera development and selected the checkpoint',
                          'Synthetic holdout is new-augmentation holdout; original day places were pretrained'])
+        if night_only:
+            details.update(query_domain='night_only', selection_policy='svox_night_r1',
+                           night_target='teacher_night', replay_batch_size=0)
+        if mixed_comparison is not None:
+            details['mixed_reference_comparison'] = mixed_comparison
         atomic_json(comparison_path, _sealed(details))
         report = root / 'NIGHT_REPORT.md'
-        report.write_text(_report(config, completed, state, baseline, comparison, tokyo, identity))
+        report.write_text(_report(config, completed, state, baseline, comparison, tokyo, identity, mixed_comparison))
         outputs = [summary_path, comparison_path, report, eval_config, roots_path]
         outputs += [output / f'{name}_top10.npy' for name in DATASETS]
         result = dict(schema=1, status='complete', identity=identity,

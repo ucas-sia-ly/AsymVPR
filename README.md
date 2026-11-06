@@ -15,12 +15,22 @@
 其中 29,050 张训练、1,529 张按地点留出；配合全局白天回放与冻结教师的日夜融合目标。
 真实 SVOX night 开发集用于选模，MSLS val 保留能力约束为相对初始值下降不超过 1 个百分点。
 
-本轮计划 10 epochs / 9,080 updates，FP32，32 night + 32 day。
-已通过前 40 个真实更新及完整状态恢复检查，正式任务 `539c22d03c8d` 已从 step 40 续跑。
-进度以 [Trainroom](http://127.0.0.1:8765) 为准；结构化日志为
+混合实验已完成 10 epochs / 9,080 updates，FP32，32 night + 32 day，任务 `539c22d03c8d` 成功退出。
+最佳 epoch 7 的 SVOX night dev R@1 为 **89.5476%**，Tokyo105 night R@1 为 **87.6190%**。
+结构化日志为
 `runs/boq_b2_night_v1/train/logs/metrics.jsonl`，配置为 [boq_b2_night_v1.json](configs/boq_b2_night_v1.json)。
-训练完成后自动执行固定最终评测并生成 `runs/boq_b2_night_v1/NIGHT_REPORT.md`。
+固定最终评测与报告已生成于 `runs/boq_b2_night_v1/NIGHT_REPORT.md`。
 生成图仍保留原待语义审核状态；教师一致性权重不等同于审核通过。
+
+新增 [night-only 对照实验](docs/NIGHT_ONLY_EXPERIMENT.md)，使用
+[独立配置](configs/boq_b2_night_only_v1.json) 和 `reproduction.night_only_train` 入口。
+学生训练和 BatchNorm 只接触夜图，取消 day replay、强制 source-day 正目标融合和 MSLS 选模门槛；
+纯夜间教师目标仍位于原冻结图库空间，最佳权重仅按 SVOX night dev R@1 选择。
+与混合实验保持相同初始化、固定夜图、10 epochs、9,080 updates 和 290,500 次夜图暴露。
+输出独立保存于 `runs/boq_b2_night_only_v1/`，进度见 [Trainroom](http://127.0.0.1:8765)。
+前 40 个真实更新与恢复状态检查已通过，正式任务 `eca6f5624673` 从 step 40 继续；
+启动记录和 CPU 测试证据见 [night_only_v1.json](results/night_only_v1.json)。
+完成后自动对照原始模型与 mixed best，分别报告五集和 Tokyo105 夜间结果。
 
 ## 已完成的训练结果
 
