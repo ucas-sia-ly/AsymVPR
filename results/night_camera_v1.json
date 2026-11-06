@@ -1,0 +1,104 @@
+{
+  "experiment": "boq_b2_night_camera_v1",
+  "status": "running",
+  "recorded_at": "2026-11-06T06:44:40.584298+00:00",
+  "trainroom_url": "http://127.0.0.1:8765",
+  "trainroom_id": "4511540a20a6",
+  "bounded_trainroom_id": "6b6be414f0e6",
+  "cpu_profile_trainroom_id": "2b2822c7b994",
+  "config_path": "configs/boq_b2_night_camera_v1.json",
+  "config_sha256": "5d3436647bfacb53777c72d34b71fa45cf730da42016461dd526bf769e4804e7",
+  "output_dir": "runs/boq_b2_night_camera_v1/train",
+  "log_source": "/home/admin123/github/AsymVPR/runs/boq_b2_night_camera_v1/train/logs/metrics.jsonl",
+  "training_images": 29050,
+  "synthetic_holdout_images": 1529,
+  "epochs": 10,
+  "optimizer_updates": 9080,
+  "preprocessing_order": [
+    "original_RGB",
+    "camera_degradation",
+    "ToTensor",
+    "Resize",
+    "ImageNet_Normalize"
+  ],
+  "teacher_target": "frozen clean generated-night teacher features",
+  "evaluation": "original natural queries, no added artificial degradation",
+  "tests": {
+    "passed": 137,
+    "command": "/home/admin123/miniconda3/envs/boq/bin/python -m pytest -q tests"
+  },
+  "bounded_check": {
+    "status": "passed",
+    "bounded_trainroom_id": "6b6be414f0e6",
+    "exit_code": 0,
+    "optimizer_step": 40,
+    "epoch": 0,
+    "next_batch": 40,
+    "scheduler_last_epoch": 0,
+    "complete_optimizer": true,
+    "source_identity_verified": true,
+    "real_metrics_copied_from": "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/6b6be414f0e6/metrics.jsonl",
+    "first_loss": 2.304996967315674,
+    "last_window_loss": 1.4736418008804322,
+    "last_window_night_images_per_second": 84.63631967926361,
+    "last_window_camera_applied_fraction": 0.81875,
+    "total_camera_applied_images": 1045,
+    "total_training_images": 1280,
+    "peak_allocated_gib": 16.285195350646973
+  },
+  "cpu_loader_profile": {
+    "stage": "CPU input profiling, not training",
+    "results": [
+      {
+        "workers": 4,
+        "images": 256,
+        "elapsed_seconds": 4.396897149970755,
+        "images_per_second": 58.22287655777955,
+        "applied_images": 205,
+        "tensor_sha256": "ddab3c2bdf9095b8c194f2c1345b731b4619a4fc33dbce3d777428c6e00d44f7",
+        "includes": "worker startup, original-size degradation, transform, IPC and tensor checksum"
+      },
+      {
+        "workers": 8,
+        "images": 256,
+        "elapsed_seconds": 3.2086584540084004,
+        "images_per_second": 79.78412276326678,
+        "applied_images": 205,
+        "tensor_sha256": "ddab3c2bdf9095b8c194f2c1345b731b4619a4fc33dbce3d777428c6e00d44f7",
+        "includes": "worker startup, original-size degradation, transform, IPC and tensor checksum"
+      }
+    ]
+  },
+  "source_identity": {
+    "reproduction/night_train.py": "eb756fa77c146ec563bce3de83a791210820aa640ff7977904c9122de303dc3a",
+    "reproduction/night_data.py": "d9bcd2e8c2f1f5fdbcc56cfea56c9b27d1578399e70d5966127ede6b1d6b8310",
+    "reproduction/night_eval.py": "3a5396590e238b3886326ea538aa1b86e0cf5fac64addabb44bc9da5fa4c2af0",
+    "reproduction/night_objective.py": "66389deed5d2e03cf1aab2c1765054bcb887ed4359b8a9d41fdead8bab27c1a0",
+    "reproduction/asym_model.py": "66864a537248b28e63e4cc47f330864c2faa523f8b7a01f0a4b32bf573e42057",
+    "reproduction/data.py": "25b24207822c746db693a68813cd1716d8efe9a9b5714aef19cb7b0e0729680b",
+    "reproduction/evaluate.py": "80dee4dbf2f177d2422a9bfccb870cd5390967f3462f052dbd44e1a135fae18e",
+    "reproduction/benchmarks.py": "8a8664eb03e39092f9c0e5ce8fb705f82b3e04adc48c611fb92b76118559f5fc",
+    "reproduction/path_resolver.py": "908a10c9287ebabd7bb36d3897ba03bcbf17da027c5c22ff08b10602876c7aa4",
+    "reproduction/run.py": "9b295ad6ed53492e3accd828106d4247217475a1db1839f1cd9f83e6167df5b3",
+    "reproduction/monitoring.py": "0007b78b02f1b2210d07ca5afd6120bba15df662e27ac3b62f3a38192f27481a",
+    "src/boq.py": "289343f5f7d41c47b6a3b604af61479b384f0edd223f85d3bef6ea3929c75c1c",
+    "src/backbones.py": "c9c2924e462a207e35098caf627fd8cc9bdab6b701fe8a234a9993a540df05e4",
+    "reproduction/night_only_train.py": "4ac040288025c2cbd5184183341c18559559ede81ec6e300773a2a9d20277331",
+    "reproduction/night_specialist.py": "8927ff8b01fa634c50918c1cd35f3ab66811831e7e7c2552c5f52bff3cbe5974",
+    "reproduction/night_finalize.py": "6ed26e45701e5b1b67e9e2565cd3fb24615dce2780de0c4df4258c08f8a2884f",
+    "reproduction/night_only_launch.sh": "79db3dd95eddf9fb2ce122ecc25bd3d828978a2e0756ae1b917eb8a5a80da81f",
+    "reproduction/night_camera.py": "9000538cebeee83288fccec7bbc17c9ef5cf5dde4ef33b1ffe4dcbf7b8c95a13",
+    "reproduction/camera_augmentation.py": "59f8360ebe21e3c6831424e8b858b893095b6557e3439281478156a41d0e05d6",
+    "reproduction/night_camera_finalize.py": "3728b83812dbf7e02dd9eed4184b30f54e8bd76e52c35ca3fb628687cbf77ae8",
+    "reproduction/night_camera_launch.sh": "1ff2bf9fa111a0a22e947c7dd830c9cd8d4e7a24e559420185614975a8c430fe",
+    "configs/night_camera_exploratory_v1.json": "4e9c9b098d46fedd488d17dc9d6ce8e047dfc1504d79318c72c03d41c023f0d5"
+  },
+  "automatic_final_evaluation": [
+    "same five fixed benchmarks",
+    "Tokyo105 night diagnostic",
+    "original baseline comparison",
+    "mixed best comparison",
+    "night-only camera-off best comparison"
+  ],
+  "final_test_status": "Pending full training; no new final accuracy claim"
+}

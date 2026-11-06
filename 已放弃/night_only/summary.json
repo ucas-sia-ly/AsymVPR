@@ -1,0 +1,115 @@
+{
+  "status": "abandoned",
+  "reenable": false,
+  "retired_at": "2026-11-06T17:39:51.899081+08:00",
+  "reason": "用户决定放弃所有 night-only 方案，不再训练或测试。",
+  "experiments": [
+    {
+      "experiment": "boq_b2_night_only_v1",
+      "status": "abandoned",
+      "selected_epoch": 6,
+      "selected_optimizer_step": 5448,
+      "checkpoint": "night_only/checkpoints/best.pt",
+      "checkpoint_sha256": "8d826e62b1c33caae487eeaf3f6b224af2e2998339ead4cab36649eabac8530b",
+      "checkpoint_bytes": 89398398,
+      "initialization_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+      "night_manifest_sha256": "5bad1c9e167aba58c0ab177f494902785cb30f1a999c13743e327cfcf63f31cb",
+      "svox_night_dev": {
+        "R@1": 89.54758190327613,
+        "R@5": 94.22776911076443,
+        "R@10": 95.63182527301092
+      },
+      "tokyo105_night": {
+        "R@1": 86.66666666666667,
+        "R@5": 93.33333333333333,
+        "R@10": 94.28571428571428
+      },
+      "five_benchmarks": {
+        "msls": {
+          "R@1": 91.75675675675676,
+          "R@5": 96.21621621621622,
+          "R@10": 96.48648648648648
+        },
+        "pitts250k": {
+          "R@1": 94.22705314009661,
+          "R@5": 98.03140096618358,
+          "R@10": 98.73188405797102
+        },
+        "tokyo247": {
+          "R@1": 93.01587301587301,
+          "R@5": 96.5079365079365,
+          "R@10": 97.14285714285714
+        },
+        "nordland": {
+          "R@1": 78.07971014492753,
+          "R@5": 88.40579710144928,
+          "R@10": 91.81159420289855
+        },
+        "amstertime": {
+          "R@1": 51.34037367993501,
+          "R@5": 72.54264825345248,
+          "R@10": 78.39155158407799
+        }
+      },
+      "provenance_note": "Original summary/comparison retain historical paths and embedded configs; raw runs/caches/logs are being removed. No runnable entry point is retained.",
+      "source_run": "/home/admin123/github/AsymVPR/runs/boq_b2_night_only_v1",
+      "source_finalization_sha256": "52ce20f4267ba59c7c5d7205a36f66ee59a9de33b00160faa68aad80e19f73ce"
+    },
+    {
+      "experiment": "boq_b2_night_camera_v1",
+      "status": "abandoned",
+      "selected_epoch": 10,
+      "selected_optimizer_step": 9080,
+      "checkpoint": "night_only_camera/checkpoints/best.pt",
+      "checkpoint_sha256": "b304c4fd2b181e3f8b7b61ae61cdd58a464067dae1cce37b7b8ba6a51d3896cc",
+      "checkpoint_bytes": 89402174,
+      "initialization_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+      "night_manifest_sha256": "5bad1c9e167aba58c0ab177f494902785cb30f1a999c13743e327cfcf63f31cb",
+      "svox_night_dev": {
+        "R@1": 90.6396255850234,
+        "R@5": 95.47581903276131,
+        "R@10": 96.09984399375975
+      },
+      "tokyo105_night": {
+        "R@1": 86.66666666666667,
+        "R@5": 94.28571428571428,
+        "R@10": 94.28571428571428
+      },
+      "five_benchmarks": {
+        "msls": {
+          "R@1": 91.8918918918919,
+          "R@5": 96.08108108108108,
+          "R@10": 96.48648648648648
+        },
+        "pitts250k": {
+          "R@1": 94.34782608695652,
+          "R@5": 98.0072463768116,
+          "R@10": 98.73188405797102
+        },
+        "tokyo247": {
+          "R@1": 92.6984126984127,
+          "R@5": 97.46031746031746,
+          "R@10": 97.46031746031746
+        },
+        "nordland": {
+          "R@1": 78.84057971014494,
+          "R@5": 88.91304347826086,
+          "R@10": 92.3913043478261
+        },
+        "amstertime": {
+          "R@1": 49.22826969943135,
+          "R@5": 71.16165718927701,
+          "R@10": 77.17303005686433
+        }
+      },
+      "provenance_note": "Original summary/comparison retain historical paths and embedded configs; raw runs/caches/logs are being removed. No runnable entry point is retained.",
+      "source_run": "/home/admin123/github/AsymVPR/runs/boq_b2_night_camera_v1",
+      "source_finalization_sha256": "e8e7194f2f37f70d38666ce5423fb6a1f515a48d6b8c9a1eb073d554c6887df8"
+    }
+  ],
+  "kept": "Selected best checkpoints, checkpoint metadata, final test metrics/protocols and top-10 predictions only",
+  "removed": "Dedicated trainer/config/tests/docs; per-epoch/optimizer checkpoints, source snapshots, training logs, query caches and Trainroom records",
+  "canonical_archive": "/home/admin123/github/AsymVPR/已放弃/night_only"
+}

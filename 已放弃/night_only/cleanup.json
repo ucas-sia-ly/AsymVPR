@@ -1,0 +1,29 @@
+{
+  "status": "completed",
+  "removed_trainroom_ids": [
+    "eca6f5624673",
+    "b1088f8f618d",
+    "4511540a20a6",
+    "6b6be414f0e6",
+    "2b2822c7b994"
+  ],
+  "removed_raw_paths": [
+    "/home/admin123/github/AsymVPR/runs/boq_b2_night_only_v1",
+    "/home/admin123/github/AsymVPR/runs/boq_b2_night_camera_v1",
+    "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/eca6f5624673",
+    "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/b1088f8f618d",
+    "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/4511540a20a6",
+    "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/6b6be414f0e6",
+    "/home/admin123/一些设置/终端/train-terminal/.terminal/runs/2b2822c7b994"
+  ],
+  "deleted_regular_file_bytes": 3822792214,
+  "retained_checkpoint_count": 2,
+  "preserved": [
+    "boq_b2_night_v1",
+    "boq_b2_mixed_camera_v1",
+    "shared frozen inputs and teacher galleries"
+  ],
+  "code_cleanup_checkout": "/home/admin123/.codex/worktrees/d0b7/AsymVPR",
+  "code_and_config_modes": "mixed only; retired standalone trainers removed",
+  "verification_tests_passed": 125
+}

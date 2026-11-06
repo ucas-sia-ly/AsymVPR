@@ -1,0 +1,89 @@
+{
+  "status": "verified_after_cleanup",
+  "files": {
+    "cleanup.json": {
+      "sha256": "6f3acf81aeb0e84ebb5df2d6c33aee4a5ba8226edbd0afb579d4723eba213fa4",
+      "bytes": 1134
+    },
+    "summary.json": {
+      "sha256": "3dfb122eefb9abb7125ab4d3468f2c7c318004887e82aaccbe2b3ade8da7c648",
+      "bytes": 4566
+    },
+    "README.md": {
+      "sha256": "ce71d335993cb4de9875b0018f330642b4fd4a8604b73ea41cfe6b0ced1e2ffa",
+      "bytes": 2048
+    },
+    "night_only_camera/checkpoint_summary.json": {
+      "sha256": "2aab18a1e391705a4a8cb90f223600fb22253215b415809e751e3f523451b259",
+      "bytes": 1799
+    },
+    "night_only/checkpoint_summary.json": {
+      "sha256": "0e8506b61333700a6150d155dab56f36a552279007d078632f11dfb69465e957",
+      "bytes": 1791
+    },
+    "night_only/results/tokyo247_top10.npy": {
+      "sha256": "fbc42b5167aa10ce3b65ea7441bc7a8949ee468b257d8b9ad94052321277f340",
+      "bytes": 25328
+    },
+    "night_only/results/nordland_top10.npy": {
+      "sha256": "81674f84bdc7455c4a54de1f94f7283d3345b0b0e2bfed95fc43dd484379dbdc",
+      "bytes": 220928
+    },
+    "night_only/results/msls_top10.npy": {
+      "sha256": "b6fbdc8c210db65ca7a0de84cab065e314d91024f606658da746100e935edcc1",
+      "bytes": 59328
+    },
+    "night_only/results/pitts250k_top10.npy": {
+      "sha256": "ce0b2ee462712ef596165282e8a830b60657685e2cdb61adc1ccb45234eb7e98",
+      "bytes": 662528
+    },
+    "night_only/results/summary.json": {
+      "sha256": "04bf9206fee86bf03d424692b8874b1bb24a51a78f82267b3d24009d437799a9",
+      "bytes": 21804
+    },
+    "night_only/results/comparison.json": {
+      "sha256": "b8ee4f00261b8c4c2a19962d428856db3591a1c6b2194dbee750815d9c81e240",
+      "bytes": 21285
+    },
+    "night_only/results/amstertime_top10.npy": {
+      "sha256": "1a0fbda363685bef3e09c6a838a1409962e58cc812f15e5fb358986ec67caddb",
+      "bytes": 98608
+    },
+    "night_only/checkpoints/best.pt": {
+      "sha256": "8d826e62b1c33caae487eeaf3f6b224af2e2998339ead4cab36649eabac8530b",
+      "bytes": 89398398
+    },
+    "night_only_camera/results/tokyo247_top10.npy": {
+      "sha256": "852785303e5e6fe7ad407d412de3eb55537c2b03b4cdeb6c7c7bcfab7d994f42",
+      "bytes": 25328
+    },
+    "night_only_camera/results/nordland_top10.npy": {
+      "sha256": "3e551e8fc1b87835865fc5964bde37beadb4812352ca892a96309e4b6dc4cf22",
+      "bytes": 220928
+    },
+    "night_only_camera/results/msls_top10.npy": {
+      "sha256": "330ef62d4e4894b27f7a66968ad575b1252df7e52d02bede656b3268d6bb02dc",
+      "bytes": 59328
+    },
+    "night_only_camera/results/pitts250k_top10.npy": {
+      "sha256": "d3920d17c7745d781ac4432d078d631aab10b2008b635d41041d230064929439",
+      "bytes": 662528
+    },
+    "night_only_camera/results/summary.json": {
+      "sha256": "e3ab58181c8e9f49f58eaadeceb46dc290dc0fc70345a9b9357a9742a59c8d60",
+      "bytes": 21815
+    },
+    "night_only_camera/results/comparison.json": {
+      "sha256": "cc5e88272b29d1015f4f758da3b0d3128a23ba1b1dea3b1570f7a4359c830a80",
+      "bytes": 22108
+    },
+    "night_only_camera/results/amstertime_top10.npy": {
+      "sha256": "1facfca86572f2d620f027347e97eaced8964af39147c41a7dc82d3e4c156d5c",
+      "bytes": 98608
+    },
+    "night_only_camera/checkpoints/best.pt": {
+      "sha256": "b304c4fd2b181e3f8b7b61ae61cdd58a464067dae1cce37b7b8ba6a51d3896cc",
+      "bytes": 89402174
+    }
+  }
+}

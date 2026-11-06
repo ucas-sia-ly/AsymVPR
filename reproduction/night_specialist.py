@@ -63,6 +63,10 @@ class NightOnlyQueries(Dataset):
         rng = np.random.default_rng(config['seed'] + epoch)
         self.order = rng.permutation(len(records))
         self.transform = transform(config['image_size'])
+        self.camera = None
+        if config.get('camera_profile'):
+            from reproduction.night_camera import NightCamera
+            self.camera = NightCamera(config, epoch)
 
     def __len__(self):
         return len(self.order)
@@ -70,8 +74,13 @@ class NightOnlyQueries(Dataset):
     def __getitem__(self, index):
         row = self.records[int(self.order[index])]
         with Image.open(row['night_path']) as image:
-            night = self.transform(image.convert('RGB'))
-        return night, self.all_index[row['night_path']], row['source_index'], row['label']
+            rgb = image.convert('RGB')
+            applied = False
+            if self.camera is not None:
+                rgb, applied = self.camera.apply(rgb, row)
+            night = self.transform(rgb)
+        result = (night, self.all_index[row['night_path']], row['source_index'], row['label'])
+        return (*result, applied) if self.camera is not None else result
 
 
 def night_only_objective(qnight, *, teacher_night, teacher_source_day=None,

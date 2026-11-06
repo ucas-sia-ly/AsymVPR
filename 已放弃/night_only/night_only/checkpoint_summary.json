@@ -1,0 +1,52 @@
+{
+  "experiment": "boq_b2_night_only_v1",
+  "status": "abandoned",
+  "selected_epoch": 6,
+  "selected_optimizer_step": 5448,
+  "checkpoint": "night_only/checkpoints/best.pt",
+  "checkpoint_sha256": "8d826e62b1c33caae487eeaf3f6b224af2e2998339ead4cab36649eabac8530b",
+  "checkpoint_bytes": 89398398,
+  "initialization_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "night_manifest_sha256": "5bad1c9e167aba58c0ab177f494902785cb30f1a999c13743e327cfcf63f31cb",
+  "svox_night_dev": {
+    "R@1": 89.54758190327613,
+    "R@5": 94.22776911076443,
+    "R@10": 95.63182527301092
+  },
+  "tokyo105_night": {
+    "R@1": 86.66666666666667,
+    "R@5": 93.33333333333333,
+    "R@10": 94.28571428571428
+  },
+  "five_benchmarks": {
+    "msls": {
+      "R@1": 91.75675675675676,
+      "R@5": 96.21621621621622,
+      "R@10": 96.48648648648648
+    },
+    "pitts250k": {
+      "R@1": 94.22705314009661,
+      "R@5": 98.03140096618358,
+      "R@10": 98.73188405797102
+    },
+    "tokyo247": {
+      "R@1": 93.01587301587301,
+      "R@5": 96.5079365079365,
+      "R@10": 97.14285714285714
+    },
+    "nordland": {
+      "R@1": 78.07971014492753,
+      "R@5": 88.40579710144928,
+      "R@10": 91.81159420289855
+    },
+    "amstertime": {
+      "R@1": 51.34037367993501,
+      "R@5": 72.54264825345248,
+      "R@10": 78.39155158407799
+    }
+  },
+  "provenance_note": "Original summary/comparison retain historical paths and embedded configs; raw runs/caches/logs are being removed. No runnable entry point is retained.",
+  "source_run": "/home/admin123/github/AsymVPR/runs/boq_b2_night_only_v1",
+  "source_finalization_sha256": "52ce20f4267ba59c7c5d7205a36f66ee59a9de33b00160faa68aad80e19f73ce"
+}

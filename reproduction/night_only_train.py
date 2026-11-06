@@ -56,13 +56,26 @@ def validate_reference_inputs(config):
                 checkpoint_sha256=summary['checkpoint_sha256'])
 
 
-def source_identity():
+def source_identity(config=None):
     files = shared.source_identity()
     for name in ('night_only_train.py', 'night_specialist.py', 'night_finalize.py',
                  'night_only_launch.sh'):
         path = 'reproduction/' + name
         files[path] = sha256(path)
+    if config and config.get('camera_profile'):
+        for path in ['reproduction/night_camera.py', 'reproduction/camera_augmentation.py',
+                     'reproduction/night_camera_finalize.py', 'reproduction/night_camera_launch.sh',
+                     config['camera_profile']]:
+            files[path] = sha256(path)
     return files
+
+
+def finalize_completed(config):
+    result = shared.finalize_completed(config)
+    if config.get('camera_profile'):
+        from reproduction.night_camera_finalize import finalize_camera
+        finalize_camera(config)
+    return result
 
 
 def exposure_budget(config, num_train):
@@ -134,14 +147,16 @@ def train(config, all_records, lineage, logger, max_steps=None):
         print(f'Bounded check already reached step {step}; no additional update started.', flush=True)
         return
     start = time.monotonic()
-    accumulator, observations, samples = {}, 0, 0
+    accumulator, observations, samples, camera_samples = {}, 0, 0, 0
     for epoch in range(epoch0, config['epochs']):
         dataset = NightOnlyQueries(records, all_records, config, epoch)
+        train_workers = config.get('train_num_workers', config['num_workers'])
         batches = DataLoader(dataset, batch_size=config['night_batch_size'], shuffle=False,
-            num_workers=config['num_workers'], pin_memory=True,
-            prefetch_factor=config['prefetch_factor'] if config['num_workers'] else None,
+            num_workers=train_workers, pin_memory=True,
+            prefetch_factor=config['prefetch_factor'] if train_workers else None,
             generator=torch.Generator().manual_seed(config['seed']+epoch), drop_last=False)
-        for batch_idx, (night, ni, source_idx, place) in enumerate(batches):
+        for batch_idx, batch in enumerate(batches):
+            night, ni, source_idx, place = batch[:4]
             if epoch == epoch0 and batch_idx < batch0:
                 continue
             if shared.STOP:
@@ -164,6 +179,8 @@ def train(config, all_records, lineage, logger, max_steps=None):
             step += 1
             observations += 1
             samples += len(night)
+            if config.get('camera_profile'):
+                camera_samples += int(batch[4].sum())
             for key, value in {'loss': loss.detach(), **details}.items():
                 accumulator[key] = accumulator.get(key, 0.) + float(value)
             if step == 1 or step % config['log_every'] == 0:
@@ -174,10 +191,13 @@ def train(config, all_records, lineage, logger, max_steps=None):
                     'train/grad_norm': float(grad), 'lr/backbone': optimizer.param_groups[0]['lr'],
                     'lr/aggregator': optimizer.param_groups[1]['lr'],
                     'gpu/peak_allocated_gib': torch.cuda.max_memory_allocated()/1024**3})
+                if config.get('camera_profile'):
+                    values['train/camera_applied_fraction'] = camera_samples / samples
+                    values['train/camera_applied_images'] = camera_samples
                 logger.log(step, **values)
                 print(f'epoch={epoch+1}/{config["epochs"]} step={step} '
                       f'loss={values["train/loss"]:.5f} night_images/s={samples/elapsed:.1f}', flush=True)
-                accumulator, observations, samples = {}, 0, 0
+                accumulator, observations, samples, camera_samples = {}, 0, 0, 0
                 start = time.monotonic()
             if step % config['save_every'] == 0 or shared.STOP or (max_steps is not None and step >= max_steps):
                 atomic_torch_save(out / 'last.pt', shared.checkpoint_payload(model, optimizer, scheduler,
@@ -228,6 +248,12 @@ def main():
     config = json.loads(Path(args.config).read_text())
     validate_night_only_config(config)
     mixed_reference = validate_reference_inputs(config)
+    camera_provenance = None
+    if config.get('camera_profile'):
+        from reproduction.night_camera import camera_identity
+        from reproduction.night_camera_finalize import validate_night_reference
+        camera_provenance = camera_identity(config)
+        validate_night_reference(config)
     out = Path(config['output_dir'])
     out.mkdir(parents=True, exist_ok=True)
     lock = (out / '.train.lock').open('a')
@@ -244,13 +270,15 @@ def main():
             raise RuntimeError('Inconsistent completed night-only experiment')
         print('Night-only experiment already completed; no duplicate training started.', flush=True)
         if not args.skip_final_evaluation:
-            shared.finalize_completed(config)
+            finalize_completed(config)
         return
     initial = load_inference_checkpoint(config['init_checkpoint'])
     base_identity, _ = shared.validate_base(config, initial)
     del initial
     if not existing.exists():
         atomic_json(existing, config)
+    if camera_provenance is not None:
+        atomic_json(out / 'camera_augmentation.json', camera_provenance)
     configure_cuda()
     torch.set_num_threads(config['cpu_threads'])
     torch.set_float32_matmul_precision('highest')
@@ -271,7 +299,9 @@ def main():
     lineage = dict(init_sha256=sha256(config['init_checkpoint']), base_provenance=base_identity,
         snapshot=snapshot, night_teacher_identity=night_identity,
         svox_dev_manifest_sha256=sha256(config['svox_dev_manifest']),
-        training_source_sha256=source_identity(), exposure_budget=budget, mixed_reference=mixed_reference)
+        training_source_sha256=source_identity(config), exposure_budget=budget, mixed_reference=mixed_reference)
+    if camera_provenance is not None:
+        lineage['camera_augmentation'] = camera_provenance
     if (out / 'lineage.json').exists():
         if json.loads((out / 'lineage.json').read_text()) != lineage:
             raise RuntimeError('Training code or immutable inputs changed; inspect lineage before resuming')
@@ -287,7 +317,7 @@ def main():
     with TrainingLogger(run_dir=log_dir, config=config, total_steps=budget['optimizer_steps']) as logger:
         train(config, records, lineage, logger, args.max_steps)
     if (out / 'completed.json').exists() and not args.skip_final_evaluation:
-        shared.finalize_completed(config)
+        finalize_completed(config)
 
 
 if __name__ == '__main__':

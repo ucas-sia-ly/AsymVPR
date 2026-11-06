@@ -28,9 +28,23 @@
 纯夜间教师目标仍位于原冻结图库空间，最佳权重仅按 SVOX night dev R@1 选择。
 与混合实验保持相同初始化、固定夜图、10 epochs、9,080 updates 和 290,500 次夜图暴露。
 输出独立保存于 `runs/boq_b2_night_only_v1/`，进度见 [Trainroom](http://127.0.0.1:8765)。
-前 40 个真实更新与恢复状态检查已通过，正式任务 `eca6f5624673` 从 step 40 继续；
+前 40 个真实更新与恢复状态检查已通过，正式任务 `eca6f5624673` 已完成全部训练及最终评测；
 启动记录和 CPU 测试证据见 [night_only_v1.json](results/night_only_v1.json)。
-完成后自动对照原始模型与 mixed best，分别报告五集和 Tokyo105 夜间结果。
+night-only 最佳 epoch 6 的 SVOX night dev R@1 为 89.5476%，Tokyo105 night 为 86.6667%。
+原始白天模型与两种夜间适配的直接对照见 [夜间基线对照](results/NIGHT_BASELINE_COMPARISON.md)。
+
+新增 [夜间相机退化实验](docs/NIGHT_CAMERA_EXPERIMENT.md)：原尺寸夜图先做七类随机退化，
+再执行 ToTensor → Resize → ImageNet Normalize。学生使用退化图，教师目标保留未额外退化的夜图特征。
+同起点、数据和 10 epochs / 9,080 updates，配置为 [boq_b2_night_camera_v1.json](configs/boq_b2_night_camera_v1.json)。
+已通过 137 项测试与前 40 个真实更新，正式 Trainroom 任务 `4511540a20a6` 已完成训练和最终测试。
+独立输出为 `runs/boq_b2_night_camera_v1/`，已生成五集及 Tokyo105 测试和 `CAMERA_REPORT.md`。
+SVOX night dev R@1=90.6396%，Tokyo105 night=86.6667%。启动证据见 [night_camera_v1.json](results/night_camera_v1.json)。
+
+新增 [混合训练＋退化实验](docs/MIXED_CAMERA_EXPERIMENT.md)，每批 32 night + 32 day，仅夜图加退化。
+保持原混合教师目标、等权损失和 MSLS 门槛，同起点、数据及 10 epochs / 9,080 updates。
+已通过 148 项测试和前 40 个真实更新，正式 Trainroom 任务 `7fe91e0d309a` 从 step 40 继续。
+独立输出为 `runs/boq_b2_mixed_camera_v1/`，结束后自动生成五集、Tokyo105 及 `MIXED_CAMERA_REPORT.md`。
+配置见 [boq_b2_mixed_camera_v1.json](configs/boq_b2_mixed_camera_v1.json)，启动证据见 [mixed_camera_v1.json](results/mixed_camera_v1.json)。
 
 ## 已完成的训练结果
 
