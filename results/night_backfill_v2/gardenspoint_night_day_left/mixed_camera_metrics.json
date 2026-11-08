@@ -1,0 +1,35 @@
+{
+  "metrics_percent": {
+    "R@1": 84.0,
+    "R@5": 98.0,
+    "R@10": 99.0
+  },
+  "query_count": 200,
+  "gallery_count": 200,
+  "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "81800a2d44a363101ab2d6857187569315e1210afaf9b959464720bf973d52b4",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/8434516462651817c29450f37747eabb75d4b2b6db509c5a9d8c8c017bbdd210/features.npy",
+    "feature_sha256": "52b2df36a387bd8c588597fd40b161327de266d67b52a13e39b7ad2a63177df6"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/0f5d311aad3297030c904e5829e7ff34e8b4d2f86f27d4e0e74ff064e5fc04f1/features.npy",
+    "feature_sha256": "701d2caadb2c9ba84c09aefd8bd5ace87baf36b897f7f24d353f56b07e120395"
+  },
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 9830400,
+    "workspace_budget_bytes": 5654528,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 48944775168,
+    "required_bytes": 4310452224,
+    "fits": true
+  },
+  "predictions_sha256": "c7456c76999db6c77e843cf3064561130c99df49d87b30004206c64def9b7c5f",
+  "hits_sha256": "e39125593957530881d61a343236601d562a065a14927354a1bf63468ea43869",
+  "existing_evaluation": false
+}

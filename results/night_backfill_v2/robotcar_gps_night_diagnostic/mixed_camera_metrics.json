@@ -1,0 +1,47 @@
+{
+  "metrics_percent": {
+    "R@1": 92.9362080462325,
+    "R@5": 96.82151589242054,
+    "R@10": 98.12402756168038
+  },
+  "hits_at_k": {
+    "1": 20906,
+    "5": 21780,
+    "10": 22073
+  },
+  "query_count": 22495,
+  "gallery_count": 21006,
+  "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+    "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/mixed_camera.npy",
+    "feature_sha256": "c5536950ab655606bd2468015240c466759bcef9f96bbc7d7315be5a88c0fcac"
+  },
+  "predictions_sha256": "7da38a4b4d36b2b09fb9cc9e9935deb88f5f1c387e461d677212dbc4af013742",
+  "hits_sha256": "2892cb55bc2fa21307a1e290668541c3b47cf8946bd461fcc65f369b212c64e2",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 1032486912,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49399005184,
+    "required_bytes": 5354455040,
+    "fits": true
+  },
+  "evaluation_reuse": {
+    "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+    "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+    "source_metrics_sha256": "002ac11d58402353ae489fbd0df539c0453a27ba43b13835868aa4d152adbceb",
+    "recomputed_hits": true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "user_date": "2026-11-08",
+  "verified_at_utc": "2026-11-07T20:39:04.007703+00:00",
+  "trainroom_id": "5c702969e8cc",
+  "trainroom_url": "http://127.0.0.1:8765",
+  "status": "completed",
+  "exit_code": 0,
+  "scope": [
+    "original",
+    "mixed",
+    "mixed_camera"
+  ],
+  "completed_method_protocol_pairs": 33,
+  "new_evaluations": 15,
+  "verified_reused_evaluations": 18,
+  "source": "/home/admin123/github/AsymVPR/results/night_backfill_v2/logs/metrics.jsonl",
+  "tests_passed": 158,
+  "complete_sha256": "986d0e4fc0b4430e4c161b429e785bdf8ca6de1c510f9366238a1f3de6657c62",
+  "torch_cuda_peak_allocated_gib": 2.9198474884033203,
+  "metric_interval_seconds": 256.9758152961731,
+  "completed_run_idempotency_verified_without_cuda": true
+}

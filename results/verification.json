@@ -1,0 +1,10 @@
+{
+  "test_command": "/home/admin123/miniconda3/envs/boq/bin/python -m pytest -q tests",
+  "tests_passed": 58,
+  "syntax_check": "python3 -m compileall -q reproduction src tests; bash -n reproduction/launch.sh reproduction/eval_launch.sh",
+  "independent_msls_run": "c9336b2dd2da",
+  "inference_timing_run": "b74eda557252",
+  "five_benchmark_run": "0be0f8e4e2e9",
+  "cuda_python": "/home/admin123/miniconda3/envs/boq/bin/python",
+  "note": "58 CPU correctness/protocol tests passed; independent MSLS and all five benchmarks completed with exit code 0. Prediction shapes/rankings/index bounds and cache completion/checksum records verified."
+}

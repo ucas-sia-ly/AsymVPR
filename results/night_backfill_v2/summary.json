@@ -1,0 +1,3092 @@
+{
+  "status": "complete",
+  "operation": "fixed checkpoint night evaluation backfill; no training or checkpoint selection",
+  "models": {
+    "original": {
+      "name": "原始模型",
+      "category": "retained",
+      "checkpoint": "checkpoints/boq_b2_best.pt",
+      "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "epoch": 9,
+      "step": 74466,
+      "source_summary": "results/evaluation/summary.json",
+      "source_summary_sha256": "fb44199b79b83cf4efa16092c93683886c6bbb42a8fe333070d99259d3cc4d68"
+    },
+    "mixed": {
+      "name": "Mixed 日夜混合",
+      "category": "retained",
+      "checkpoint": "runs/boq_b2_night_v1/train/best.pt",
+      "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+      "epoch": 7,
+      "step": 6356,
+      "source_summary": "runs/boq_b2_night_v1/final_evaluation/summary.json",
+      "source_summary_sha256": "a02e43d3f0c5b44aa235f7299145d850f2100d759e773d7ccd9337dbe79b243c"
+    },
+    "mixed_camera": {
+      "name": "Mixed＋相机退化",
+      "category": "retained",
+      "checkpoint": "runs/boq_b2_mixed_camera_v1/train/best.pt",
+      "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+      "epoch": 8,
+      "step": 7264,
+      "source_summary": "runs/boq_b2_mixed_camera_v1/final_evaluation/summary.json",
+      "source_summary_sha256": "17d4b06979de9b33a731c0ebe8c31211a7a88e422a0d512b38d0c46f58a86f32"
+    }
+  },
+  "precision": "float32",
+  "tf32": false,
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocols": {
+    "msls_val_night_day": {
+      "dataset": "msls_val_night_day",
+      "root": "/home/admin123/github/datasets/msls_val",
+      "references": {
+        "count": 18841,
+        "ordered_paths_sha256": "cf18e987d21284c676350b83aa4d6f721aacae9e85db94acf29fe37350f434fd",
+        "input_file_stats_sha256": "7e9066cba72ea0224ffa3c56d5a987a61a4311470774bcfdc74c76c9e7b4ee0c"
+      },
+      "queries": {
+        "count": 55,
+        "ordered_paths_sha256": "92a5235c35714186ff89ae75b9eccfb3dc422b28b4dc56f781dc02b9c9fcba6c",
+        "input_file_stats_sha256": "c9af4d145f4c867b0a62797bd5c3405d5dc4940ecea2aa3aa528b5da53eddbd6"
+      },
+      "protocol": {
+        "type": "custom night-label subset; not official all/subtask benchmark",
+        "query": "all postprocessed night=True, raw pano=False",
+        "gallery": "all night=False, pano=False",
+        "positive": "same-city UTM Euclidean <=25m",
+        "excluded_no_positive": 0
+      },
+      "ground_truth_sha256": "2cb8a377bbc07166f8ef9822b728ff4a97ae2c0ae8cbcc8490f0e689b46e2bb0",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/msls_val/cph/database/postprocessed.csv": "bc8c8817d44c1ea7b533b35e4b243da0e024037375518bb3510f2560b507b76f",
+        "/home/admin123/github/datasets/msls_val/cph/database/raw.csv": "17b3d22904e91c8204f7f4a3e72a00d9d29e8affa25c9bbb436dee74bfc4b8a0",
+        "/home/admin123/github/datasets/msls_val/cph/query/postprocessed.csv": "45a2524c7ccc36914a5b7eb4d4d757a9cfa4b352c80666cd5abbb7f81d2b40fc",
+        "/home/admin123/github/datasets/msls_val/cph/query/raw.csv": "0269a70eb12e75e7cc40d61bfbbe7a55c094e4619c5d48ab377ef5d06f9e8039",
+        "/home/admin123/github/datasets/msls_val/sf/database/postprocessed.csv": "8e791610228d0ecbbc7b849eb45adf893f81b4fc11e6a2b9f38e512e318b51bf",
+        "/home/admin123/github/datasets/msls_val/sf/database/raw.csv": "b49895af79a5abc930364179aa4b2244922cdac9b966507dad185fd7c0555da9",
+        "/home/admin123/github/datasets/msls_val/sf/query/postprocessed.csv": "10dc27969a4c3716ad745a3cf212a4d03e890f6b4604e852f1934c20db511321",
+        "/home/admin123/github/datasets/msls_val/sf/query/raw.csv": "ae79d0ea9bae4c5c3adaf0a75d13fb22cae4b1ec96627e0f372cd47cf95baa55"
+      },
+      "manifest_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01"
+    },
+    "msls_test_night_day": {
+      "dataset": "msls_test_night_day",
+      "root": "/home/admin123/github/datasets/msls_test",
+      "references": {
+        "count": 36362,
+        "ordered_paths_sha256": "e9c49929b4acc39790c21418448675ffb3633ca05f0c3b4e1e0830fb844afcfb",
+        "input_file_stats_sha256": "223d38dfef66503d2517a58a1e2ead332ccde532e4a29f7f5ea231398c942a67"
+      },
+      "queries": {
+        "count": 309,
+        "ordered_paths_sha256": "a7318ac3b73730a1db79ef01fbcbd100e3bff639e7f665cda04b794ee2fa1982",
+        "input_file_stats_sha256": "cc6a9385d7dea3d41cb59759bbe4c3e9fcee996f2c0e6806fee7e03dae5fc34b"
+      },
+      "protocol": {
+        "type": "custom night-label subset; not official all/subtask benchmark",
+        "query": "all postprocessed night=True, raw pano=False",
+        "gallery": "all night=False, pano=False",
+        "positive": "same-city UTM Euclidean <=25m",
+        "excluded_no_positive": 0
+      },
+      "ground_truth_sha256": "bff420132379b427a452093c6b2581e2437cdd7c20412a6d9119e1f9cb61cb2f",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/msls_test/miami/database/postprocessed.csv": "6c528a9485658a6ed2b65dfcb17ca8bee82fcd80cd84a8917e1e5ef132e1de44",
+        "/home/admin123/github/datasets/msls_test/miami/database/raw.csv": "fad0b98aca7301c5d536c25fab9b5e2c8e736ba8fad6e31d1570ed09899b72c9",
+        "/home/admin123/github/datasets/msls_test/miami/query/postprocessed.csv": "db80b6dd3dbd0e102d5b2b202c87ce5205eb2d9a1d656d9c7eeb9f950ea58b41",
+        "/home/admin123/github/datasets/msls_test/miami/query/raw.csv": "616fcb9bf10e73a62aaa811775369e0eaffdbe6dab7aa8ae94afa6d2564ab28f",
+        "/home/admin123/github/datasets/msls_test/athens/database/postprocessed.csv": "d52a19be76ac606b31b92577d8f2e194bab902dfc3e07e1303a2786ff0616fa4",
+        "/home/admin123/github/datasets/msls_test/athens/database/raw.csv": "bebecc161a92e235e95f36cc4f762449a00d9fe7202ae824e42eeb2a51c56f15",
+        "/home/admin123/github/datasets/msls_test/athens/query/postprocessed.csv": "1faedb9c244796fa1fd5e9bc5aaf8722652c3ab415f86a2256afe9a7e57b5b42",
+        "/home/admin123/github/datasets/msls_test/athens/query/raw.csv": "d6e7daee73705421de47969051d1557676d33038f2fad5b3b90ddf7ef1883f1a",
+        "/home/admin123/github/datasets/msls_test/buenosaires/database/postprocessed.csv": "ca055162cf67bc267fd335fa398255f577edfd377c49cc58c37f51920e00806e",
+        "/home/admin123/github/datasets/msls_test/buenosaires/database/raw.csv": "d7967327c2f91a797b65958dbf429358aafe271cf864febb930b41190aeb95c1",
+        "/home/admin123/github/datasets/msls_test/buenosaires/query/postprocessed.csv": "956ec274fc9ead3b582225914f3c3f6f3985f345008ae09d5aaad522b3e0b29c",
+        "/home/admin123/github/datasets/msls_test/buenosaires/query/raw.csv": "a6a39f2545e32b1f22c4e9dc5e68acc4442c6180ba581ebd73ecfd2079860227",
+        "/home/admin123/github/datasets/msls_test/stockholm/database/postprocessed.csv": "ce05cf913a216b21806a5f9c1a5b2a79aa82cbc40ff0978cfb39eb240294fc5a",
+        "/home/admin123/github/datasets/msls_test/stockholm/database/raw.csv": "760c9320baa21eed785519abbe43fff0525797c0fe47ea0427409e2f8bae8b25",
+        "/home/admin123/github/datasets/msls_test/stockholm/query/postprocessed.csv": "41303d50a9faf18334b8dc4fd1ec01770c4249ddc7d888af5b0fa12380ed4362",
+        "/home/admin123/github/datasets/msls_test/stockholm/query/raw.csv": "54369abcef416c58a0d395044843a871b1bc214e1b2603fddade291a177c4202",
+        "/home/admin123/github/datasets/msls_test/bengaluru/database/postprocessed.csv": "3e6a26cb142c5c52b76b3f75505088a263753ac12943a0590c6632e19700399e",
+        "/home/admin123/github/datasets/msls_test/bengaluru/database/raw.csv": "306adeed16a24c424e2d5a51ec1340a54e9afaf273e8b28f8902b4ba033fb500",
+        "/home/admin123/github/datasets/msls_test/bengaluru/query/postprocessed.csv": "59a128d0af5ec49f22c367b87b7265b2549f7114c14a09dd81b0b084d16d4f39",
+        "/home/admin123/github/datasets/msls_test/bengaluru/query/raw.csv": "cf66a6440273b1e2c5af980aafde74aa836071fa1fec71343a7d5cf1cbd1963e",
+        "/home/admin123/github/datasets/msls_test/kampala/database/postprocessed.csv": "a21ff3ff808923dfa4eb31b1fab5f8f846bef7e03ad9b3bd4960ca67ffbabc04",
+        "/home/admin123/github/datasets/msls_test/kampala/database/raw.csv": "ae35c3c7f1f23e147bd4c6d83ed4669099e7dccd809ccebdca55b4bbbf8a3578",
+        "/home/admin123/github/datasets/msls_test/kampala/query/postprocessed.csv": "3d3f1ec3e969ba0421bec4b0341af409b9624b06838fd859953d63a6cfe693d9",
+        "/home/admin123/github/datasets/msls_test/kampala/query/raw.csv": "a1e8f5157fbb9fc375a36493f294d568a47968e03e2bd1d46d503d3eb6788a1d"
+      },
+      "manifest_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43"
+    },
+    "svox_test_night": {
+      "dataset": "svox_test_night",
+      "root": "/home/admin123/github/datasets/svox/images/test",
+      "references": {
+        "count": 17166,
+        "ordered_paths_sha256": "f3f5825228e6ec7739100f78923678569621c0dcb86d020a86f73f204ea34754",
+        "input_file_stats_sha256": "6b276bcfa0588d2253a863f8110e5154b6b242545ab45458fd6d17c1d32b28bc"
+      },
+      "queries": {
+        "count": 823,
+        "ordered_paths_sha256": "e04c5189fd49d636f2e846a81b68864d9f09f4cd66841c654c129aa3bec884ac",
+        "input_file_stats_sha256": "8c16c2547f749671ac570b056212db151befd00929df87e4e611235bf818e3e6"
+      },
+      "protocol": {
+        "type": "test night queries",
+        "positive": "UTM Euclidean <=25m",
+        "queries_before_gt_filter": 823,
+        "excluded_no_positive": 0
+      },
+      "ground_truth_sha256": "f05a3da5c334b0ff3a93ae04b096b2a720973bbe637a716cb8cd5ebbae4b251e",
+      "metadata_sha256": {},
+      "manifest_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d"
+    },
+    "darkdriving_paired_diagnostic": {
+      "dataset": "darkdriving_paired_diagnostic",
+      "root": "/home/admin123/github/datasets/DarkDriving_Base",
+      "references": {
+        "count": 9530,
+        "ordered_paths_sha256": "9f9000cd61b05e50447cd328b106ee9841d15925631e33cdfee0c39417c43f88",
+        "input_file_stats_sha256": "e45a5a037867af107c49975b47e9b3daf0b81eb1d691f91cdebc146acf3430e1"
+      },
+      "queries": {
+        "count": 9530,
+        "ordered_paths_sha256": "0335b1774a625c094d77f525049b526a6cabc44e61abdb027074c7bd92338a64",
+        "input_file_stats_sha256": "44b9b1dbf74ecb3c3ae98f50de8a9954ce8924b8abb47aafe73de00ac607bdde"
+      },
+      "protocol": {
+        "type": "strict exact-pair retrieval diagnostic, NOT spatial VPR Recall",
+        "positive": "identical Day/Night basename only",
+        "split": "all locally cleaned pairs; no training on this dataset",
+        "limitation": "nearby frames may be spatial positives but count as negatives"
+      },
+      "ground_truth_sha256": "1a4041b8d670801bbf4b5ee3e51bfbd25c731560ed820c02a42af70dd9bf1b55",
+      "metadata_sha256": {},
+      "manifest_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413"
+    },
+    "robotcar_gps_night_diagnostic": {
+      "dataset": "robotcar_gps_night_diagnostic",
+      "root": "/home/admin123/github/datasets/RobotCar",
+      "references": {
+        "count": 21006,
+        "ordered_paths_sha256": "9ceb6ddb8cb881248f26d5290d12c5c67e8965ed12b11a6da06f5d4c4d51e0ec",
+        "input_file_stats_sha256": "16e8aa74a5c5c8fcca79164c7bf5ae929f7e403564e0c79b43c8d4cc17a78bda"
+      },
+      "queries": {
+        "count": 22495,
+        "ordered_paths_sha256": "67c98db73091d421cfcc0e5bb525baed86be903367fd7c8ce3554edb733f4aaf",
+        "input_file_stats_sha256": "b866427333b30cd0d446f0b318712ff8f3717a8c0f48697554884c1cd1cfc5d3"
+      },
+      "protocol": {
+        "type": "local GPS retrieval diagnostic, NOT RobotCar-Seasons localization protocol",
+        "day_traversals": [
+          "2015-02-06-13-57-16",
+          "2014-07-14-14-49-50",
+          "2015-08-12-15-04-18"
+        ],
+        "night_traversals": [
+          "2014-11-14-16-34-33",
+          "2014-12-16-18-44-24",
+          "2014-12-10-18-10-50"
+        ],
+        "positive": "UTM Euclidean <=25m, no heading filter",
+        "sampling": "existing gps_sampled_1m.csv; exact timestamp image join",
+        "missing_images": 0,
+        "excluded_no_positive": 561
+      },
+      "ground_truth_sha256": "812b1b02fd74ec321adcd5efdce43b2478ffdff4619d94513ad1ecd79e2cba70",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/RobotCar/day/2015-02-06-13-57-16/gps/gps_sampled_1m.csv": "81a0c18a6b0a8b743de368caac2519e671fb5a1a32e3a7db187937536465f98d",
+        "/home/admin123/github/datasets/RobotCar/day/2014-07-14-14-49-50/gps/gps_sampled_1m.csv": "fe6776357a6e5956d9a84b998e43169d8308b8cd77674924d9a602e0d4b29327",
+        "/home/admin123/github/datasets/RobotCar/day/2015-08-12-15-04-18/gps/gps_sampled_1m.csv": "80f514a5f25960543bbe3ff08d530cbf8ba48aa7d5dc968854645db94736d237",
+        "/home/admin123/github/datasets/RobotCar/night/2014-11-14-16-34-33/gps/gps_sampled_1m.csv": "3388f894be869cac7d3052458cd831689b3ca86fa30bad7daf710bdc0031e6cc",
+        "/home/admin123/github/datasets/RobotCar/night/2014-12-16-18-44-24/gps/gps_sampled_1m.csv": "fa3f09e3c5666908022dc2769716b5420100fb72f8483a0f6e29fa9c581223ea",
+        "/home/admin123/github/datasets/RobotCar/night/2014-12-10-18-10-50/gps/gps_sampled_1m.csv": "f91722e23c99ece9458fe986b8d8180b272168652bf6dc9fafd8bcd83b92f9ce"
+      },
+      "manifest_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1"
+    },
+    "robotcar_seasons_public_night": {
+      "dataset": "robotcar_seasons_public_night",
+      "root": "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons",
+      "references": {
+        "count": 20862,
+        "ordered_paths_sha256": "f799ab7e912a297fd9da97dab432c66610bb985b1ae37a2218b3de350d782805",
+        "input_file_stats_sha256": "c19254c17b8605fc25c533939d93fc81e7bfea9b16532359cd23cf200b5a81c7"
+      },
+      "queries": {
+        "count": 197,
+        "ordered_paths_sha256": "6a1879d21ea5c965749fa676176326ec093b3519ea7c02ce62c19bacb08daac5",
+        "input_file_stats_sha256": "4746697bc10206e94d4b9b2b3af02f6ae53e6dae8ca4240a41694e82413182e3"
+      },
+      "protocol": {
+        "ground_truth": "public_camera_to_world_and_aligned_colmap_3d_radius",
+        "split": "public_train_diagnostic",
+        "usage": "evaluation_only_no_training",
+        "official_test": false,
+        "condition": "night",
+        "query_camera": "rear",
+        "gallery_cameras": [
+          "left",
+          "rear",
+          "right"
+        ],
+        "gallery": "complete_registered_overcast_reference_in_all_49_aligned_models",
+        "positive_radius_meters": 25.0,
+        "positive_boundary": "distance <= 25.0",
+        "distance": "3D_Euclidean_world_camera_centers",
+        "orientation_filter": null,
+        "query_pose_convention": "camera_to_world_p_w=R*p_c+C; center=matrix[:3,3]",
+        "reference_pose_convention": "COLMAP_world_to_camera_p_c=R*p_w+t; center=-R.T@t",
+        "coordinate_frame": "official_README_all_49_aligned_models_share_global_world_frame",
+        "reference_extension_mapping": "COLMAP .png names map to local original .jpg images",
+        "metadata_path": "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/metadata/robotcar_v2_train.txt?utm_source=chatgpt.com",
+        "metadata_sha256": "842cb03eccf2b10b7ba0a2fe431c1f063f4a1c4459f042b536c9fb39a0315744",
+        "public_train_pose_count": 1906,
+        "colmap_pose_models": [
+          {
+            "path": "3D-models/individual/colmap_reconstructions/001_aligned/001_aligned/images.txt",
+            "sha256": "a509b3562a1537f276c5790cebb93a61f595d6298bcbc0618030cd6023a79171"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/002_aligned/002_aligned/images.txt",
+            "sha256": "6ddb664a5c0d05091d28bf869d56c3ca0dd990a8773065637dd413c3940d7f6c"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/003_aligned/003_aligned/images.txt",
+            "sha256": "35133c880a06cfae4bf530581605ac8c97d16151db459aaf073a5461989402b6"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/004_aligned/004_aligned/images.txt",
+            "sha256": "7cefe64c258ec4fcec31ec289440ed84deaa7db59a71d2eba42e21d583866114"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/005_aligned/005_aligned/images.txt",
+            "sha256": "66185231070e815fe1075094015c1871281fc862c481c254aa48247c7f3413bc"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/006_aligned/006_aligned/images.txt",
+            "sha256": "a312ed5f018ca35e185c5beb4ac95da2d5565547de17984616db9d90d4250016"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/007_aligned/007_aligned/images.txt",
+            "sha256": "4de43a12d26f08dad8d9a50673df0779781311ad3ad43258a39e1bc790b3169e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/008_aligned/008_aligned/images.txt",
+            "sha256": "b1758437ac2ac36fae462de06cea502989b60ee1f4bc8a20532c562a5d314397"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/009_aligned/009_aligned/images.txt",
+            "sha256": "bc6a54e9afab4354708b917dec38cf377de62490af76e00b3f8a474406871601"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/010_aligned/010_aligned/images.txt",
+            "sha256": "8b2659cd61c61f6cfb67745a58a612d3f7d56b5d924d4c166ac696fb81ac3fe5"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/011_aligned/011_aligned/images.txt",
+            "sha256": "56d0f4bd356611e9fa8b51243a415a8c000d476e8ab9bae54eca9a91cbf31a87"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/012_aligned/012_aligned/images.txt",
+            "sha256": "dd1c24c6654c8b28fe8cab5ea72c8953fc7e5992679b7b3a61989738c9c58bed"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/013_aligned/013_aligned/images.txt",
+            "sha256": "95b376d4ba3f56940c3632649534f3eb7348b0a1cfe7c1dfb97a9f1d212e770a"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/014_aligned/014_aligned/images.txt",
+            "sha256": "db6e43b5f5fb8c96d95523429b6c8116a236971faa72811dc1f144cbaf493a6e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/015_aligned/015_aligned/images.txt",
+            "sha256": "ef6a8aa8ce7364542fe3e79bfc106c756705238ac623486e9c3f23553442fe75"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/016_aligned/016_aligned/images.txt",
+            "sha256": "9b2e1834909807a90cf8402a527d201d73996690e28d51316a327d7062f266e2"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/017_aligned/017_aligned/images.txt",
+            "sha256": "02455194e09ccacf1733602b3188ab919711a6c4ebbf817ade410bd8a16591e6"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/018_aligned/018_aligned/images.txt",
+            "sha256": "b7ba3bc91e377b873a40d75f666e3c8ec0f81a928d136dd96d64a72d3e52d461"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/019_aligned/019_aligned/images.txt",
+            "sha256": "95369df94e4a30bf7d1a519bb77af99840bac4f6b6a66420da2840263c0c61ae"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/020_aligned/020_aligned/images.txt",
+            "sha256": "68d7414ae6286baf369f88e6f253d72a464de9ed882c50223d7ac9d36d10fb8e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/021_aligned/021_aligned/images.txt",
+            "sha256": "dd773dbabb068a488b84160feef36b22aa6a25e5ed2377aad41a9ff20354b7cf"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/022_aligned/022_aligned/images.txt",
+            "sha256": "a25ec27ac3c6bfce33a544c60fcee4087ca993e789b5a914d0ba3ff065efe26d"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/023_aligned/023_aligned/images.txt",
+            "sha256": "e809bda10a9aabbb18c1b19e522c15494925bfa2fdc1d0f605c7a4e60c6ae1e9"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/024_aligned/024_aligned/images.txt",
+            "sha256": "e4ca9498eb4f82f9f1c232d14ff5d05e44027805f2583327797c80522375bb0b"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/025_aligned/025_aligned/images.txt",
+            "sha256": "1d152f94bda11b68982b316f794892887b48959f21677c026ffa1f49f7dd11a3"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/026_aligned/026_aligned/images.txt",
+            "sha256": "6291f2b67b9c66e3e866543711a5a549790f17a41ccdb52f5ee515f72f842398"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/027_aligned/027_aligned/images.txt",
+            "sha256": "a62faa0ee0df6d393d81ca899bb6f8740dce3461a01e49bccb9b5625afabd58c"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/028_aligned/028_aligned/images.txt",
+            "sha256": "4a028de66981aa5c544c9c9d6d13a3a0078a6384d7abd7ef11eb881b3846c1c5"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/029_aligned/029_aligned/images.txt",
+            "sha256": "67461bd472c93577c8559d4aaca43605e2ebf0832d11a04c5e7b37a21fe250a1"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/030_aligned/030_aligned/images.txt",
+            "sha256": "b6635b7fac27e87eb3caba5cbd1e2c0e9cfd62903d77cbec7c7910409b4b4e07"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/031_aligned/031_aligned/images.txt",
+            "sha256": "39ed682c91998ffb2cb8da7dceb13d5becb6dc8d64f1e5d7ca817b4a5ba49857"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/032_aligned/032_aligned/images.txt",
+            "sha256": "3baa3bb874ed41c50dce6c5236480c4ab88940e1bb1e1d8c1617c0c63570576d"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/033_aligned/033_aligned/images.txt",
+            "sha256": "a51fa550008138b6db3dd30f3f131764ac0d95f47d2c64b47e1b7b70ac7e8337"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/034_aligned/034_aligned/images.txt",
+            "sha256": "ec6849638ea8cb7a34449fcdb42b1c8a6d4d3f4a7131c0e6272a35e7a9cba52e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/035_aligned/035_aligned/images.txt",
+            "sha256": "d27bec55c0818e231646680e8cf97334ca2d791e393948de072693b64b66f233"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/036_aligned/036_aligned/images.txt",
+            "sha256": "bea3af027bcf51d38e3b27dca101a9d3c1f13e8932dbdb65cfe2084f62ca3d0a"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/037_aligned/037_aligned/images.txt",
+            "sha256": "f68e53c7f7c9326c5fce35b5d14e361bdfa4d9b357d6a53d75f389c5d4f4cde0"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/038_aligned/038_aligned/images.txt",
+            "sha256": "5cf835459c4f807e4772ce19b7009056400be5e97dbd463e91b285d50972d992"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/039_aligned/039_aligned/images.txt",
+            "sha256": "fcb14ead9bd84c598d8777a6cf0e6c1b4d5db44f4ebf37c0847daed155aa93a4"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/040_aligned/040_aligned/images.txt",
+            "sha256": "ebf638fec64afd567803337b99eeafa90690d39a3cecfcf54f10a55b03b633b3"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/041_aligned/041_aligned/images.txt",
+            "sha256": "3df716dbc14cfd07aa36c2862103e958256cac2c9d188c44a8cf4fd59082f48b"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/042_aligned/042_aligned/images.txt",
+            "sha256": "696a7da819cd6a5ad12f132933942bc5d85c1211b54bb250a44638975cd295ae"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/043_aligned/043_aligned/images.txt",
+            "sha256": "789fc546324900bce5ac0e20d61aa163aa036f23fe35f646c57833108eea68b0"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/044_aligned/044_aligned/images.txt",
+            "sha256": "d52d90d99ad034f1493407bf2a300fdec1caa40a4ddc2547b002f12869d4ebf4"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/045_aligned/045_aligned/images.txt",
+            "sha256": "3dc97b567540c86df81a0856a11e99f7c9cb1243cf4c7565e343d8a2e20f4243"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/046_aligned/046_aligned/images.txt",
+            "sha256": "bebf00a9cfdd66f3bf76c08dc7e5b76a6df87f6bf625e15a0dddca960ab33e9b"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/047_aligned/047_aligned/images.txt",
+            "sha256": "8c83d3c43be9ebc5a73b7b72474d8a66a96920e9b7c6a624c8a0b2e05675621e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/048_aligned/048_aligned/images.txt",
+            "sha256": "bd693f9178e23ce4bc56218319971dabfff0a891e869ddda2d4533ac895a9611"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/049_aligned/049_aligned/images.txt",
+            "sha256": "c77502d420f8c8f4013943a14611c986ef2ebde81f43451b39a3bbe1e6b88177"
+          }
+        ],
+        "colmap_pose_bundle_sha256": "659fb73a6f96015fb8528313ebd57a320de69767285b0ed8feebbb78ddbfd755",
+        "colmap_model_image_counts": {
+          "001_aligned": 564,
+          "002_aligned": 297,
+          "003_aligned": 372,
+          "004_aligned": 855,
+          "005_aligned": 600,
+          "006_aligned": 699,
+          "007_aligned": 306,
+          "008_aligned": 363,
+          "009_aligned": 561,
+          "010_aligned": 300,
+          "011_aligned": 342,
+          "012_aligned": 300,
+          "013_aligned": 303,
+          "014_aligned": 300,
+          "015_aligned": 336,
+          "016_aligned": 303,
+          "017_aligned": 618,
+          "018_aligned": 594,
+          "019_aligned": 300,
+          "020_aligned": 297,
+          "021_aligned": 300,
+          "022_aligned": 612,
+          "023_aligned": 786,
+          "024_aligned": 714,
+          "025_aligned": 681,
+          "026_aligned": 303,
+          "027_aligned": 303,
+          "028_aligned": 303,
+          "029_aligned": 300,
+          "030_aligned": 300,
+          "031_aligned": 303,
+          "032_aligned": 300,
+          "033_aligned": 300,
+          "034_aligned": 303,
+          "035_aligned": 591,
+          "036_aligned": 618,
+          "037_aligned": 600,
+          "038_aligned": 618,
+          "039_aligned": 795,
+          "040_aligned": 330,
+          "041_aligned": 303,
+          "042_aligned": 303,
+          "043_aligned": 327,
+          "044_aligned": 336,
+          "045_aligned": 300,
+          "046_aligned": 411,
+          "047_aligned": 303,
+          "048_aligned": 309,
+          "049_aligned": 300
+        },
+        "train_reference_pose_overlap_count": 0,
+        "train_reference_max_center_disagreement_meters": null,
+        "primary_source_urls": [
+          "https://data.ciirc.cvut.cz/public/projects/2020VisualLocalization/RobotCar-Seasons/README_RobotCar_v2.md",
+          "https://data.ciirc.cvut.cz/public/projects/2020VisualLocalization/RobotCar-Seasons/README_RobotCar-Seasons.md",
+          "https://data.ciirc.cvut.cz/public/projects/2020VisualLocalization/RobotCar-Seasons/robotcar_v2_train.txt"
+        ],
+        "limitations": "Custom position-only retrieval diagnostic on public train poses, not official test. All camera sides are eligible positives; no viewpoint/visibility/orientation filter. Official test query poses are not public and are never inferred here."
+      },
+      "ground_truth_sha256": "9ef84789973cd8c8e68ddd720eb8f15cd7ba345a884be1a308df2b31fde361c1",
+      "metadata_sha256": {
+        "/home/admin123/github/AsymVPR/configs/evaluation_sources/robotcar_public/night.json": "e7e51a1eab27d5843e9f29cc851d8954385579370673b9e1e1cbb96335d49232",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/metadata/robotcar_v2_train.txt?utm_source=chatgpt.com": "842cb03eccf2b10b7ba0a2fe431c1f063f4a1c4459f042b536c9fb39a0315744",
+        "/home/admin123/github/WeatherVPR/src/weather_vpr/inference/robotcar.py": "6073f5fb1011cda4c1ec29a4bb76dcbedfb2465e838309772518264e7b825407",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/001_aligned/001_aligned/images.txt": "a509b3562a1537f276c5790cebb93a61f595d6298bcbc0618030cd6023a79171",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/002_aligned/002_aligned/images.txt": "6ddb664a5c0d05091d28bf869d56c3ca0dd990a8773065637dd413c3940d7f6c",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/003_aligned/003_aligned/images.txt": "35133c880a06cfae4bf530581605ac8c97d16151db459aaf073a5461989402b6",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/004_aligned/004_aligned/images.txt": "7cefe64c258ec4fcec31ec289440ed84deaa7db59a71d2eba42e21d583866114",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/005_aligned/005_aligned/images.txt": "66185231070e815fe1075094015c1871281fc862c481c254aa48247c7f3413bc",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/006_aligned/006_aligned/images.txt": "a312ed5f018ca35e185c5beb4ac95da2d5565547de17984616db9d90d4250016",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/007_aligned/007_aligned/images.txt": "4de43a12d26f08dad8d9a50673df0779781311ad3ad43258a39e1bc790b3169e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/008_aligned/008_aligned/images.txt": "b1758437ac2ac36fae462de06cea502989b60ee1f4bc8a20532c562a5d314397",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/009_aligned/009_aligned/images.txt": "bc6a54e9afab4354708b917dec38cf377de62490af76e00b3f8a474406871601",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/010_aligned/010_aligned/images.txt": "8b2659cd61c61f6cfb67745a58a612d3f7d56b5d924d4c166ac696fb81ac3fe5",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/011_aligned/011_aligned/images.txt": "56d0f4bd356611e9fa8b51243a415a8c000d476e8ab9bae54eca9a91cbf31a87",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/012_aligned/012_aligned/images.txt": "dd1c24c6654c8b28fe8cab5ea72c8953fc7e5992679b7b3a61989738c9c58bed",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/013_aligned/013_aligned/images.txt": "95b376d4ba3f56940c3632649534f3eb7348b0a1cfe7c1dfb97a9f1d212e770a",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/014_aligned/014_aligned/images.txt": "db6e43b5f5fb8c96d95523429b6c8116a236971faa72811dc1f144cbaf493a6e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/015_aligned/015_aligned/images.txt": "ef6a8aa8ce7364542fe3e79bfc106c756705238ac623486e9c3f23553442fe75",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/016_aligned/016_aligned/images.txt": "9b2e1834909807a90cf8402a527d201d73996690e28d51316a327d7062f266e2",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/017_aligned/017_aligned/images.txt": "02455194e09ccacf1733602b3188ab919711a6c4ebbf817ade410bd8a16591e6",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/018_aligned/018_aligned/images.txt": "b7ba3bc91e377b873a40d75f666e3c8ec0f81a928d136dd96d64a72d3e52d461",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/019_aligned/019_aligned/images.txt": "95369df94e4a30bf7d1a519bb77af99840bac4f6b6a66420da2840263c0c61ae",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/020_aligned/020_aligned/images.txt": "68d7414ae6286baf369f88e6f253d72a464de9ed882c50223d7ac9d36d10fb8e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/021_aligned/021_aligned/images.txt": "dd773dbabb068a488b84160feef36b22aa6a25e5ed2377aad41a9ff20354b7cf",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/022_aligned/022_aligned/images.txt": "a25ec27ac3c6bfce33a544c60fcee4087ca993e789b5a914d0ba3ff065efe26d",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/023_aligned/023_aligned/images.txt": "e809bda10a9aabbb18c1b19e522c15494925bfa2fdc1d0f605c7a4e60c6ae1e9",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/024_aligned/024_aligned/images.txt": "e4ca9498eb4f82f9f1c232d14ff5d05e44027805f2583327797c80522375bb0b",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/025_aligned/025_aligned/images.txt": "1d152f94bda11b68982b316f794892887b48959f21677c026ffa1f49f7dd11a3",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/026_aligned/026_aligned/images.txt": "6291f2b67b9c66e3e866543711a5a549790f17a41ccdb52f5ee515f72f842398",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/027_aligned/027_aligned/images.txt": "a62faa0ee0df6d393d81ca899bb6f8740dce3461a01e49bccb9b5625afabd58c",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/028_aligned/028_aligned/images.txt": "4a028de66981aa5c544c9c9d6d13a3a0078a6384d7abd7ef11eb881b3846c1c5",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/029_aligned/029_aligned/images.txt": "67461bd472c93577c8559d4aaca43605e2ebf0832d11a04c5e7b37a21fe250a1",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/030_aligned/030_aligned/images.txt": "b6635b7fac27e87eb3caba5cbd1e2c0e9cfd62903d77cbec7c7910409b4b4e07",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/031_aligned/031_aligned/images.txt": "39ed682c91998ffb2cb8da7dceb13d5becb6dc8d64f1e5d7ca817b4a5ba49857",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/032_aligned/032_aligned/images.txt": "3baa3bb874ed41c50dce6c5236480c4ab88940e1bb1e1d8c1617c0c63570576d",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/033_aligned/033_aligned/images.txt": "a51fa550008138b6db3dd30f3f131764ac0d95f47d2c64b47e1b7b70ac7e8337",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/034_aligned/034_aligned/images.txt": "ec6849638ea8cb7a34449fcdb42b1c8a6d4d3f4a7131c0e6272a35e7a9cba52e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/035_aligned/035_aligned/images.txt": "d27bec55c0818e231646680e8cf97334ca2d791e393948de072693b64b66f233",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/036_aligned/036_aligned/images.txt": "bea3af027bcf51d38e3b27dca101a9d3c1f13e8932dbdb65cfe2084f62ca3d0a",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/037_aligned/037_aligned/images.txt": "f68e53c7f7c9326c5fce35b5d14e361bdfa4d9b357d6a53d75f389c5d4f4cde0",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/038_aligned/038_aligned/images.txt": "5cf835459c4f807e4772ce19b7009056400be5e97dbd463e91b285d50972d992",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/039_aligned/039_aligned/images.txt": "fcb14ead9bd84c598d8777a6cf0e6c1b4d5db44f4ebf37c0847daed155aa93a4",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/040_aligned/040_aligned/images.txt": "ebf638fec64afd567803337b99eeafa90690d39a3cecfcf54f10a55b03b633b3",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/041_aligned/041_aligned/images.txt": "3df716dbc14cfd07aa36c2862103e958256cac2c9d188c44a8cf4fd59082f48b",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/042_aligned/042_aligned/images.txt": "696a7da819cd6a5ad12f132933942bc5d85c1211b54bb250a44638975cd295ae",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/043_aligned/043_aligned/images.txt": "789fc546324900bce5ac0e20d61aa163aa036f23fe35f646c57833108eea68b0",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/044_aligned/044_aligned/images.txt": "d52d90d99ad034f1493407bf2a300fdec1caa40a4ddc2547b002f12869d4ebf4",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/045_aligned/045_aligned/images.txt": "3dc97b567540c86df81a0856a11e99f7c9cb1243cf4c7565e343d8a2e20f4243",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/046_aligned/046_aligned/images.txt": "bebf00a9cfdd66f3bf76c08dc7e5b76a6df87f6bf625e15a0dddca960ab33e9b",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/047_aligned/047_aligned/images.txt": "8c83d3c43be9ebc5a73b7b72474d8a66a96920e9b7c6a624c8a0b2e05675621e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/048_aligned/048_aligned/images.txt": "bd693f9178e23ce4bc56218319971dabfff0a891e869ddda2d4533ac895a9611",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/049_aligned/049_aligned/images.txt": "c77502d420f8c8f4013943a14611c986ef2ebde81f43451b39a3bbe1e6b88177"
+      },
+      "manifest_sha256": "325cb74d47a4d6f920e877dc843ebb70b56fc467b5e439d9b549758d1c3b8640"
+    },
+    "robotcar_seasons_public_night_rain": {
+      "dataset": "robotcar_seasons_public_night_rain",
+      "root": "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons",
+      "references": {
+        "count": 20862,
+        "ordered_paths_sha256": "f799ab7e912a297fd9da97dab432c66610bb985b1ae37a2218b3de350d782805",
+        "input_file_stats_sha256": "c19254c17b8605fc25c533939d93fc81e7bfea9b16532359cd23cf200b5a81c7"
+      },
+      "queries": {
+        "count": 224,
+        "ordered_paths_sha256": "c1772c77b9022a57734274c2e62bcc590a1a8a48daf8553f0411560220da8984",
+        "input_file_stats_sha256": "bc0813500263c3ce9546dac07edbdcbcd1c9625c252a188ab366b29159988b2f"
+      },
+      "protocol": {
+        "ground_truth": "public_camera_to_world_and_aligned_colmap_3d_radius",
+        "split": "public_train_diagnostic",
+        "usage": "evaluation_only_no_training",
+        "official_test": false,
+        "condition": "night-rain",
+        "query_camera": "rear",
+        "gallery_cameras": [
+          "left",
+          "rear",
+          "right"
+        ],
+        "gallery": "complete_registered_overcast_reference_in_all_49_aligned_models",
+        "positive_radius_meters": 25.0,
+        "positive_boundary": "distance <= 25.0",
+        "distance": "3D_Euclidean_world_camera_centers",
+        "orientation_filter": null,
+        "query_pose_convention": "camera_to_world_p_w=R*p_c+C; center=matrix[:3,3]",
+        "reference_pose_convention": "COLMAP_world_to_camera_p_c=R*p_w+t; center=-R.T@t",
+        "coordinate_frame": "official_README_all_49_aligned_models_share_global_world_frame",
+        "reference_extension_mapping": "COLMAP .png names map to local original .jpg images",
+        "metadata_path": "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/metadata/robotcar_v2_train.txt?utm_source=chatgpt.com",
+        "metadata_sha256": "842cb03eccf2b10b7ba0a2fe431c1f063f4a1c4459f042b536c9fb39a0315744",
+        "public_train_pose_count": 1906,
+        "colmap_pose_models": [
+          {
+            "path": "3D-models/individual/colmap_reconstructions/001_aligned/001_aligned/images.txt",
+            "sha256": "a509b3562a1537f276c5790cebb93a61f595d6298bcbc0618030cd6023a79171"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/002_aligned/002_aligned/images.txt",
+            "sha256": "6ddb664a5c0d05091d28bf869d56c3ca0dd990a8773065637dd413c3940d7f6c"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/003_aligned/003_aligned/images.txt",
+            "sha256": "35133c880a06cfae4bf530581605ac8c97d16151db459aaf073a5461989402b6"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/004_aligned/004_aligned/images.txt",
+            "sha256": "7cefe64c258ec4fcec31ec289440ed84deaa7db59a71d2eba42e21d583866114"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/005_aligned/005_aligned/images.txt",
+            "sha256": "66185231070e815fe1075094015c1871281fc862c481c254aa48247c7f3413bc"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/006_aligned/006_aligned/images.txt",
+            "sha256": "a312ed5f018ca35e185c5beb4ac95da2d5565547de17984616db9d90d4250016"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/007_aligned/007_aligned/images.txt",
+            "sha256": "4de43a12d26f08dad8d9a50673df0779781311ad3ad43258a39e1bc790b3169e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/008_aligned/008_aligned/images.txt",
+            "sha256": "b1758437ac2ac36fae462de06cea502989b60ee1f4bc8a20532c562a5d314397"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/009_aligned/009_aligned/images.txt",
+            "sha256": "bc6a54e9afab4354708b917dec38cf377de62490af76e00b3f8a474406871601"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/010_aligned/010_aligned/images.txt",
+            "sha256": "8b2659cd61c61f6cfb67745a58a612d3f7d56b5d924d4c166ac696fb81ac3fe5"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/011_aligned/011_aligned/images.txt",
+            "sha256": "56d0f4bd356611e9fa8b51243a415a8c000d476e8ab9bae54eca9a91cbf31a87"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/012_aligned/012_aligned/images.txt",
+            "sha256": "dd1c24c6654c8b28fe8cab5ea72c8953fc7e5992679b7b3a61989738c9c58bed"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/013_aligned/013_aligned/images.txt",
+            "sha256": "95b376d4ba3f56940c3632649534f3eb7348b0a1cfe7c1dfb97a9f1d212e770a"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/014_aligned/014_aligned/images.txt",
+            "sha256": "db6e43b5f5fb8c96d95523429b6c8116a236971faa72811dc1f144cbaf493a6e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/015_aligned/015_aligned/images.txt",
+            "sha256": "ef6a8aa8ce7364542fe3e79bfc106c756705238ac623486e9c3f23553442fe75"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/016_aligned/016_aligned/images.txt",
+            "sha256": "9b2e1834909807a90cf8402a527d201d73996690e28d51316a327d7062f266e2"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/017_aligned/017_aligned/images.txt",
+            "sha256": "02455194e09ccacf1733602b3188ab919711a6c4ebbf817ade410bd8a16591e6"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/018_aligned/018_aligned/images.txt",
+            "sha256": "b7ba3bc91e377b873a40d75f666e3c8ec0f81a928d136dd96d64a72d3e52d461"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/019_aligned/019_aligned/images.txt",
+            "sha256": "95369df94e4a30bf7d1a519bb77af99840bac4f6b6a66420da2840263c0c61ae"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/020_aligned/020_aligned/images.txt",
+            "sha256": "68d7414ae6286baf369f88e6f253d72a464de9ed882c50223d7ac9d36d10fb8e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/021_aligned/021_aligned/images.txt",
+            "sha256": "dd773dbabb068a488b84160feef36b22aa6a25e5ed2377aad41a9ff20354b7cf"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/022_aligned/022_aligned/images.txt",
+            "sha256": "a25ec27ac3c6bfce33a544c60fcee4087ca993e789b5a914d0ba3ff065efe26d"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/023_aligned/023_aligned/images.txt",
+            "sha256": "e809bda10a9aabbb18c1b19e522c15494925bfa2fdc1d0f605c7a4e60c6ae1e9"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/024_aligned/024_aligned/images.txt",
+            "sha256": "e4ca9498eb4f82f9f1c232d14ff5d05e44027805f2583327797c80522375bb0b"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/025_aligned/025_aligned/images.txt",
+            "sha256": "1d152f94bda11b68982b316f794892887b48959f21677c026ffa1f49f7dd11a3"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/026_aligned/026_aligned/images.txt",
+            "sha256": "6291f2b67b9c66e3e866543711a5a549790f17a41ccdb52f5ee515f72f842398"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/027_aligned/027_aligned/images.txt",
+            "sha256": "a62faa0ee0df6d393d81ca899bb6f8740dce3461a01e49bccb9b5625afabd58c"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/028_aligned/028_aligned/images.txt",
+            "sha256": "4a028de66981aa5c544c9c9d6d13a3a0078a6384d7abd7ef11eb881b3846c1c5"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/029_aligned/029_aligned/images.txt",
+            "sha256": "67461bd472c93577c8559d4aaca43605e2ebf0832d11a04c5e7b37a21fe250a1"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/030_aligned/030_aligned/images.txt",
+            "sha256": "b6635b7fac27e87eb3caba5cbd1e2c0e9cfd62903d77cbec7c7910409b4b4e07"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/031_aligned/031_aligned/images.txt",
+            "sha256": "39ed682c91998ffb2cb8da7dceb13d5becb6dc8d64f1e5d7ca817b4a5ba49857"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/032_aligned/032_aligned/images.txt",
+            "sha256": "3baa3bb874ed41c50dce6c5236480c4ab88940e1bb1e1d8c1617c0c63570576d"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/033_aligned/033_aligned/images.txt",
+            "sha256": "a51fa550008138b6db3dd30f3f131764ac0d95f47d2c64b47e1b7b70ac7e8337"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/034_aligned/034_aligned/images.txt",
+            "sha256": "ec6849638ea8cb7a34449fcdb42b1c8a6d4d3f4a7131c0e6272a35e7a9cba52e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/035_aligned/035_aligned/images.txt",
+            "sha256": "d27bec55c0818e231646680e8cf97334ca2d791e393948de072693b64b66f233"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/036_aligned/036_aligned/images.txt",
+            "sha256": "bea3af027bcf51d38e3b27dca101a9d3c1f13e8932dbdb65cfe2084f62ca3d0a"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/037_aligned/037_aligned/images.txt",
+            "sha256": "f68e53c7f7c9326c5fce35b5d14e361bdfa4d9b357d6a53d75f389c5d4f4cde0"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/038_aligned/038_aligned/images.txt",
+            "sha256": "5cf835459c4f807e4772ce19b7009056400be5e97dbd463e91b285d50972d992"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/039_aligned/039_aligned/images.txt",
+            "sha256": "fcb14ead9bd84c598d8777a6cf0e6c1b4d5db44f4ebf37c0847daed155aa93a4"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/040_aligned/040_aligned/images.txt",
+            "sha256": "ebf638fec64afd567803337b99eeafa90690d39a3cecfcf54f10a55b03b633b3"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/041_aligned/041_aligned/images.txt",
+            "sha256": "3df716dbc14cfd07aa36c2862103e958256cac2c9d188c44a8cf4fd59082f48b"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/042_aligned/042_aligned/images.txt",
+            "sha256": "696a7da819cd6a5ad12f132933942bc5d85c1211b54bb250a44638975cd295ae"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/043_aligned/043_aligned/images.txt",
+            "sha256": "789fc546324900bce5ac0e20d61aa163aa036f23fe35f646c57833108eea68b0"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/044_aligned/044_aligned/images.txt",
+            "sha256": "d52d90d99ad034f1493407bf2a300fdec1caa40a4ddc2547b002f12869d4ebf4"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/045_aligned/045_aligned/images.txt",
+            "sha256": "3dc97b567540c86df81a0856a11e99f7c9cb1243cf4c7565e343d8a2e20f4243"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/046_aligned/046_aligned/images.txt",
+            "sha256": "bebf00a9cfdd66f3bf76c08dc7e5b76a6df87f6bf625e15a0dddca960ab33e9b"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/047_aligned/047_aligned/images.txt",
+            "sha256": "8c83d3c43be9ebc5a73b7b72474d8a66a96920e9b7c6a624c8a0b2e05675621e"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/048_aligned/048_aligned/images.txt",
+            "sha256": "bd693f9178e23ce4bc56218319971dabfff0a891e869ddda2d4533ac895a9611"
+          },
+          {
+            "path": "3D-models/individual/colmap_reconstructions/049_aligned/049_aligned/images.txt",
+            "sha256": "c77502d420f8c8f4013943a14611c986ef2ebde81f43451b39a3bbe1e6b88177"
+          }
+        ],
+        "colmap_pose_bundle_sha256": "659fb73a6f96015fb8528313ebd57a320de69767285b0ed8feebbb78ddbfd755",
+        "colmap_model_image_counts": {
+          "001_aligned": 564,
+          "002_aligned": 297,
+          "003_aligned": 372,
+          "004_aligned": 855,
+          "005_aligned": 600,
+          "006_aligned": 699,
+          "007_aligned": 306,
+          "008_aligned": 363,
+          "009_aligned": 561,
+          "010_aligned": 300,
+          "011_aligned": 342,
+          "012_aligned": 300,
+          "013_aligned": 303,
+          "014_aligned": 300,
+          "015_aligned": 336,
+          "016_aligned": 303,
+          "017_aligned": 618,
+          "018_aligned": 594,
+          "019_aligned": 300,
+          "020_aligned": 297,
+          "021_aligned": 300,
+          "022_aligned": 612,
+          "023_aligned": 786,
+          "024_aligned": 714,
+          "025_aligned": 681,
+          "026_aligned": 303,
+          "027_aligned": 303,
+          "028_aligned": 303,
+          "029_aligned": 300,
+          "030_aligned": 300,
+          "031_aligned": 303,
+          "032_aligned": 300,
+          "033_aligned": 300,
+          "034_aligned": 303,
+          "035_aligned": 591,
+          "036_aligned": 618,
+          "037_aligned": 600,
+          "038_aligned": 618,
+          "039_aligned": 795,
+          "040_aligned": 330,
+          "041_aligned": 303,
+          "042_aligned": 303,
+          "043_aligned": 327,
+          "044_aligned": 336,
+          "045_aligned": 300,
+          "046_aligned": 411,
+          "047_aligned": 303,
+          "048_aligned": 309,
+          "049_aligned": 300
+        },
+        "train_reference_pose_overlap_count": 0,
+        "train_reference_max_center_disagreement_meters": null,
+        "primary_source_urls": [
+          "https://data.ciirc.cvut.cz/public/projects/2020VisualLocalization/RobotCar-Seasons/README_RobotCar_v2.md",
+          "https://data.ciirc.cvut.cz/public/projects/2020VisualLocalization/RobotCar-Seasons/README_RobotCar-Seasons.md",
+          "https://data.ciirc.cvut.cz/public/projects/2020VisualLocalization/RobotCar-Seasons/robotcar_v2_train.txt"
+        ],
+        "limitations": "Custom position-only retrieval diagnostic on public train poses, not official test. All camera sides are eligible positives; no viewpoint/visibility/orientation filter. Official test query poses are not public and are never inferred here."
+      },
+      "ground_truth_sha256": "78b0387559bf09ec3e7c68c1d6a0a8fddfd95098c11a54c362f042e508822f1a",
+      "metadata_sha256": {
+        "/home/admin123/github/AsymVPR/configs/evaluation_sources/robotcar_public/night-rain.json": "4e3b49779cc2255b1740949bd7edafe3d3ec037e0af082feee2db9774030ddff",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/metadata/robotcar_v2_train.txt?utm_source=chatgpt.com": "842cb03eccf2b10b7ba0a2fe431c1f063f4a1c4459f042b536c9fb39a0315744",
+        "/home/admin123/github/WeatherVPR/src/weather_vpr/inference/robotcar.py": "6073f5fb1011cda4c1ec29a4bb76dcbedfb2465e838309772518264e7b825407",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/001_aligned/001_aligned/images.txt": "a509b3562a1537f276c5790cebb93a61f595d6298bcbc0618030cd6023a79171",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/002_aligned/002_aligned/images.txt": "6ddb664a5c0d05091d28bf869d56c3ca0dd990a8773065637dd413c3940d7f6c",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/003_aligned/003_aligned/images.txt": "35133c880a06cfae4bf530581605ac8c97d16151db459aaf073a5461989402b6",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/004_aligned/004_aligned/images.txt": "7cefe64c258ec4fcec31ec289440ed84deaa7db59a71d2eba42e21d583866114",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/005_aligned/005_aligned/images.txt": "66185231070e815fe1075094015c1871281fc862c481c254aa48247c7f3413bc",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/006_aligned/006_aligned/images.txt": "a312ed5f018ca35e185c5beb4ac95da2d5565547de17984616db9d90d4250016",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/007_aligned/007_aligned/images.txt": "4de43a12d26f08dad8d9a50673df0779781311ad3ad43258a39e1bc790b3169e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/008_aligned/008_aligned/images.txt": "b1758437ac2ac36fae462de06cea502989b60ee1f4bc8a20532c562a5d314397",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/009_aligned/009_aligned/images.txt": "bc6a54e9afab4354708b917dec38cf377de62490af76e00b3f8a474406871601",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/010_aligned/010_aligned/images.txt": "8b2659cd61c61f6cfb67745a58a612d3f7d56b5d924d4c166ac696fb81ac3fe5",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/011_aligned/011_aligned/images.txt": "56d0f4bd356611e9fa8b51243a415a8c000d476e8ab9bae54eca9a91cbf31a87",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/012_aligned/012_aligned/images.txt": "dd1c24c6654c8b28fe8cab5ea72c8953fc7e5992679b7b3a61989738c9c58bed",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/013_aligned/013_aligned/images.txt": "95b376d4ba3f56940c3632649534f3eb7348b0a1cfe7c1dfb97a9f1d212e770a",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/014_aligned/014_aligned/images.txt": "db6e43b5f5fb8c96d95523429b6c8116a236971faa72811dc1f144cbaf493a6e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/015_aligned/015_aligned/images.txt": "ef6a8aa8ce7364542fe3e79bfc106c756705238ac623486e9c3f23553442fe75",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/016_aligned/016_aligned/images.txt": "9b2e1834909807a90cf8402a527d201d73996690e28d51316a327d7062f266e2",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/017_aligned/017_aligned/images.txt": "02455194e09ccacf1733602b3188ab919711a6c4ebbf817ade410bd8a16591e6",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/018_aligned/018_aligned/images.txt": "b7ba3bc91e377b873a40d75f666e3c8ec0f81a928d136dd96d64a72d3e52d461",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/019_aligned/019_aligned/images.txt": "95369df94e4a30bf7d1a519bb77af99840bac4f6b6a66420da2840263c0c61ae",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/020_aligned/020_aligned/images.txt": "68d7414ae6286baf369f88e6f253d72a464de9ed882c50223d7ac9d36d10fb8e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/021_aligned/021_aligned/images.txt": "dd773dbabb068a488b84160feef36b22aa6a25e5ed2377aad41a9ff20354b7cf",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/022_aligned/022_aligned/images.txt": "a25ec27ac3c6bfce33a544c60fcee4087ca993e789b5a914d0ba3ff065efe26d",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/023_aligned/023_aligned/images.txt": "e809bda10a9aabbb18c1b19e522c15494925bfa2fdc1d0f605c7a4e60c6ae1e9",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/024_aligned/024_aligned/images.txt": "e4ca9498eb4f82f9f1c232d14ff5d05e44027805f2583327797c80522375bb0b",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/025_aligned/025_aligned/images.txt": "1d152f94bda11b68982b316f794892887b48959f21677c026ffa1f49f7dd11a3",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/026_aligned/026_aligned/images.txt": "6291f2b67b9c66e3e866543711a5a549790f17a41ccdb52f5ee515f72f842398",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/027_aligned/027_aligned/images.txt": "a62faa0ee0df6d393d81ca899bb6f8740dce3461a01e49bccb9b5625afabd58c",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/028_aligned/028_aligned/images.txt": "4a028de66981aa5c544c9c9d6d13a3a0078a6384d7abd7ef11eb881b3846c1c5",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/029_aligned/029_aligned/images.txt": "67461bd472c93577c8559d4aaca43605e2ebf0832d11a04c5e7b37a21fe250a1",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/030_aligned/030_aligned/images.txt": "b6635b7fac27e87eb3caba5cbd1e2c0e9cfd62903d77cbec7c7910409b4b4e07",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/031_aligned/031_aligned/images.txt": "39ed682c91998ffb2cb8da7dceb13d5becb6dc8d64f1e5d7ca817b4a5ba49857",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/032_aligned/032_aligned/images.txt": "3baa3bb874ed41c50dce6c5236480c4ab88940e1bb1e1d8c1617c0c63570576d",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/033_aligned/033_aligned/images.txt": "a51fa550008138b6db3dd30f3f131764ac0d95f47d2c64b47e1b7b70ac7e8337",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/034_aligned/034_aligned/images.txt": "ec6849638ea8cb7a34449fcdb42b1c8a6d4d3f4a7131c0e6272a35e7a9cba52e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/035_aligned/035_aligned/images.txt": "d27bec55c0818e231646680e8cf97334ca2d791e393948de072693b64b66f233",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/036_aligned/036_aligned/images.txt": "bea3af027bcf51d38e3b27dca101a9d3c1f13e8932dbdb65cfe2084f62ca3d0a",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/037_aligned/037_aligned/images.txt": "f68e53c7f7c9326c5fce35b5d14e361bdfa4d9b357d6a53d75f389c5d4f4cde0",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/038_aligned/038_aligned/images.txt": "5cf835459c4f807e4772ce19b7009056400be5e97dbd463e91b285d50972d992",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/039_aligned/039_aligned/images.txt": "fcb14ead9bd84c598d8777a6cf0e6c1b4d5db44f4ebf37c0847daed155aa93a4",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/040_aligned/040_aligned/images.txt": "ebf638fec64afd567803337b99eeafa90690d39a3cecfcf54f10a55b03b633b3",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/041_aligned/041_aligned/images.txt": "3df716dbc14cfd07aa36c2862103e958256cac2c9d188c44a8cf4fd59082f48b",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/042_aligned/042_aligned/images.txt": "696a7da819cd6a5ad12f132933942bc5d85c1211b54bb250a44638975cd295ae",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/043_aligned/043_aligned/images.txt": "789fc546324900bce5ac0e20d61aa163aa036f23fe35f646c57833108eea68b0",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/044_aligned/044_aligned/images.txt": "d52d90d99ad034f1493407bf2a300fdec1caa40a4ddc2547b002f12869d4ebf4",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/045_aligned/045_aligned/images.txt": "3dc97b567540c86df81a0856a11e99f7c9cb1243cf4c7565e343d8a2e20f4243",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/046_aligned/046_aligned/images.txt": "bebf00a9cfdd66f3bf76c08dc7e5b76a6df87f6bf625e15a0dddca960ab33e9b",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/047_aligned/047_aligned/images.txt": "8c83d3c43be9ebc5a73b7b72474d8a66a96920e9b7c6a624c8a0b2e05675621e",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/048_aligned/048_aligned/images.txt": "bd693f9178e23ce4bc56218319971dabfff0a891e869ddda2d4533ac895a9611",
+        "/home/admin123/github/WORKSPACE/dataset/RobotCar-Seasons/3D-models/individual/colmap_reconstructions/049_aligned/049_aligned/images.txt": "c77502d420f8c8f4013943a14611c986ef2ebde81f43451b39a3bbe1e6b88177"
+      },
+      "manifest_sha256": "b244cbad3702066ca9db59bcbe68bc44fe7a087863f6befa78780731a88f8d60"
+    },
+    "gardenspoint_night_day_right": {
+      "dataset": "gardenspoint_night_day_right",
+      "root": "/home/admin123/github/AsymVPR/artifacts/benchmark_sources/gardens_original",
+      "references": {
+        "count": 200,
+        "ordered_paths_sha256": "4fe7b662de752d450433e74cebbbcb846ff3aeafe6598df8ac9c4ef10abffb57",
+        "input_file_stats_sha256": "14e7eaccd47690c3c53acb2b1e16423375d3c1a7fe109c83a0558f045d33c4ff"
+      },
+      "queries": {
+        "count": 200,
+        "ordered_paths_sha256": "6d3b6f16943eaac27af5fd590520a664008309782afb94ed887e7b52d7bf5b2d",
+        "input_file_stats_sha256": "96167095098fd8aba4a7107ecbc8874d79594372b7b370e87e0beb9cd3f9fd6a"
+      },
+      "protocol": {
+        "type": "Gardens Point night retrieval; VPR-Bench ordinal positives",
+        "split": "all 200 original night_right queries",
+        "gallery": "day_right",
+        "positive": "published GardensPointWalking ground_truth_new.npy; intersect valid 200-reference IDs",
+        "invalid_published_boundary_indices_clipped": 3,
+        "mapping": "All 600 images extracted byte-for-byte from the MD5-verified original Zenodo ZIP; canonical names retained",
+        "canonical_order": "Image000.jpg through Image199.jpg in each original sequence",
+        "source_urls": [
+          "https://zenodo.org/records/4590133",
+          "https://github.com/MubarizZaffar/VPR-Bench/blob/77ad30f3684476717188c67d7f3f66be19f832af/datasets/GardensPointWalking/ground_truth_new.npy"
+        ],
+        "limitation": "Published frame-tolerance retrieval protocol, not metric-distance ground truth"
+      },
+      "ground_truth_sha256": "67bc2829e22f0ed6c3f6f2bdce3762988f9c809f3cccb858114a23b3d3562643",
+      "metadata_sha256": {
+        "/home/admin123/github/AsymVPR/configs/evaluation_sources/gardenspoint/night_day_right.json": "1a7619b43ad30757e28e0481cfccaaae16c29814715faf4e0fe7d7183f425003",
+        "/home/admin123/github/AsymVPR/artifacts/benchmark_sources/GardensPointWalking.zip": "078aea83fc2214ebac563cc7502e3f273863c9287839c97be4b79da8ebad1282",
+        "/home/admin123/github/AsymVPR/configs/evaluation_sources/gardenspoint/GardensPointWalking_ground_truth_new.npy": "59a2c742386744a2d057c07ed4cd29669ff381d893202afde08eab4ab266d312"
+      },
+      "manifest_sha256": "4bce5246fccf7c10a3dc0c08c1b4092d1ebe404542578e63f8fc3f46f40be192"
+    },
+    "gardenspoint_night_day_left": {
+      "dataset": "gardenspoint_night_day_left",
+      "root": "/home/admin123/github/AsymVPR/artifacts/benchmark_sources/gardens_original",
+      "references": {
+        "count": 200,
+        "ordered_paths_sha256": "85ca3e570fe5dcbde77b3e6fce72cb2825dda9aa5aa5429190511473ba9b3cd4",
+        "input_file_stats_sha256": "feea2c4b89ab61696eff1f23aa26ff7da85761e7e47ed9b9a462f8fad39cffd2"
+      },
+      "queries": {
+        "count": 200,
+        "ordered_paths_sha256": "6d3b6f16943eaac27af5fd590520a664008309782afb94ed887e7b52d7bf5b2d",
+        "input_file_stats_sha256": "96167095098fd8aba4a7107ecbc8874d79594372b7b370e87e0beb9cd3f9fd6a"
+      },
+      "protocol": {
+        "type": "Gardens Point night retrieval; VPR-Bench ordinal positives",
+        "split": "all 200 original night_right queries",
+        "gallery": "day_left",
+        "positive": "published GardensPointWalking ground_truth_new.npy; intersect valid 200-reference IDs",
+        "invalid_published_boundary_indices_clipped": 3,
+        "mapping": "All 600 images extracted byte-for-byte from the MD5-verified original Zenodo ZIP; canonical names retained",
+        "canonical_order": "Image000.jpg through Image199.jpg in each original sequence",
+        "source_urls": [
+          "https://zenodo.org/records/4590133",
+          "https://github.com/MubarizZaffar/VPR-Bench/blob/77ad30f3684476717188c67d7f3f66be19f832af/datasets/GardensPointWalking/ground_truth_new.npy"
+        ],
+        "limitation": "Published frame-tolerance retrieval protocol, not metric-distance ground truth"
+      },
+      "ground_truth_sha256": "67bc2829e22f0ed6c3f6f2bdce3762988f9c809f3cccb858114a23b3d3562643",
+      "metadata_sha256": {
+        "/home/admin123/github/AsymVPR/configs/evaluation_sources/gardenspoint/night_day_left.json": "adac5961c2732c1c1f96e41e9e40c4caa73ecf6b849fef81f57e180b27d5d9d6",
+        "/home/admin123/github/AsymVPR/artifacts/benchmark_sources/GardensPointWalking.zip": "078aea83fc2214ebac563cc7502e3f273863c9287839c97be4b79da8ebad1282",
+        "/home/admin123/github/AsymVPR/configs/evaluation_sources/gardenspoint/GardensPointWalking_ground_truth_new.npy": "59a2c742386744a2d057c07ed4cd29669ff381d893202afde08eab4ab266d312"
+      },
+      "manifest_sha256": "81800a2d44a363101ab2d6857187569315e1210afaf9b959464720bf973d52b4"
+    },
+    "sped_mixed_illumination_diagnostic": {
+      "dataset": "sped_mixed_illumination_diagnostic",
+      "root": "/home/admin123/github/datasets/SPED",
+      "references": {
+        "count": 607,
+        "ordered_paths_sha256": "193ddc34db12a1c8aad4f1733a601b56e11efe85d51468fd041355b34207c610",
+        "input_file_stats_sha256": "ef49c14f92bdb1e53a880c5ced7258fdd67a120e1a11643931a3bc0847759150"
+      },
+      "queries": {
+        "count": 607,
+        "ordered_paths_sha256": "2139f268610b1a04c15bc9ece70f32b1ff34b5a9b05b19423f6512bc4997806c",
+        "input_file_stats_sha256": "9403c84ce60bbaa045e041ce7ffb862ae1af27513816bda37c7695ab7c150244"
+      },
+      "protocol": {
+        "type": "supplementary mixed-illumination diagnostic; NOT night-only",
+        "positive": "published SPED_gt.npy",
+        "night_labels": "no verified per-query night labels"
+      },
+      "ground_truth_sha256": "3776f1ab76aa4b9f63a17c901ac573f0ad957d2bc434b9b7c79535865e6c5ce2",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/SPED/SPED_dbImages.npy": "8984239ca9924a5267f8534d6799ec90b521911a6decf5e4a501acf1397e0aab",
+        "/home/admin123/github/datasets/SPED/SPED_qImages.npy": "ef5dc51d06e4703a2cbb4216a7a78f83847af0da605ef7d198994887bf5de4b1",
+        "/home/admin123/github/datasets/SPED/SPED_gt.npy": "8db70792fb609b49c052baab76f81e4f651b52e682fd92b32c079e3de444ea5a"
+      },
+      "manifest_sha256": "b12d7700a72a3a1d7bb0a41cb6e877b2ac6086b077e4cda83cde9d7f26e6d121"
+    },
+    "tokyo105_night": {
+      "queries": {
+        "count": 105
+      },
+      "protocol": "trusted N labels in the original NetVLAD 315-query subset, full gallery"
+    }
+  },
+  "results": {
+    "tokyo105_night": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 83.80952380952381,
+          "R@5": 92.38095238095238,
+          "R@10": 93.33333333333333
+        },
+        "query_count": 105,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "existing_evaluation": true,
+        "source_summary": "results/evaluation/summary.json",
+        "source_summary_sha256": "fb44199b79b83cf4efa16092c93683886c6bbb42a8fe333070d99259d3cc4d68",
+        "diagnostic": {
+          "available": true,
+          "num_queries": 105,
+          "num_references": 75984,
+          "query_indices_in_full315": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35,
+            38,
+            41,
+            44,
+            47,
+            50,
+            53,
+            56,
+            59,
+            62,
+            65,
+            68,
+            71,
+            74,
+            77,
+            80,
+            83,
+            86,
+            89,
+            92,
+            95,
+            98,
+            101,
+            104,
+            107,
+            110,
+            113,
+            116,
+            119,
+            122,
+            125,
+            128,
+            131,
+            134,
+            137,
+            140,
+            143,
+            146,
+            149,
+            152,
+            155,
+            158,
+            161,
+            164,
+            167,
+            170,
+            173,
+            176,
+            179,
+            182,
+            185,
+            188,
+            191,
+            194,
+            197,
+            200,
+            203,
+            206,
+            209,
+            212,
+            215,
+            218,
+            221,
+            224,
+            227,
+            230,
+            233,
+            236,
+            239,
+            242,
+            245,
+            248,
+            251,
+            254,
+            257,
+            260,
+            263,
+            266,
+            269,
+            272,
+            275,
+            278,
+            281,
+            284,
+            287,
+            290,
+            293,
+            296,
+            299,
+            302,
+            305,
+            308,
+            311,
+            314
+          ],
+          "query_ids": [
+            "00687.jpg",
+            "00690.jpg",
+            "00693.jpg",
+            "00732.jpg",
+            "00735.jpg",
+            "00738.jpg",
+            "00381.jpg",
+            "00384.jpg",
+            "00387.jpg",
+            "00390.jpg",
+            "00393.jpg",
+            "00396.jpg",
+            "00039.jpg",
+            "00042.jpg",
+            "00045.jpg",
+            "00399.jpg",
+            "00402.jpg",
+            "00405.jpg",
+            "00048.jpg",
+            "00051.jpg",
+            "00054.jpg",
+            "00057.jpg",
+            "00060.jpg",
+            "00063.jpg",
+            "00030.jpg",
+            "00033.jpg",
+            "00036.jpg",
+            "00408.jpg",
+            "00411.jpg",
+            "00414.jpg",
+            "00417.jpg",
+            "00420.jpg",
+            "00423.jpg",
+            "00210.jpg",
+            "00213.jpg",
+            "00216.jpg",
+            "00219.jpg",
+            "00222.jpg",
+            "00225.jpg",
+            "00201.jpg",
+            "00204.jpg",
+            "00207.jpg",
+            "00084.jpg",
+            "00087.jpg",
+            "00090.jpg",
+            "00426.jpg",
+            "00429.jpg",
+            "00432.jpg",
+            "00021.jpg",
+            "00024.jpg",
+            "00027.jpg",
+            "00192.jpg",
+            "00195.jpg",
+            "00198.jpg",
+            "00093.jpg",
+            "00096.jpg",
+            "00099.jpg",
+            "00435.jpg",
+            "00438.jpg",
+            "00441.jpg",
+            "00183.jpg",
+            "00186.jpg",
+            "00189.jpg",
+            "00102.jpg",
+            "00105.jpg",
+            "00108.jpg",
+            "00156.jpg",
+            "00159.jpg",
+            "00162.jpg",
+            "00012.jpg",
+            "00015.jpg",
+            "00018.jpg",
+            "00174.jpg",
+            "00177.jpg",
+            "00180.jpg",
+            "00111.jpg",
+            "00114.jpg",
+            "00117.jpg",
+            "00165.jpg",
+            "00168.jpg",
+            "00171.jpg",
+            "00147.jpg",
+            "00150.jpg",
+            "00153.jpg",
+            "00120.jpg",
+            "00123.jpg",
+            "00126.jpg",
+            "00129.jpg",
+            "00132.jpg",
+            "00135.jpg",
+            "00444.jpg",
+            "00447.jpg",
+            "00450.jpg",
+            "00273.jpg",
+            "00276.jpg",
+            "00279.jpg",
+            "00228.jpg",
+            "00231.jpg",
+            "00234.jpg",
+            "00264.jpg",
+            "00267.jpg",
+            "00270.jpg",
+            "00237.jpg",
+            "00240.jpg",
+            "00243.jpg"
+          ],
+          "initial_percent": {
+            "R@1": 83.80952380952381,
+            "R@5": 92.38095238095238,
+            "R@10": 93.33333333333333
+          },
+          "final_percent": {
+            "R@1": 83.80952380952381,
+            "R@5": 92.38095238095238,
+            "R@10": 93.33333333333333
+          },
+          "difference_percentage_points": {
+            "R@1": 0.0,
+            "R@5": 0.0,
+            "R@10": 0.0
+          },
+          "improved_at_1": 0,
+          "regressed_at_1": 0,
+          "definition": {
+            "selection": "CSV field 6 == N; verified against bound official 105-query ID set",
+            "ground_truth": "official MAT UTM <=25 m; current full-gallery indices mapped by exact image path",
+            "selection_role": "fixed final diagnostic, never checkpoint selection",
+            "source_sha256": "f516b055a128e7af122b1858c0960e98b6c8ba577ab503f47df3036f11b53fb7",
+            "mat_sha256": "8fa9474524500bfa844664d5d7b850f4af8bd755e03e8d081cc2dbafcde4d250",
+            "csv_labels_sha256": "3c60e679cd8ed2980747ca03081c21fa1da98a8f4a155f30c096e1f04c3deb47",
+            "ground_truth_sha256": "007b1aa2633ad72c813f6cf59aad81b0974a508d592aca2975fa22d6aef8ad58",
+            "differing_gt_rows_from_main_protocol": 0,
+            "limitation": "Local queries contain all 1125-query v3 naming. Standard query names/coordinates defined by this official NetVLAD mat. Exact v2 image identity not yet independently byte-verified."
+          }
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 87.61904761904762,
+          "R@5": 94.28571428571428,
+          "R@10": 94.28571428571428
+        },
+        "query_count": 105,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "existing_evaluation": true,
+        "source_summary": "runs/boq_b2_night_v1/final_evaluation/summary.json",
+        "source_summary_sha256": "a02e43d3f0c5b44aa235f7299145d850f2100d759e773d7ccd9337dbe79b243c",
+        "diagnostic": {
+          "available": true,
+          "num_queries": 105,
+          "num_references": 75984,
+          "query_indices_in_full315": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35,
+            38,
+            41,
+            44,
+            47,
+            50,
+            53,
+            56,
+            59,
+            62,
+            65,
+            68,
+            71,
+            74,
+            77,
+            80,
+            83,
+            86,
+            89,
+            92,
+            95,
+            98,
+            101,
+            104,
+            107,
+            110,
+            113,
+            116,
+            119,
+            122,
+            125,
+            128,
+            131,
+            134,
+            137,
+            140,
+            143,
+            146,
+            149,
+            152,
+            155,
+            158,
+            161,
+            164,
+            167,
+            170,
+            173,
+            176,
+            179,
+            182,
+            185,
+            188,
+            191,
+            194,
+            197,
+            200,
+            203,
+            206,
+            209,
+            212,
+            215,
+            218,
+            221,
+            224,
+            227,
+            230,
+            233,
+            236,
+            239,
+            242,
+            245,
+            248,
+            251,
+            254,
+            257,
+            260,
+            263,
+            266,
+            269,
+            272,
+            275,
+            278,
+            281,
+            284,
+            287,
+            290,
+            293,
+            296,
+            299,
+            302,
+            305,
+            308,
+            311,
+            314
+          ],
+          "query_ids": [
+            "00687.jpg",
+            "00690.jpg",
+            "00693.jpg",
+            "00732.jpg",
+            "00735.jpg",
+            "00738.jpg",
+            "00381.jpg",
+            "00384.jpg",
+            "00387.jpg",
+            "00390.jpg",
+            "00393.jpg",
+            "00396.jpg",
+            "00039.jpg",
+            "00042.jpg",
+            "00045.jpg",
+            "00399.jpg",
+            "00402.jpg",
+            "00405.jpg",
+            "00048.jpg",
+            "00051.jpg",
+            "00054.jpg",
+            "00057.jpg",
+            "00060.jpg",
+            "00063.jpg",
+            "00030.jpg",
+            "00033.jpg",
+            "00036.jpg",
+            "00408.jpg",
+            "00411.jpg",
+            "00414.jpg",
+            "00417.jpg",
+            "00420.jpg",
+            "00423.jpg",
+            "00210.jpg",
+            "00213.jpg",
+            "00216.jpg",
+            "00219.jpg",
+            "00222.jpg",
+            "00225.jpg",
+            "00201.jpg",
+            "00204.jpg",
+            "00207.jpg",
+            "00084.jpg",
+            "00087.jpg",
+            "00090.jpg",
+            "00426.jpg",
+            "00429.jpg",
+            "00432.jpg",
+            "00021.jpg",
+            "00024.jpg",
+            "00027.jpg",
+            "00192.jpg",
+            "00195.jpg",
+            "00198.jpg",
+            "00093.jpg",
+            "00096.jpg",
+            "00099.jpg",
+            "00435.jpg",
+            "00438.jpg",
+            "00441.jpg",
+            "00183.jpg",
+            "00186.jpg",
+            "00189.jpg",
+            "00102.jpg",
+            "00105.jpg",
+            "00108.jpg",
+            "00156.jpg",
+            "00159.jpg",
+            "00162.jpg",
+            "00012.jpg",
+            "00015.jpg",
+            "00018.jpg",
+            "00174.jpg",
+            "00177.jpg",
+            "00180.jpg",
+            "00111.jpg",
+            "00114.jpg",
+            "00117.jpg",
+            "00165.jpg",
+            "00168.jpg",
+            "00171.jpg",
+            "00147.jpg",
+            "00150.jpg",
+            "00153.jpg",
+            "00120.jpg",
+            "00123.jpg",
+            "00126.jpg",
+            "00129.jpg",
+            "00132.jpg",
+            "00135.jpg",
+            "00444.jpg",
+            "00447.jpg",
+            "00450.jpg",
+            "00273.jpg",
+            "00276.jpg",
+            "00279.jpg",
+            "00228.jpg",
+            "00231.jpg",
+            "00234.jpg",
+            "00264.jpg",
+            "00267.jpg",
+            "00270.jpg",
+            "00237.jpg",
+            "00240.jpg",
+            "00243.jpg"
+          ],
+          "initial_percent": {
+            "R@1": 83.80952380952381,
+            "R@5": 92.38095238095238,
+            "R@10": 93.33333333333333
+          },
+          "final_percent": {
+            "R@1": 87.61904761904762,
+            "R@5": 94.28571428571428,
+            "R@10": 94.28571428571428
+          },
+          "difference_percentage_points": {
+            "R@1": 3.80952380952381,
+            "R@5": 1.904761904761898,
+            "R@10": 0.952380952380949
+          },
+          "improved_at_1": 5,
+          "regressed_at_1": 1,
+          "definition": {
+            "selection": "CSV field 6 == N; verified against bound official 105-query ID set",
+            "ground_truth": "official MAT UTM <=25 m; current full-gallery indices mapped by exact image path",
+            "selection_role": "fixed final diagnostic, never checkpoint selection",
+            "source_sha256": "f516b055a128e7af122b1858c0960e98b6c8ba577ab503f47df3036f11b53fb7",
+            "mat_sha256": "8fa9474524500bfa844664d5d7b850f4af8bd755e03e8d081cc2dbafcde4d250",
+            "csv_labels_sha256": "3c60e679cd8ed2980747ca03081c21fa1da98a8f4a155f30c096e1f04c3deb47",
+            "ground_truth_sha256": "007b1aa2633ad72c813f6cf59aad81b0974a508d592aca2975fa22d6aef8ad58",
+            "differing_gt_rows_from_main_protocol": 0,
+            "limitation": "Local queries contain all 1125-query v3 naming. Standard query names/coordinates defined by this official NetVLAD mat. Exact v2 image identity not yet independently byte-verified."
+          }
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 84.76190476190476,
+          "R@5": 93.33333333333333,
+          "R@10": 94.28571428571428
+        },
+        "query_count": 105,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "existing_evaluation": true,
+        "source_summary": "runs/boq_b2_mixed_camera_v1/final_evaluation/summary.json",
+        "source_summary_sha256": "17d4b06979de9b33a731c0ebe8c31211a7a88e422a0d512b38d0c46f58a86f32",
+        "diagnostic": {
+          "available": true,
+          "num_queries": 105,
+          "num_references": 75984,
+          "query_indices_in_full315": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35,
+            38,
+            41,
+            44,
+            47,
+            50,
+            53,
+            56,
+            59,
+            62,
+            65,
+            68,
+            71,
+            74,
+            77,
+            80,
+            83,
+            86,
+            89,
+            92,
+            95,
+            98,
+            101,
+            104,
+            107,
+            110,
+            113,
+            116,
+            119,
+            122,
+            125,
+            128,
+            131,
+            134,
+            137,
+            140,
+            143,
+            146,
+            149,
+            152,
+            155,
+            158,
+            161,
+            164,
+            167,
+            170,
+            173,
+            176,
+            179,
+            182,
+            185,
+            188,
+            191,
+            194,
+            197,
+            200,
+            203,
+            206,
+            209,
+            212,
+            215,
+            218,
+            221,
+            224,
+            227,
+            230,
+            233,
+            236,
+            239,
+            242,
+            245,
+            248,
+            251,
+            254,
+            257,
+            260,
+            263,
+            266,
+            269,
+            272,
+            275,
+            278,
+            281,
+            284,
+            287,
+            290,
+            293,
+            296,
+            299,
+            302,
+            305,
+            308,
+            311,
+            314
+          ],
+          "query_ids": [
+            "00687.jpg",
+            "00690.jpg",
+            "00693.jpg",
+            "00732.jpg",
+            "00735.jpg",
+            "00738.jpg",
+            "00381.jpg",
+            "00384.jpg",
+            "00387.jpg",
+            "00390.jpg",
+            "00393.jpg",
+            "00396.jpg",
+            "00039.jpg",
+            "00042.jpg",
+            "00045.jpg",
+            "00399.jpg",
+            "00402.jpg",
+            "00405.jpg",
+            "00048.jpg",
+            "00051.jpg",
+            "00054.jpg",
+            "00057.jpg",
+            "00060.jpg",
+            "00063.jpg",
+            "00030.jpg",
+            "00033.jpg",
+            "00036.jpg",
+            "00408.jpg",
+            "00411.jpg",
+            "00414.jpg",
+            "00417.jpg",
+            "00420.jpg",
+            "00423.jpg",
+            "00210.jpg",
+            "00213.jpg",
+            "00216.jpg",
+            "00219.jpg",
+            "00222.jpg",
+            "00225.jpg",
+            "00201.jpg",
+            "00204.jpg",
+            "00207.jpg",
+            "00084.jpg",
+            "00087.jpg",
+            "00090.jpg",
+            "00426.jpg",
+            "00429.jpg",
+            "00432.jpg",
+            "00021.jpg",
+            "00024.jpg",
+            "00027.jpg",
+            "00192.jpg",
+            "00195.jpg",
+            "00198.jpg",
+            "00093.jpg",
+            "00096.jpg",
+            "00099.jpg",
+            "00435.jpg",
+            "00438.jpg",
+            "00441.jpg",
+            "00183.jpg",
+            "00186.jpg",
+            "00189.jpg",
+            "00102.jpg",
+            "00105.jpg",
+            "00108.jpg",
+            "00156.jpg",
+            "00159.jpg",
+            "00162.jpg",
+            "00012.jpg",
+            "00015.jpg",
+            "00018.jpg",
+            "00174.jpg",
+            "00177.jpg",
+            "00180.jpg",
+            "00111.jpg",
+            "00114.jpg",
+            "00117.jpg",
+            "00165.jpg",
+            "00168.jpg",
+            "00171.jpg",
+            "00147.jpg",
+            "00150.jpg",
+            "00153.jpg",
+            "00120.jpg",
+            "00123.jpg",
+            "00126.jpg",
+            "00129.jpg",
+            "00132.jpg",
+            "00135.jpg",
+            "00444.jpg",
+            "00447.jpg",
+            "00450.jpg",
+            "00273.jpg",
+            "00276.jpg",
+            "00279.jpg",
+            "00228.jpg",
+            "00231.jpg",
+            "00234.jpg",
+            "00264.jpg",
+            "00267.jpg",
+            "00270.jpg",
+            "00237.jpg",
+            "00240.jpg",
+            "00243.jpg"
+          ],
+          "initial_percent": {
+            "R@1": 83.80952380952381,
+            "R@5": 92.38095238095238,
+            "R@10": 93.33333333333333
+          },
+          "final_percent": {
+            "R@1": 84.76190476190476,
+            "R@5": 93.33333333333333,
+            "R@10": 94.28571428571428
+          },
+          "difference_percentage_points": {
+            "R@1": 0.952380952380949,
+            "R@5": 0.952380952380949,
+            "R@10": 0.952380952380949
+          },
+          "improved_at_1": 5,
+          "regressed_at_1": 4,
+          "definition": {
+            "selection": "CSV field 6 == N; verified against bound official 105-query ID set",
+            "ground_truth": "official MAT UTM <=25 m; current full-gallery indices mapped by exact image path",
+            "selection_role": "fixed final diagnostic, never checkpoint selection",
+            "source_sha256": "f516b055a128e7af122b1858c0960e98b6c8ba577ab503f47df3036f11b53fb7",
+            "mat_sha256": "8fa9474524500bfa844664d5d7b850f4af8bd755e03e8d081cc2dbafcde4d250",
+            "csv_labels_sha256": "3c60e679cd8ed2980747ca03081c21fa1da98a8f4a155f30c096e1f04c3deb47",
+            "ground_truth_sha256": "007b1aa2633ad72c813f6cf59aad81b0974a508d592aca2975fa22d6aef8ad58",
+            "differing_gt_rows_from_main_protocol": 0,
+            "limitation": "Local queries contain all 1125-query v3 naming. Standard query names/coordinates defined by this official NetVLAD mat. Exact v2 image identity not yet independently byte-verified."
+          }
+        }
+      }
+    },
+    "msls_val_night_day": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 85.45454545454545,
+          "R@5": 94.54545454545455,
+          "R@10": 96.36363636363636
+        },
+        "hits_at_k": {
+          "1": 47,
+          "5": 52,
+          "10": 53
+        },
+        "query_count": 55,
+        "gallery_count": 18841,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/gallery.npy",
+          "feature_sha256": "0115c0e7d3d373a38922514a6caa5989066eebbb1f19e899f1f969a1921cbe1f",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/original.npy",
+          "feature_sha256": "fec51900d712dec9454cfbed5337c0ca030d7ca740185fcf26e15fcf0d7866b9"
+        },
+        "predictions_sha256": "a44b954bccc878c8787b14b430f272596dd1b1caef86bd1197f9c2183b3d0058",
+        "hits_sha256": "6da3c159e9848fad3efe92183c0a4227e7d585b33e28ef816fe7626870ea8059",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 926072832,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49119232000,
+          "required_bytes": 5248040960,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "21cea775f139afd8507766ae73ff75baa8a1635cbef1c6d71a1edbfccd33b979",
+          "recomputed_hits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 89.0909090909091,
+          "R@5": 94.54545454545455,
+          "R@10": 98.18181818181819
+        },
+        "hits_at_k": {
+          "1": 49,
+          "5": 52,
+          "10": 54
+        },
+        "query_count": 55,
+        "gallery_count": 18841,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/gallery.npy",
+          "feature_sha256": "0115c0e7d3d373a38922514a6caa5989066eebbb1f19e899f1f969a1921cbe1f",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/mixed.npy",
+          "feature_sha256": "942a322fdb1db9f45c3967b81cace55cec033133ae34415a4b4ac0fb80a3cfb3",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "1a56a627a51f9ed42ac0bb1cc2012c5e688df07bafd7a3b33fdc7a44736cc340",
+        "hits_sha256": "ec8c4c347f6765b669c32e05b4ec6e8281a9774b74350a4a057f1484edad0827",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 926072832,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49132732416,
+          "required_bytes": 5248040960,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "92a63d113ef9e84a64774806cbf217c08f32069c85e452d36a052f60f3576341",
+          "recomputed_hits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 90.9090909090909,
+          "R@5": 100.0,
+          "R@10": 100.0
+        },
+        "hits_at_k": {
+          "1": 50,
+          "5": 55,
+          "10": 55
+        },
+        "query_count": 55,
+        "gallery_count": 18841,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/gallery.npy",
+          "feature_sha256": "0115c0e7d3d373a38922514a6caa5989066eebbb1f19e899f1f969a1921cbe1f",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/mixed_camera.npy",
+          "feature_sha256": "f0ad31ecf54a5fd8a124a028e59ed297bba6dcc55305770a4ded65e124f399ed"
+        },
+        "predictions_sha256": "557538b07e858981dbefa563b8e2ad956465e39697eea26c80c21ac98bf68ea7",
+        "hits_sha256": "98614310e7c08b25988e21a7c99e0768fcea2c0dc93a4d928fb889d735289950",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 926072832,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48706224128,
+          "required_bytes": 5248040960,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "b04fff751072dbf947f105425d75f76c81d3900752e3fd5d314e434ef6332a44",
+          "recomputed_hits": true
+        }
+      }
+    },
+    "msls_test_night_day": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 36.24595469255664,
+          "R@5": 44.66019417475729,
+          "R@10": 46.92556634304207
+        },
+        "hits_at_k": {
+          "1": 112,
+          "5": 138,
+          "10": 145
+        },
+        "query_count": 309,
+        "gallery_count": 36362,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+          "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/original.npy",
+          "feature_sha256": "83dbf8a793131de7743f2a2326a094ae823f8d202a142fce8913b053080848b9"
+        },
+        "predictions_sha256": "bf8209b0f6f7be0eacdd58638ae3110ef1a8a6daaa51413912514ce8eacc6530",
+        "hits_sha256": "1fc6a98fe4acccffc202a23ba317969be074068c6a52f04289937365dacf83bf",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1787265024,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49130438656,
+          "required_bytes": 6109233152,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "7c06119ddc9e12e6503efce2e7a468321640945d30c0281da3080423d1259ad3",
+          "recomputed_hits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 39.15857605177994,
+          "R@5": 50.161812297734635,
+          "R@10": 53.07443365695793
+        },
+        "hits_at_k": {
+          "1": 121,
+          "5": 155,
+          "10": 164
+        },
+        "query_count": 309,
+        "gallery_count": 36362,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+          "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/mixed.npy",
+          "feature_sha256": "d7e489530de228a58358c3a2b60f43af485be61549bef41ed0de1814b56090f4",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "9c93e1d36cc33e6b39709297303cc143e9ffd8ff679e0862496d5d226a87d3d4",
+        "hits_sha256": "f6b12da9e671401e94bafd177d42c1bc24bfbbedcd99e099eb829c65b45a0b87",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1787265024,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49118248960,
+          "required_bytes": 6109233152,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "dea9f35f56995a31bd3ef826344837105ef9e0bedec4fde6ab8553d38d52b32e",
+          "recomputed_hits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 37.86407766990291,
+          "R@5": 47.57281553398058,
+          "R@10": 51.45631067961165
+        },
+        "hits_at_k": {
+          "1": 117,
+          "5": 147,
+          "10": 159
+        },
+        "query_count": 309,
+        "gallery_count": 36362,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+          "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/mixed_camera.npy",
+          "feature_sha256": "a505bbce40687c9f2a20d882712e3b27367ee12dbec2d15212d415bfa3100ce3"
+        },
+        "predictions_sha256": "5ed8ed00726951e47887696468ff098a22bf90bd1bbb49673bab059c9d7d5995",
+        "hits_sha256": "dc2896f5340287fc8c4c71c60c04da528ed573ba8ea7858aada10ff278deba4a",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1787265024,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49131290624,
+          "required_bytes": 6109233152,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "9b5f4df6dde527c833d25b4cf10d11d197c83e80298844c9f2cd6bedbec3022a",
+          "recomputed_hits": true
+        }
+      }
+    },
+    "svox_test_night": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 87.60631834750912,
+          "R@5": 93.80315917375455,
+          "R@10": 95.38274605103281
+        },
+        "hits_at_k": {
+          "1": 721,
+          "5": 772,
+          "10": 785
+        },
+        "query_count": 823,
+        "gallery_count": 17166,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+          "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/original.npy",
+          "feature_sha256": "c6b56e8760085bdc7ec115853fe498ceb3adef7c0016fdad8d3266433e37a110"
+        },
+        "predictions_sha256": "606dc6538b684a6692f79332dcdecced49675a7da466d88947753794aeeed645",
+        "hits_sha256": "8b92f7f0824682991ac76fb2de44358b337b4cd372bc1dc7fc84636e8ce88fe1",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 843743232,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49145708544,
+          "required_bytes": 5165711360,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "73e103a9df201e5fc7d0594b0762e339cb2c4548a0a88d183468d762769566c3",
+          "recomputed_hits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 93.681652490887,
+          "R@5": 97.20534629404617,
+          "R@10": 98.66342648845686
+        },
+        "hits_at_k": {
+          "1": 771,
+          "5": 800,
+          "10": 812
+        },
+        "query_count": 823,
+        "gallery_count": 17166,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+          "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/mixed.npy",
+          "feature_sha256": "825019cfa83e30003560f0ac19acbf149822d2e95a5d5218df5f20b64f982462",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "e577702bac229c04daf952ded2792f211704e5fac9d8f9ea6a85c0868db394c1",
+        "hits_sha256": "7605ca0b7de1b7da3d1a80f3c39cdcee4d276fb8f8480649852f0b7eee3901cd",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 843743232,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49135419392,
+          "required_bytes": 5165711360,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "99aeb4f9a1dfd3fb5640c8ffc75bd12057bbc7154e5bd0375dcd5f1a20259676",
+          "recomputed_hits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 94.16767922235722,
+          "R@5": 98.42041312272175,
+          "R@10": 98.90643985419199
+        },
+        "hits_at_k": {
+          "1": 775,
+          "5": 810,
+          "10": 814
+        },
+        "query_count": 823,
+        "gallery_count": 17166,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+          "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/mixed_camera.npy",
+          "feature_sha256": "7ca027ffc599559ac26803f0fda4b947601a1f89ed196126f4a3f30ca9870dd3"
+        },
+        "predictions_sha256": "0dc2f124f315647cf7599485d2b68876a75a8b15f4c6946d20d8a63e398fdb69",
+        "hits_sha256": "e71e9a4a9b8c88d79b4ef822deef65a7a193075cc7dce882b3b8f3f47d6a073d",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 843743232,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49120411648,
+          "required_bytes": 5165711360,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "1a9d2848bff0cd33797f2b4649395ac147c15bc5ba53274fdb9cb055d963564e",
+          "recomputed_hits": true
+        }
+      }
+    },
+    "darkdriving_paired_diagnostic": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 9.00314795383001,
+          "R@5": 34.01888772298006,
+          "R@10": 53.31584470094438
+        },
+        "hits_at_k": {
+          "1": 858,
+          "5": 3242,
+          "10": 5081
+        },
+        "query_count": 9530,
+        "gallery_count": 9530,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/original.npy",
+          "feature_sha256": "dbcdf994fd82ec14ef8f7994cc2eb52ae69ed1967b1070dee4e2519eeb9e7ac8"
+        },
+        "predictions_sha256": "66426107dee801d2ee901560b9c542e2b106f64b9a76c52341461417ce29b43e",
+        "hits_sha256": "970ee731c0dfcc1fa1dcde40899aa63ecdae2c43fbe98ae9a80cbf90125e62bf",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 468418560,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49257709568,
+          "required_bytes": 4790386688,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "4adfd77e2f756c38363c3e190aab6b6dafc8d9329a67328a9167a78276529436",
+          "recomputed_hits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 11.416579223504723,
+          "R@5": 42.23504721930745,
+          "R@10": 62.95907660020986
+        },
+        "hits_at_k": {
+          "1": 1088,
+          "5": 4025,
+          "10": 6000
+        },
+        "query_count": 9530,
+        "gallery_count": 9530,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/mixed.npy",
+          "feature_sha256": "7f6bde9824d119552c40fe56088eb61e5a2cf70691851bd6ea9479b58eba0c2e",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "4c8b8fe0ef50cc11e430303f1966adf88563f797ba447145011aa795b0ca2234",
+        "hits_sha256": "8e224102b20dc155a0e99c8e5f105f6806095dc45566579e3aa745c9f8037928",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 468418560,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49255612416,
+          "required_bytes": 4790386688,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "203c915b9e593198b2a433c15b50e394dc887e3155c268530d57f3c7349525c3",
+          "recomputed_hits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 11.469045120671563,
+          "R@5": 42.696747114375654,
+          "R@10": 63.494228751311645
+        },
+        "hits_at_k": {
+          "1": 1093,
+          "5": 4069,
+          "10": 6051
+        },
+        "query_count": 9530,
+        "gallery_count": 9530,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/mixed_camera.npy",
+          "feature_sha256": "e39f2aa0ec1f0f326046955126173630236e68f1c13404e4e50a554b2acaf2c7"
+        },
+        "predictions_sha256": "db812bbc23ecfa8ed6180d34c4a9eb305e47e9ac6a7b9ebead43003dba630f2a",
+        "hits_sha256": "5dfec4113ba4816397bf041271afceee4ae4b6038f265e2aa2d0933dc12ee352",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 468418560,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49412374528,
+          "required_bytes": 4790386688,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "b2fb7ce3e833cdc005ab48ab08844af376561a9be8ea3a523c5e5dcdc1b33bab",
+          "recomputed_hits": true
+        }
+      }
+    },
+    "robotcar_gps_night_diagnostic": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 86.21915981329184,
+          "R@5": 92.78950877972882,
+          "R@10": 94.85218937541676
+        },
+        "hits_at_k": {
+          "1": 19395,
+          "5": 20873,
+          "10": 21337
+        },
+        "query_count": 22495,
+        "gallery_count": 21006,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/original.npy",
+          "feature_sha256": "7c8d1d719e25ad13289eb38c36ff59a5a45af390e5a73761b0b202141639333d"
+        },
+        "predictions_sha256": "bf375c6e80a58182d0534dbd06ccd3bd5dd473357515cd99b875e2f6b5c367e1",
+        "hits_sha256": "54d89d39912a9dd578317c9cfa0d487b780b113dafdf937f4338ac4153dce0dd",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1032486912,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49408245760,
+          "required_bytes": 5354455040,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "886564c990cc633093e249e172828f7924dbb79a697ef6f00f3b0778935099e9",
+          "recomputed_hits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 93.06068015114471,
+          "R@5": 96.9637697266059,
+          "R@10": 97.98621915981329
+        },
+        "hits_at_k": {
+          "1": 20934,
+          "5": 21812,
+          "10": 22042
+        },
+        "query_count": 22495,
+        "gallery_count": 21006,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/mixed.npy",
+          "feature_sha256": "48f217dc4f4f2438923a682aa727d8911ca8d8a2d795682543e6970f84874ec4",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "ad756fab04e10fad332599cb9dc84771f6c520327e94ccaa3fce5fe01a064632",
+        "hits_sha256": "f6efe0f67343ed828b29d4d1d63e49b386e71b58059f3e97b0572b37bbcdbb7b",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1032486912,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49410473984,
+          "required_bytes": 5354455040,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "5949ed2dedaed3e03e064301d4644665053f0013baf204165967904caef13294",
+          "recomputed_hits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 92.9362080462325,
+          "R@5": 96.82151589242054,
+          "R@10": 98.12402756168038
+        },
+        "hits_at_k": {
+          "1": 20906,
+          "5": 21780,
+          "10": 22073
+        },
+        "query_count": 22495,
+        "gallery_count": 21006,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/mixed_camera.npy",
+          "feature_sha256": "c5536950ab655606bd2468015240c466759bcef9f96bbc7d7315be5a88c0fcac"
+        },
+        "predictions_sha256": "7da38a4b4d36b2b09fb9cc9e9935deb88f5f1c387e461d677212dbc4af013742",
+        "hits_sha256": "2892cb55bc2fa21307a1e290668541c3b47cf8946bd461fcc65f369b212c64e2",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1032486912,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49399005184,
+          "required_bytes": 5354455040,
+          "fits": true
+        },
+        "evaluation_reuse": {
+          "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+          "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+          "source_metrics_sha256": "002ac11d58402353ae489fbd0df539c0453a27ba43b13835868aa4d152adbceb",
+          "recomputed_hits": true
+        }
+      }
+    },
+    "robotcar_seasons_public_night": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 90.86294416243655,
+          "R@5": 97.46192893401016,
+          "R@10": 98.47715736040608
+        },
+        "query_count": 197,
+        "gallery_count": 20862,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "325cb74d47a4d6f920e877dc843ebb70b56fc467b5e439d9b549758d1c3b8640",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/1843624e3b4908273203e57153993483f01558be5964b9428e7eff55aa3f20e4/features.npy",
+          "feature_sha256": "27fd420e21a0681f15a199675e90062bd5d05c388881f07f2d2aff97d8286e0d"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/45fc9b9c3f76e244ac9d0e0412545920ca715be64dc2aae2a2b57cb291f0e272/features.npy",
+          "feature_sha256": "36c0294fc68d3dd25c7242eac3c9c45c42f6329ca9cef170ba00213b8109ab3e"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1025409024,
+          "workspace_budget_bytes": 54525952,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48939270144,
+          "required_bytes": 5374902272,
+          "fits": true
+        },
+        "predictions_sha256": "3261dc1d5c0bd29d3ab41146ba2fe28a0928b5c99f1e83c2b3b68f11b2675c5c",
+        "hits_sha256": "91d6ea4fd54e955eb732be4638903934a63a1e6af1565b2621a153d00944e91c",
+        "existing_evaluation": false
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 94.9238578680203,
+          "R@5": 98.98477157360406,
+          "R@10": 99.49238578680203
+        },
+        "query_count": 197,
+        "gallery_count": 20862,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "325cb74d47a4d6f920e877dc843ebb70b56fc467b5e439d9b549758d1c3b8640",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/1843624e3b4908273203e57153993483f01558be5964b9428e7eff55aa3f20e4/features.npy",
+          "feature_sha256": "27fd420e21a0681f15a199675e90062bd5d05c388881f07f2d2aff97d8286e0d"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/c1451cd761b1f6a0d440de1683e0572afb1a0acfa616f430b6aace93bd79c1a9/features.npy",
+          "feature_sha256": "9325b5bd6b5330fbd18a4f1a038097bc4bdfcd3727182b93da033afc0b909015"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1025409024,
+          "workspace_budget_bytes": 54525952,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48936321024,
+          "required_bytes": 5374902272,
+          "fits": true
+        },
+        "predictions_sha256": "99d7f07c99ea7b93a36f9153ae895ebbe3af1e94d6cfe8445d648bf444842653",
+        "hits_sha256": "9339a087186aa532f1206f888e2089c6c5addfa4d4430c3bc7dc5d5dc2452957",
+        "existing_evaluation": false
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 97.46192893401016,
+          "R@5": 99.49238578680203,
+          "R@10": 100.0
+        },
+        "query_count": 197,
+        "gallery_count": 20862,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "325cb74d47a4d6f920e877dc843ebb70b56fc467b5e439d9b549758d1c3b8640",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/1843624e3b4908273203e57153993483f01558be5964b9428e7eff55aa3f20e4/features.npy",
+          "feature_sha256": "27fd420e21a0681f15a199675e90062bd5d05c388881f07f2d2aff97d8286e0d"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/11ca22cf18932b54501741da13503db7c61c9835343aab05d26a2ee2cee50b31/features.npy",
+          "feature_sha256": "b928e1140557bdcbcbb398e95e668fe7beada72944e4e5dbb59c36f7f3470f5b"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1025409024,
+          "workspace_budget_bytes": 54525952,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48918691840,
+          "required_bytes": 5374902272,
+          "fits": true
+        },
+        "predictions_sha256": "6485ef83de3b374df62c46395900b6ce796afdadc1c403b568833c38161be334",
+        "hits_sha256": "2350bea2114ecf945a16206debb07c62249273fc699ca82aa4ae73aaed04c181",
+        "existing_evaluation": false
+      }
+    },
+    "robotcar_seasons_public_night_rain": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 92.85714285714286,
+          "R@5": 98.21428571428571,
+          "R@10": 99.10714285714286
+        },
+        "query_count": 224,
+        "gallery_count": 20862,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "b244cbad3702066ca9db59bcbe68bc44fe7a087863f6befa78780731a88f8d60",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/1843624e3b4908273203e57153993483f01558be5964b9428e7eff55aa3f20e4/features.npy",
+          "feature_sha256": "27fd420e21a0681f15a199675e90062bd5d05c388881f07f2d2aff97d8286e0d"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/77f17b8caa97ccdd330a70ce0a7ac2aaa3da39a00a59e32be703d032db26c081/features.npy",
+          "feature_sha256": "abe8b79facd0fe4e2d1387e17da8f7e1b676c8f8e3b2524f3c9e8c77336925e9"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1025409024,
+          "workspace_budget_bytes": 54525952,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48952508416,
+          "required_bytes": 5374902272,
+          "fits": true
+        },
+        "predictions_sha256": "e07958070a3cb167dc37b029b84d6765bf444d581b481a0273ae3d0712aca1a3",
+        "hits_sha256": "5042a3a87a4ac9c4c17e0fe554d869f75e127299cece084042546c243537544d",
+        "existing_evaluation": false
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 96.42857142857143,
+          "R@5": 98.66071428571429,
+          "R@10": 99.55357142857143
+        },
+        "query_count": 224,
+        "gallery_count": 20862,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "b244cbad3702066ca9db59bcbe68bc44fe7a087863f6befa78780731a88f8d60",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/1843624e3b4908273203e57153993483f01558be5964b9428e7eff55aa3f20e4/features.npy",
+          "feature_sha256": "27fd420e21a0681f15a199675e90062bd5d05c388881f07f2d2aff97d8286e0d"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/6818489dc4f932358f745afd28f4b1218864c4326ee4fc84eab106f0ca95fc6a/features.npy",
+          "feature_sha256": "228859e7d79119dd952ecaa84110ded3d2b7b8bb6f68b41c680ded8b7c70a170"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1025409024,
+          "workspace_budget_bytes": 54525952,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48933371904,
+          "required_bytes": 5374902272,
+          "fits": true
+        },
+        "predictions_sha256": "e2b650006776e819edc23a73e4e292be7600ca3573e6e01e473720762df81480",
+        "hits_sha256": "cd1bb1e406d709aefc7aa1e9ccea8acf3249f7a381ed8689a0587559f8d9cdc5",
+        "existing_evaluation": false
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 96.42857142857143,
+          "R@5": 98.21428571428571,
+          "R@10": 99.55357142857143
+        },
+        "query_count": 224,
+        "gallery_count": 20862,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "b244cbad3702066ca9db59bcbe68bc44fe7a087863f6befa78780731a88f8d60",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/1843624e3b4908273203e57153993483f01558be5964b9428e7eff55aa3f20e4/features.npy",
+          "feature_sha256": "27fd420e21a0681f15a199675e90062bd5d05c388881f07f2d2aff97d8286e0d"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/a9088c59658879394e15ecfbf80c6e01ca9444bc5e178cd7f747d4f44ce2029b/features.npy",
+          "feature_sha256": "d7d5eb8a8cb24e591dafdaad7b5ff82df16838fb37353c4c639308f1551a2e80"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1025409024,
+          "workspace_budget_bytes": 54525952,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48932847616,
+          "required_bytes": 5374902272,
+          "fits": true
+        },
+        "predictions_sha256": "cb4a7c812607ef3fe52c44941fcf54365f7b699ee30c206333e2d88b0b5eec76",
+        "hits_sha256": "96d93a3a1ad0d5bdb494e99e653ac2026476a4e5d6a5d7952b36b8703ba12504",
+        "existing_evaluation": false
+      }
+    },
+    "gardenspoint_night_day_right": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 88.5,
+          "R@5": 98.0,
+          "R@10": 99.5
+        },
+        "query_count": 200,
+        "gallery_count": 200,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4bce5246fccf7c10a3dc0c08c1b4092d1ebe404542578e63f8fc3f46f40be192",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/0ac7a410a0cd1349b830561c5f6e82fb7ab307d5d5366e83b50e0a95ede16b35/features.npy",
+          "feature_sha256": "f827d211137f2dbd8ad200c76630f93b2461daa8a3a3fa6b1e2a31844dbed983"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/ac3913e4e32dddaf4ef8a5fa8e474a073be4ea1db70ca1de3d2f2034947a9ac0/features.npy",
+          "feature_sha256": "1b0ab878656a30b9ae3de27c8370f39066644809f98f02f600c665cc9590f27d"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 9830400,
+          "workspace_budget_bytes": 5654528,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48909975552,
+          "required_bytes": 4310452224,
+          "fits": true
+        },
+        "predictions_sha256": "c9a9d7216e193ac1e7306a30ce8618e23d5be83104cfe1292ee358a299a94dd8",
+        "hits_sha256": "1a686877d5d81aa24f66e52bcd80dd333e36511e56d315ecb269b9ec337d8b8d",
+        "existing_evaluation": false
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 89.5,
+          "R@5": 97.0,
+          "R@10": 98.0
+        },
+        "query_count": 200,
+        "gallery_count": 200,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4bce5246fccf7c10a3dc0c08c1b4092d1ebe404542578e63f8fc3f46f40be192",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/0ac7a410a0cd1349b830561c5f6e82fb7ab307d5d5366e83b50e0a95ede16b35/features.npy",
+          "feature_sha256": "f827d211137f2dbd8ad200c76630f93b2461daa8a3a3fa6b1e2a31844dbed983"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/cc1747d89855b6fce4ce3aa7f655c9208d9e8e993b3d3b9fd0f7b41af1fc1720/features.npy",
+          "feature_sha256": "5e4fc5bd7e61fd54a7f87a26c6ecdc914ba3af0abf67d8a3b81dae0c70337024"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 9830400,
+          "workspace_budget_bytes": 5654528,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48919412736,
+          "required_bytes": 4310452224,
+          "fits": true
+        },
+        "predictions_sha256": "857aa1a74b537029de14187782fb13244c1eb27a243935fca074cf29f1947759",
+        "hits_sha256": "4c7395bfcf3c0a452dea755df897f3864ac4104d755c9a6d4b2b9c9603f6b4b2",
+        "existing_evaluation": false
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 92.0,
+          "R@5": 99.0,
+          "R@10": 99.0
+        },
+        "query_count": 200,
+        "gallery_count": 200,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4bce5246fccf7c10a3dc0c08c1b4092d1ebe404542578e63f8fc3f46f40be192",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/0ac7a410a0cd1349b830561c5f6e82fb7ab307d5d5366e83b50e0a95ede16b35/features.npy",
+          "feature_sha256": "f827d211137f2dbd8ad200c76630f93b2461daa8a3a3fa6b1e2a31844dbed983"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/0f5d311aad3297030c904e5829e7ff34e8b4d2f86f27d4e0e74ff064e5fc04f1/features.npy",
+          "feature_sha256": "701d2caadb2c9ba84c09aefd8bd5ace87baf36b897f7f24d353f56b07e120395"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 9830400,
+          "workspace_budget_bytes": 5654528,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48944709632,
+          "required_bytes": 4310452224,
+          "fits": true
+        },
+        "predictions_sha256": "47a5e72bd5fb290e9ec237c73ad39bb70c20e4206ad9ec28598cc289ea084299",
+        "hits_sha256": "86d4d5648cd6986eb91730cbc788821a9cf9ac25911191f4c81cc3466d476e65",
+        "existing_evaluation": false
+      }
+    },
+    "gardenspoint_night_day_left": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 81.0,
+          "R@5": 98.0,
+          "R@10": 100.0
+        },
+        "query_count": 200,
+        "gallery_count": 200,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "81800a2d44a363101ab2d6857187569315e1210afaf9b959464720bf973d52b4",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/8434516462651817c29450f37747eabb75d4b2b6db509c5a9d8c8c017bbdd210/features.npy",
+          "feature_sha256": "52b2df36a387bd8c588597fd40b161327de266d67b52a13e39b7ad2a63177df6"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/ac3913e4e32dddaf4ef8a5fa8e474a073be4ea1db70ca1de3d2f2034947a9ac0/features.npy",
+          "feature_sha256": "1b0ab878656a30b9ae3de27c8370f39066644809f98f02f600c665cc9590f27d"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 9830400,
+          "workspace_budget_bytes": 5654528,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48944775168,
+          "required_bytes": 4310452224,
+          "fits": true
+        },
+        "predictions_sha256": "90d3a44b1dc1633ba4e7c05439a51b519c6d6862d011c8a57c9a4c3150e280fd",
+        "hits_sha256": "fa9840d5e32034a22b37409a5295b6dc5fd0588835910fb7de3667a13d72f9db",
+        "existing_evaluation": false
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 81.5,
+          "R@5": 96.5,
+          "R@10": 99.0
+        },
+        "query_count": 200,
+        "gallery_count": 200,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "81800a2d44a363101ab2d6857187569315e1210afaf9b959464720bf973d52b4",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/8434516462651817c29450f37747eabb75d4b2b6db509c5a9d8c8c017bbdd210/features.npy",
+          "feature_sha256": "52b2df36a387bd8c588597fd40b161327de266d67b52a13e39b7ad2a63177df6"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/cc1747d89855b6fce4ce3aa7f655c9208d9e8e993b3d3b9fd0f7b41af1fc1720/features.npy",
+          "feature_sha256": "5e4fc5bd7e61fd54a7f87a26c6ecdc914ba3af0abf67d8a3b81dae0c70337024"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 9830400,
+          "workspace_budget_bytes": 5654528,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48944906240,
+          "required_bytes": 4310452224,
+          "fits": true
+        },
+        "predictions_sha256": "ae60d89eb6d96be864c1001b6b05ebfd283d401dc2f280971847a0d9a0a78d2f",
+        "hits_sha256": "0f2070ce01ab1e6ace85d86104ffd80d0c00b69af8c3d0f9ef7a1d16b45170ab",
+        "existing_evaluation": false
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 84.0,
+          "R@5": 98.0,
+          "R@10": 99.0
+        },
+        "query_count": 200,
+        "gallery_count": 200,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "81800a2d44a363101ab2d6857187569315e1210afaf9b959464720bf973d52b4",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/8434516462651817c29450f37747eabb75d4b2b6db509c5a9d8c8c017bbdd210/features.npy",
+          "feature_sha256": "52b2df36a387bd8c588597fd40b161327de266d67b52a13e39b7ad2a63177df6"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/0f5d311aad3297030c904e5829e7ff34e8b4d2f86f27d4e0e74ff064e5fc04f1/features.npy",
+          "feature_sha256": "701d2caadb2c9ba84c09aefd8bd5ace87baf36b897f7f24d353f56b07e120395"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 9830400,
+          "workspace_budget_bytes": 5654528,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48944775168,
+          "required_bytes": 4310452224,
+          "fits": true
+        },
+        "predictions_sha256": "c7456c76999db6c77e843cf3064561130c99df49d87b30004206c64def9b7c5f",
+        "hits_sha256": "e39125593957530881d61a343236601d562a065a14927354a1bf63468ea43869",
+        "existing_evaluation": false
+      }
+    },
+    "sped_mixed_illumination_diagnostic": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 74.79406919275124,
+          "R@5": 84.84349258649094,
+          "R@10": 86.9851729818781
+        },
+        "query_count": 607,
+        "gallery_count": 607,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "b12d7700a72a3a1d7bb0a41cb6e877b2ac6086b077e4cda83cde9d7f26e6d121",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/e1c184cfa5169d72f28f05ff428f009c49b23d8e86405138a85d0be48f25d368/features.npy",
+          "feature_sha256": "a3209e90e220e798e7d570c6426c69734595080c158a21e5dd8bab48a15a2577"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/0a4be16cc6164ceb796db0b730c8bd8e84ad74a865dedee318a1cf57f648cf37/features.npy",
+          "feature_sha256": "be2f1317e4ac84eea025114e25c78858769a3c359da774e8c3431bd18b6a7e2c"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 29835264,
+          "workspace_budget_bytes": 10759936,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48934223872,
+          "required_bytes": 4335562496,
+          "fits": true
+        },
+        "predictions_sha256": "4855074f1d51a60603bf49367c5b02c41dea12e56c8b9e0fc5cd264cfa47f1ac",
+        "hits_sha256": "d1aa926d4035fcb8b201d4c38c2ecc5687088906a29c056e7f646bbae71d63f9",
+        "existing_evaluation": false
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 75.7825370675453,
+          "R@5": 84.84349258649094,
+          "R@10": 87.47940691927512
+        },
+        "query_count": 607,
+        "gallery_count": 607,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "b12d7700a72a3a1d7bb0a41cb6e877b2ac6086b077e4cda83cde9d7f26e6d121",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/e1c184cfa5169d72f28f05ff428f009c49b23d8e86405138a85d0be48f25d368/features.npy",
+          "feature_sha256": "a3209e90e220e798e7d570c6426c69734595080c158a21e5dd8bab48a15a2577"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/773a5ac484e2fed5c7ae3ea379c15f7fcb704bcfa05277c2019cf334c633bc93/features.npy",
+          "feature_sha256": "de5d3b9c4f7e57a15127cf1ad3277cb1285db84c6503519909d8e2db6a1c1884"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 29835264,
+          "workspace_budget_bytes": 10759936,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48934354944,
+          "required_bytes": 4335562496,
+          "fits": true
+        },
+        "predictions_sha256": "42c202b5bd5ad351901bfab6a875c5d8a37bf449fbc2a5216bdc7c31d80dab9a",
+        "hits_sha256": "d6d9a34e071b44e00bc6c37820f81561d5c7ae6f522ab124c649eb328f3684bd",
+        "existing_evaluation": false
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 76.77100494233937,
+          "R@5": 86.9851729818781,
+          "R@10": 88.30313014827018
+        },
+        "query_count": 607,
+        "gallery_count": 607,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "b12d7700a72a3a1d7bb0a41cb6e877b2ac6086b077e4cda83cde9d7f26e6d121",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/gallery/e1c184cfa5169d72f28f05ff428f009c49b23d8e86405138a85d0be48f25d368/features.npy",
+          "feature_sha256": "a3209e90e220e798e7d570c6426c69734595080c158a21e5dd8bab48a15a2577"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/artifacts/night_backfill_cache_v2/query/6d6d3c13dd7bc5a7aa42e9753379b58f03f16ba51ff976ad0a77d8ac8e0d5c43/features.npy",
+          "feature_sha256": "b50e2a6592fde243d60999ea3e03d03723a0ce9772d0f78cdd7a47635e1b11fc"
+        },
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 29835264,
+          "workspace_budget_bytes": 10759936,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48934354944,
+          "required_bytes": 4335562496,
+          "fits": true
+        },
+        "predictions_sha256": "c6e5bee69438b8b74a8bec1692fe41f3601c41c82de494c43ed46c451fedb850",
+        "hits_sha256": "10bc88ebb79c4c87eb100d2cdbce7b8a57c5188eab2ffc895263b2674c21c839",
+        "existing_evaluation": false
+      }
+    }
+  },
+  "coverage": {
+    "included": [
+      "msls_val_night_day",
+      "msls_test_night_day",
+      "svox_test_night",
+      "darkdriving_paired_diagnostic",
+      "robotcar_gps_night_diagnostic",
+      "robotcar_seasons_public_night",
+      "robotcar_seasons_public_night_rain",
+      "gardenspoint_night_day_right",
+      "gardenspoint_night_day_left",
+      "sped_mixed_illumination_diagnostic",
+      "tokyo105_night"
+    ],
+    "supplementary": [
+      "sped_mixed_illumination_diagnostic"
+    ],
+    "unavailable": {
+      "Aachen-Day-Night official night test": "No public query pose / verified query-to-gallery retrieval positives",
+      "RobotCar-Seasons official night / night-rain test": "Test query poses withheld; public-train diagnostic evaluated separately",
+      "NightCity / BDD10K / MUSES": "Night images exist but no verified place-retrieval ground truth",
+      "SVOX val": "Local validation queries are Mapillary daytime views, with no verified night-query subset",
+      "NCLT / 17Places": "No complete local image/ground-truth bundle",
+      "Boreas / Nordland": "No verified night-query labels in the available local traversals"
+    },
+    "training": "Mixed+camera already completed 10 epochs / 9080 updates; retain its selected epoch 8, no duplicate training"
+  },
+  "resources": {
+    "student_batch": 128,
+    "teacher_batch": 128,
+    "workers": 4,
+    "cuda_allocator_budget_bytes": 34359738368
+  }
+}

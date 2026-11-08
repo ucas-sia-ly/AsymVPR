@@ -1,0 +1,10 @@
+{
+  "primary_release": "https://zenodo.org/records/4590133",
+  "archive_url": "https://zenodo.org/records/4590133/files/GardensPointWalking.zip?download=1",
+  "archive_md5": "1284fe9747dd5cb3e6c3358b37ae361f",
+  "archive_sha256": "078aea83fc2214ebac563cc7502e3f273863c9287839c97be4b79da8ebad1282",
+  "ground_truth_source": "https://github.com/MubarizZaffar/VPR-Bench/blob/77ad30f3684476717188c67d7f3f66be19f832af/datasets/GardensPointWalking/ground_truth_new.npy",
+  "ground_truth_sha256": "59a2c742386744a2d057c07ed4cd29669ff381d893202afde08eab4ab266d312",
+  "protocol": "200 canonical frames per sequence; published +/-2-frame positives intersected with valid reference IDs",
+  "data_version": "Original publisher ZIP, canonical Image000 through Image199, unchanged JPEG bytes"
+}

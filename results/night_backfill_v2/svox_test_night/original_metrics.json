@@ -1,0 +1,47 @@
+{
+  "metrics_percent": {
+    "R@1": 87.60631834750912,
+    "R@5": 93.80315917375455,
+    "R@10": 95.38274605103281
+  },
+  "hits_at_k": {
+    "1": 721,
+    "5": 772,
+    "10": 785
+  },
+  "query_count": 823,
+  "gallery_count": 17166,
+  "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+    "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/original.npy",
+    "feature_sha256": "c6b56e8760085bdc7ec115853fe498ceb3adef7c0016fdad8d3266433e37a110"
+  },
+  "predictions_sha256": "606dc6538b684a6692f79332dcdecced49675a7da466d88947753794aeeed645",
+  "hits_sha256": "8b92f7f0824682991ac76fb2de44358b337b4cd372bc1dc7fc84636e8ce88fe1",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 843743232,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49145708544,
+    "required_bytes": 5165711360,
+    "fits": true
+  },
+  "evaluation_reuse": {
+    "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+    "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+    "source_metrics_sha256": "73e103a9df201e5fc7d0594b0762e339cb2c4548a0a88d183468d762769566c3",
+    "recomputed_hits": true
+  }
+}

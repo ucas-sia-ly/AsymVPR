@@ -1,0 +1,86 @@
+{
+  "operation": "read-only completed-training audit",
+  "models": {
+    "mixed": {
+      "name": "Mixed 日夜混合",
+      "status": "completed",
+      "trainroom_id": "539c22d03c8d",
+      "epochs": 10,
+      "optimizer_updates": 9080,
+      "night_batch": 32,
+      "day_replay_batch": 32,
+      "best_epoch": 7,
+      "best_step": 6356,
+      "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+      "svox_night_dev_percent": {
+        "R@1": 89.54758190327613,
+        "R@5": 94.69578783151326,
+        "R@10": 95.63182527301092
+      },
+      "msls_val_percent": {
+        "R@1": 91.75675675675676,
+        "R@5": 96.08108108108108,
+        "R@10": 96.35135135135135
+      },
+      "camera_augmentation": false,
+      "log": "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/logs/metrics.jsonl"
+    },
+    "mixed_camera": {
+      "name": "Mixed＋相机退化",
+      "status": "completed",
+      "trainroom_id": "7fe91e0d309a",
+      "epochs": 10,
+      "optimizer_updates": 9080,
+      "night_batch": 32,
+      "day_replay_batch": 32,
+      "best_epoch": 8,
+      "best_step": 7264,
+      "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+      "svox_night_dev_percent": {
+        "R@1": 91.41965678627145,
+        "R@5": 95.16380655226209,
+        "R@10": 96.72386895475819
+      },
+      "msls_val_percent": {
+        "R@1": 91.8918918918919,
+        "R@5": 96.21621621621622,
+        "R@10": 96.48648648648648
+      },
+      "camera_augmentation": true,
+      "log": "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/logs/metrics.jsonl"
+    }
+  },
+  "evidence_sha256": {
+    "mixed": {
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/completed.json": "1a0af41050ee3d67660cf84cc4037af9a47d4d9a1935456e55850cb0db8a6d9d",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/logs/metrics.jsonl": "8ade8de5e035edc30c8e10d038fdd8fc3b4dd8145e2653d3988547f84f6e4d53",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/baseline.json": "5683ca1af62bc5c269ad16dfb01973b9685e2c0a744b96a36cffb878c70d4dd2",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_01_metrics.json": "130f74da195818beb2c2c844ec71f730669c70bd26b754f377df30f904e66f24",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_02_metrics.json": "a183a3deb6332db5782bd3e814bdb2b26f6c991ace0b48e40cb051d20c5d87e8",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_03_metrics.json": "bd1bee85de7ff921211c4d63988c77d05b48a5cd34c4358aaf145ca14c09f145",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_04_metrics.json": "3f0a3fde671f803c2d86c61b1eaf12d8bbee996ffa3d4741901a92f4d68ce25c",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_05_metrics.json": "3ac58b744e89f770e9b71759b5a40053dd61e270439f723430337a26373bf57c",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_06_metrics.json": "bd995ec3faed61ff4bfe65df5a67eb01f3a419aae8eef788311afbd6c62cf968",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_07_metrics.json": "39f7416648c97e8535a40c2185adbedc855710c944b463f8f17ac390368069b2",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_08_metrics.json": "0359885fb0e4fcaa15dabfe8801c2433150007874944f14dbc6f977ab87c121a",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_09_metrics.json": "490215856a04ede2fb4fb2a39945919e8b1094e3f891afe50d60199124502b54",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/epoch_10_metrics.json": "8fbbaf3d870b9b36f88fefa5398f560d359b740f116b4c855697eae4d0878448"
+    },
+    "mixed_camera": {
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/completed.json": "15768cd79fd10662324a8e367c4cbc7ca76f605624de3db2393f80d78e91488c",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/logs/metrics.jsonl": "fec0bc1fa07836e8621c642261ffb00160f2e2df3112541a3e3012e994554d6e",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/baseline.json": "5683ca1af62bc5c269ad16dfb01973b9685e2c0a744b96a36cffb878c70d4dd2",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_01_metrics.json": "cebdb43aa91a999ffeb65490077b802e5961b49b4fbdcea9b0a8d0a3d8d822e7",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_02_metrics.json": "da76160056fdfc43999e86ee5450e4a0f5edab2a0ce0c89db5fe26c4040ae42a",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_03_metrics.json": "a1bb934ba71542d3fbc35ebf300689269a2efab41dd44645ffc27ec280922d40",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_04_metrics.json": "a3e165d4244850ff8c97bf207d7bc22f693dcf74a3936f222e09b0785b11d048",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_05_metrics.json": "db2e99da05ffebcb8d147710262368a02f10d963cf1f076c4a973fe00bd1a669",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_06_metrics.json": "dce11254a3474d61e2d57a9416848aaf778009b5239045f493a44a16cb11b8ac",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_07_metrics.json": "538960ce27368f3f7f1ca7db62bf44679ab1aa1ab363cd9ef1025c0d19f0a164",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_08_metrics.json": "f42c118cae7ea10acb1e21b6fad193ddc3f14712b6dc54ddc563119db081b61a",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_09_metrics.json": "b5af0a13c7919b76a304b2ece0f1c059d9ca6bc5c5704a9fbdb1be154d2a0a8e",
+      "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/epoch_10_metrics.json": "b0d2d2b58abcfc9c96a40213a7df58e87b64554f442c5468198cb7b720a2c13b"
+    }
+  },
+  "plot_sha256": "bf1afdb7461c6ee0f7475d68f5ee98fc5430b4c6ec5f6bc337ef605865433370"
+}

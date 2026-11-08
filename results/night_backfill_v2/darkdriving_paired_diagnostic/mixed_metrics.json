@@ -1,0 +1,49 @@
+{
+  "metrics_percent": {
+    "R@1": 11.416579223504723,
+    "R@5": 42.23504721930745,
+    "R@10": 62.95907660020986
+  },
+  "hits_at_k": {
+    "1": 1088,
+    "5": 4025,
+    "10": 6000
+  },
+  "query_count": 9530,
+  "gallery_count": 9530,
+  "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+    "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/mixed.npy",
+    "feature_sha256": "7f6bde9824d119552c40fe56088eb61e5a2cf70691851bd6ea9479b58eba0c2e",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/mixed.npy",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "predictions_sha256": "4c8b8fe0ef50cc11e430303f1966adf88563f797ba447145011aa795b0ca2234",
+  "hits_sha256": "8e224102b20dc155a0e99c8e5f105f6806095dc45566579e3aa745c9f8037928",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 468418560,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49255612416,
+    "required_bytes": 4790386688,
+    "fits": true
+  },
+  "evaluation_reuse": {
+    "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+    "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+    "source_metrics_sha256": "203c915b9e593198b2a433c15b50e394dc887e3155c268530d57f3c7349525c3",
+    "recomputed_hits": true
+  }
+}

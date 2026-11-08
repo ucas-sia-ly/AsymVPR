@@ -1,0 +1,92 @@
+{
+  "dataset": "amstertime",
+  "root": "/home/admin123/github/datasets/amstertime",
+  "references": {
+    "count": 1231,
+    "ordered_paths_sha256": "5d98ead07f8df4a448a4044d16d4a39bf93db7c78bc2c76c42732744b047b162",
+    "input_file_stats_sha256": "358d7d9f4dbadf26d0dda3a2d3ffd57e7a011c650801db73bde1902fc5b9ebc5"
+  },
+  "queries": {
+    "count": 1231,
+    "ordered_paths_sha256": "c2fea77b6cba15d2ff7e7d4f4cc9c3805f022f4ed7ed3c3a9c593f7c38aef8d2",
+    "input_file_stats_sha256": "145bceb13b1aad46bc61eb2f46d0070f125408f61904b09c16f162ee26ec99ea"
+  },
+  "protocol": {
+    "split": "all 1231 published pairs",
+    "references": "new images",
+    "queries": "old images",
+    "positives": "image_pairs.csv old_num -> new_num; no coordinate proxy"
+  },
+  "ground_truth_sha256": "8a69c22ab799a2028eaeddaa69251f7559b80b8435743bb8579e5ff4a7fce271",
+  "metadata_sha256": {
+    "/home/admin123/github/datasets/amstertime/amstertime_dbImages.npy": "7bf7f7138427b9ae5a19a357ebb42a6f6b8941e652decc22774caa59f24b2ffd",
+    "/home/admin123/github/datasets/amstertime/amstertime_qImages.npy": "359764fc5055ed0dc575a716f03ce2fcba4a5b89753eac21f1aa5fac00f7c861",
+    "/home/admin123/github/datasets/amstertime/image_pairs.csv": "34fb75be5de1fed4facfd036a2cd4ecc41b6ac95cf6febc4df9826b958912f54"
+  },
+  "manifest_sha256": "c6c9f092956758e0af40aca53005f36d4eefc0e14e3d390498a669a780485e44",
+  "metrics_percent": {
+    "R@1": 47.603574329813156,
+    "R@5": 69.2932575142161,
+    "R@10": 74.73598700243704
+  },
+  "paper_table1_percent": {
+    "R@1": 48.6,
+    "R@5": 71.3
+  },
+  "difference_percentage_points": {
+    "R@1": -0.996425670186845,
+    "R@5": -2.006742485783903
+  },
+  "search_seconds": 0.17084021808113903,
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 60506112,
+    "workspace_budget_bytes": 18587392,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 43405082624,
+    "required_bytes": 4374060800,
+    "fits": true
+  },
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/amstertime/gallery.npy",
+    "feature_sha256": "1492ee0b7f84bc9138c56ae94654e60c4725b425b9826703c86c9524995b4208",
+    "provenance": {
+      "schema": 1,
+      "role": "gallery_teacher",
+      "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 1231,
+        "ordered_paths_sha256": "5d98ead07f8df4a448a4044d16d4a39bf93db7c78bc2c76c42732744b047b162",
+        "input_file_stats_sha256": "358d7d9f4dbadf26d0dda3a2d3ffd57e7a011c650801db73bde1902fc5b9ebc5"
+      }
+    }
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/amstertime/query.npy",
+    "feature_sha256": "9716ac904f79ea63d3ff70a4c27c559de679108dd3991aa0a126825b2a7dafc7",
+    "provenance": {
+      "schema": 1,
+      "role": "query_student",
+      "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 1231,
+        "ordered_paths_sha256": "c2fea77b6cba15d2ff7e7d4f4cc9c3805f022f4ed7ed3c3a9c593f7c38aef8d2",
+        "input_file_stats_sha256": "145bceb13b1aad46bc61eb2f46d0070f125408f61904b09c16f162ee26ec99ea"
+      }
+    }
+  },
+  "predictions_sha256": "c25d7dc19291100ef31d484e7117c2f09e2aeb0c6b38c75748e9dbd19e538107"
+}

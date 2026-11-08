@@ -1,0 +1,47 @@
+{
+  "metrics_percent": {
+    "R@1": 37.86407766990291,
+    "R@5": 47.57281553398058,
+    "R@10": 51.45631067961165
+  },
+  "hits_at_k": {
+    "1": 117,
+    "5": 147,
+    "10": 159
+  },
+  "query_count": 309,
+  "gallery_count": 36362,
+  "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+    "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/mixed_camera.npy",
+    "feature_sha256": "a505bbce40687c9f2a20d882712e3b27367ee12dbec2d15212d415bfa3100ce3"
+  },
+  "predictions_sha256": "5ed8ed00726951e47887696468ff098a22bf90bd1bbb49673bab059c9d7d5995",
+  "hits_sha256": "dc2896f5340287fc8c4c71c60c04da528ed573ba8ea7858aada10ff278deba4a",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 1787265024,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49131290624,
+    "required_bytes": 6109233152,
+    "fits": true
+  },
+  "evaluation_reuse": {
+    "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+    "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+    "source_metrics_sha256": "9b5f4df6dde527c833d25b4cf10d11d197c83e80298844c9f2cd6bedbec3022a",
+    "recomputed_hits": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "source_sha256": {
+    "reproduction/night_suite.py": "ce87f0d157690685a38f0d56cd5cb0bb7960b76e6a3e304a44597ac0bae8bd9d",
+    "reproduction/night_benchmarks.py": "f06c878b90aa6393665c7cebf3d1734253877e08120759f1e65511a32a2602e2",
+    "reproduction/feature_io.py": "634e811a14e15ff02a902f6cc320f009b1e2a2313af4416420d49103439e1a25",
+    "reproduction/evaluate.py": "80dee4dbf2f177d2422a9bfccb870cd5390967f3462f052dbd44e1a135fae18e",
+    "reproduction/asym_model.py": "66864a537248b28e63e4cc47f330864c2faa523f8b7a01f0a4b32bf573e42057",
+    "reproduction/data.py": "25b24207822c746db693a68813cd1716d8efe9a9b5714aef19cb7b0e0729680b",
+    "reproduction/benchmarks.py": "8a8664eb03e39092f9c0e5ce8fb705f82b3e04adc48c611fb92b76118559f5fc",
+    "reproduction/path_resolver.py": "908a10c9287ebabd7bb36d3897ba03bcbf17da027c5c22ff08b10602876c7aa4",
+    "reproduction/eval_launch.sh": "33c978755d7fb4f6cad9a120648e59c5d57414563861f8aa84ffd17793471e3f",
+    "configs/boq_b2.json": "b8c2893044d8b711da9f3532b7366c7867b62373ad85fd9707f04a85805e32c4"
+  },
+  "scope": "evaluation source at verified running state; no training code changes"
+}

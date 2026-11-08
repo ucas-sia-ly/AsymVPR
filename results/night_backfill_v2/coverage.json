@@ -1,0 +1,27 @@
+{
+  "included": [
+    "msls_val_night_day",
+    "msls_test_night_day",
+    "svox_test_night",
+    "darkdriving_paired_diagnostic",
+    "robotcar_gps_night_diagnostic",
+    "robotcar_seasons_public_night",
+    "robotcar_seasons_public_night_rain",
+    "gardenspoint_night_day_right",
+    "gardenspoint_night_day_left",
+    "sped_mixed_illumination_diagnostic",
+    "tokyo105_night"
+  ],
+  "supplementary": [
+    "sped_mixed_illumination_diagnostic"
+  ],
+  "unavailable": {
+    "Aachen-Day-Night official night test": "No public query pose / verified query-to-gallery retrieval positives",
+    "RobotCar-Seasons official night / night-rain test": "Test query poses withheld; public-train diagnostic evaluated separately",
+    "NightCity / BDD10K / MUSES": "Night images exist but no verified place-retrieval ground truth",
+    "SVOX val": "Local validation queries are Mapillary daytime views, with no verified night-query subset",
+    "NCLT / 17Places": "No complete local image/ground-truth bundle",
+    "Boreas / Nordland": "No verified night-query labels in the available local traversals"
+  },
+  "training": "Mixed+camera already completed 10 epochs / 9080 updates; retain its selected epoch 8, no duplicate training"
+}

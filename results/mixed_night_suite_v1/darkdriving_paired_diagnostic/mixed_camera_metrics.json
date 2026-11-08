@@ -1,0 +1,41 @@
+{
+  "metrics_percent": {
+    "R@1": 11.469045120671563,
+    "R@5": 42.696747114375654,
+    "R@10": 63.494228751311645
+  },
+  "hits_at_k": {
+    "1": 1093,
+    "5": 4069,
+    "10": 6051
+  },
+  "query_count": 9530,
+  "gallery_count": 9530,
+  "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+    "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/mixed_camera.npy",
+    "feature_sha256": "e39f2aa0ec1f0f326046955126173630236e68f1c13404e4e50a554b2acaf2c7"
+  },
+  "predictions_sha256": "db812bbc23ecfa8ed6180d34c4a9eb305e47e9ac6a7b9ebead43003dba630f2a",
+  "hits_sha256": "5dfec4113ba4816397bf041271afceee4ae4b6038f265e2aa2d0933dc12ee352",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 468418560,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49412374528,
+    "required_bytes": 4790386688,
+    "fits": true
+  }
+}

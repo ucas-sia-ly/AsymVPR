@@ -1,0 +1,171 @@
+{
+  "msls_val_night_day": {
+    "dataset": "msls_val_night_day",
+    "root": "/home/admin123/github/datasets/msls_val",
+    "references": {
+      "count": 18841,
+      "ordered_paths_sha256": "cf18e987d21284c676350b83aa4d6f721aacae9e85db94acf29fe37350f434fd",
+      "input_file_stats_sha256": "7e9066cba72ea0224ffa3c56d5a987a61a4311470774bcfdc74c76c9e7b4ee0c"
+    },
+    "queries": {
+      "count": 55,
+      "ordered_paths_sha256": "92a5235c35714186ff89ae75b9eccfb3dc422b28b4dc56f781dc02b9c9fcba6c",
+      "input_file_stats_sha256": "c9af4d145f4c867b0a62797bd5c3405d5dc4940ecea2aa3aa528b5da53eddbd6"
+    },
+    "protocol": {
+      "type": "custom night-label subset; not official all/subtask benchmark",
+      "query": "all postprocessed night=True, raw pano=False",
+      "gallery": "all night=False, pano=False",
+      "positive": "same-city UTM Euclidean <=25m",
+      "excluded_no_positive": 0
+    },
+    "ground_truth_sha256": "2cb8a377bbc07166f8ef9822b728ff4a97ae2c0ae8cbcc8490f0e689b46e2bb0",
+    "metadata_sha256": {
+      "/home/admin123/github/datasets/msls_val/cph/database/postprocessed.csv": "bc8c8817d44c1ea7b533b35e4b243da0e024037375518bb3510f2560b507b76f",
+      "/home/admin123/github/datasets/msls_val/cph/database/raw.csv": "17b3d22904e91c8204f7f4a3e72a00d9d29e8affa25c9bbb436dee74bfc4b8a0",
+      "/home/admin123/github/datasets/msls_val/cph/query/postprocessed.csv": "45a2524c7ccc36914a5b7eb4d4d757a9cfa4b352c80666cd5abbb7f81d2b40fc",
+      "/home/admin123/github/datasets/msls_val/cph/query/raw.csv": "0269a70eb12e75e7cc40d61bfbbe7a55c094e4619c5d48ab377ef5d06f9e8039",
+      "/home/admin123/github/datasets/msls_val/sf/database/postprocessed.csv": "8e791610228d0ecbbc7b849eb45adf893f81b4fc11e6a2b9f38e512e318b51bf",
+      "/home/admin123/github/datasets/msls_val/sf/database/raw.csv": "b49895af79a5abc930364179aa4b2244922cdac9b966507dad185fd7c0555da9",
+      "/home/admin123/github/datasets/msls_val/sf/query/postprocessed.csv": "10dc27969a4c3716ad745a3cf212a4d03e890f6b4604e852f1934c20db511321",
+      "/home/admin123/github/datasets/msls_val/sf/query/raw.csv": "ae79d0ea9bae4c5c3adaf0a75d13fb22cae4b1ec96627e0f372cd47cf95baa55"
+    },
+    "manifest_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01"
+  },
+  "msls_test_night_day": {
+    "dataset": "msls_test_night_day",
+    "root": "/home/admin123/github/datasets/msls_test",
+    "references": {
+      "count": 36362,
+      "ordered_paths_sha256": "e9c49929b4acc39790c21418448675ffb3633ca05f0c3b4e1e0830fb844afcfb",
+      "input_file_stats_sha256": "223d38dfef66503d2517a58a1e2ead332ccde532e4a29f7f5ea231398c942a67"
+    },
+    "queries": {
+      "count": 309,
+      "ordered_paths_sha256": "a7318ac3b73730a1db79ef01fbcbd100e3bff639e7f665cda04b794ee2fa1982",
+      "input_file_stats_sha256": "cc6a9385d7dea3d41cb59759bbe4c3e9fcee996f2c0e6806fee7e03dae5fc34b"
+    },
+    "protocol": {
+      "type": "custom night-label subset; not official all/subtask benchmark",
+      "query": "all postprocessed night=True, raw pano=False",
+      "gallery": "all night=False, pano=False",
+      "positive": "same-city UTM Euclidean <=25m",
+      "excluded_no_positive": 0
+    },
+    "ground_truth_sha256": "bff420132379b427a452093c6b2581e2437cdd7c20412a6d9119e1f9cb61cb2f",
+    "metadata_sha256": {
+      "/home/admin123/github/datasets/msls_test/miami/database/postprocessed.csv": "6c528a9485658a6ed2b65dfcb17ca8bee82fcd80cd84a8917e1e5ef132e1de44",
+      "/home/admin123/github/datasets/msls_test/miami/database/raw.csv": "fad0b98aca7301c5d536c25fab9b5e2c8e736ba8fad6e31d1570ed09899b72c9",
+      "/home/admin123/github/datasets/msls_test/miami/query/postprocessed.csv": "db80b6dd3dbd0e102d5b2b202c87ce5205eb2d9a1d656d9c7eeb9f950ea58b41",
+      "/home/admin123/github/datasets/msls_test/miami/query/raw.csv": "616fcb9bf10e73a62aaa811775369e0eaffdbe6dab7aa8ae94afa6d2564ab28f",
+      "/home/admin123/github/datasets/msls_test/athens/database/postprocessed.csv": "d52a19be76ac606b31b92577d8f2e194bab902dfc3e07e1303a2786ff0616fa4",
+      "/home/admin123/github/datasets/msls_test/athens/database/raw.csv": "bebecc161a92e235e95f36cc4f762449a00d9fe7202ae824e42eeb2a51c56f15",
+      "/home/admin123/github/datasets/msls_test/athens/query/postprocessed.csv": "1faedb9c244796fa1fd5e9bc5aaf8722652c3ab415f86a2256afe9a7e57b5b42",
+      "/home/admin123/github/datasets/msls_test/athens/query/raw.csv": "d6e7daee73705421de47969051d1557676d33038f2fad5b3b90ddf7ef1883f1a",
+      "/home/admin123/github/datasets/msls_test/buenosaires/database/postprocessed.csv": "ca055162cf67bc267fd335fa398255f577edfd377c49cc58c37f51920e00806e",
+      "/home/admin123/github/datasets/msls_test/buenosaires/database/raw.csv": "d7967327c2f91a797b65958dbf429358aafe271cf864febb930b41190aeb95c1",
+      "/home/admin123/github/datasets/msls_test/buenosaires/query/postprocessed.csv": "956ec274fc9ead3b582225914f3c3f6f3985f345008ae09d5aaad522b3e0b29c",
+      "/home/admin123/github/datasets/msls_test/buenosaires/query/raw.csv": "a6a39f2545e32b1f22c4e9dc5e68acc4442c6180ba581ebd73ecfd2079860227",
+      "/home/admin123/github/datasets/msls_test/stockholm/database/postprocessed.csv": "ce05cf913a216b21806a5f9c1a5b2a79aa82cbc40ff0978cfb39eb240294fc5a",
+      "/home/admin123/github/datasets/msls_test/stockholm/database/raw.csv": "760c9320baa21eed785519abbe43fff0525797c0fe47ea0427409e2f8bae8b25",
+      "/home/admin123/github/datasets/msls_test/stockholm/query/postprocessed.csv": "41303d50a9faf18334b8dc4fd1ec01770c4249ddc7d888af5b0fa12380ed4362",
+      "/home/admin123/github/datasets/msls_test/stockholm/query/raw.csv": "54369abcef416c58a0d395044843a871b1bc214e1b2603fddade291a177c4202",
+      "/home/admin123/github/datasets/msls_test/bengaluru/database/postprocessed.csv": "3e6a26cb142c5c52b76b3f75505088a263753ac12943a0590c6632e19700399e",
+      "/home/admin123/github/datasets/msls_test/bengaluru/database/raw.csv": "306adeed16a24c424e2d5a51ec1340a54e9afaf273e8b28f8902b4ba033fb500",
+      "/home/admin123/github/datasets/msls_test/bengaluru/query/postprocessed.csv": "59a128d0af5ec49f22c367b87b7265b2549f7114c14a09dd81b0b084d16d4f39",
+      "/home/admin123/github/datasets/msls_test/bengaluru/query/raw.csv": "cf66a6440273b1e2c5af980aafde74aa836071fa1fec71343a7d5cf1cbd1963e",
+      "/home/admin123/github/datasets/msls_test/kampala/database/postprocessed.csv": "a21ff3ff808923dfa4eb31b1fab5f8f846bef7e03ad9b3bd4960ca67ffbabc04",
+      "/home/admin123/github/datasets/msls_test/kampala/database/raw.csv": "ae35c3c7f1f23e147bd4c6d83ed4669099e7dccd809ccebdca55b4bbbf8a3578",
+      "/home/admin123/github/datasets/msls_test/kampala/query/postprocessed.csv": "3d3f1ec3e969ba0421bec4b0341af409b9624b06838fd859953d63a6cfe693d9",
+      "/home/admin123/github/datasets/msls_test/kampala/query/raw.csv": "a1e8f5157fbb9fc375a36493f294d568a47968e03e2bd1d46d503d3eb6788a1d"
+    },
+    "manifest_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43"
+  },
+  "svox_test_night": {
+    "dataset": "svox_test_night",
+    "root": "/home/admin123/github/datasets/svox/images/test",
+    "references": {
+      "count": 17166,
+      "ordered_paths_sha256": "f3f5825228e6ec7739100f78923678569621c0dcb86d020a86f73f204ea34754",
+      "input_file_stats_sha256": "6b276bcfa0588d2253a863f8110e5154b6b242545ab45458fd6d17c1d32b28bc"
+    },
+    "queries": {
+      "count": 823,
+      "ordered_paths_sha256": "e04c5189fd49d636f2e846a81b68864d9f09f4cd66841c654c129aa3bec884ac",
+      "input_file_stats_sha256": "8c16c2547f749671ac570b056212db151befd00929df87e4e611235bf818e3e6"
+    },
+    "protocol": {
+      "type": "test night queries",
+      "positive": "UTM Euclidean <=25m",
+      "queries_before_gt_filter": 823,
+      "excluded_no_positive": 0
+    },
+    "ground_truth_sha256": "f05a3da5c334b0ff3a93ae04b096b2a720973bbe637a716cb8cd5ebbae4b251e",
+    "metadata_sha256": {},
+    "manifest_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d"
+  },
+  "darkdriving_paired_diagnostic": {
+    "dataset": "darkdriving_paired_diagnostic",
+    "root": "/home/admin123/github/datasets/DarkDriving_Base",
+    "references": {
+      "count": 9530,
+      "ordered_paths_sha256": "9f9000cd61b05e50447cd328b106ee9841d15925631e33cdfee0c39417c43f88",
+      "input_file_stats_sha256": "e45a5a037867af107c49975b47e9b3daf0b81eb1d691f91cdebc146acf3430e1"
+    },
+    "queries": {
+      "count": 9530,
+      "ordered_paths_sha256": "0335b1774a625c094d77f525049b526a6cabc44e61abdb027074c7bd92338a64",
+      "input_file_stats_sha256": "44b9b1dbf74ecb3c3ae98f50de8a9954ce8924b8abb47aafe73de00ac607bdde"
+    },
+    "protocol": {
+      "type": "strict exact-pair retrieval diagnostic, NOT spatial VPR Recall",
+      "positive": "identical Day/Night basename only",
+      "split": "all locally cleaned pairs; no training on this dataset",
+      "limitation": "nearby frames may be spatial positives but count as negatives"
+    },
+    "ground_truth_sha256": "1a4041b8d670801bbf4b5ee3e51bfbd25c731560ed820c02a42af70dd9bf1b55",
+    "metadata_sha256": {},
+    "manifest_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413"
+  },
+  "robotcar_gps_night_diagnostic": {
+    "dataset": "robotcar_gps_night_diagnostic",
+    "root": "/home/admin123/github/datasets/RobotCar",
+    "references": {
+      "count": 21006,
+      "ordered_paths_sha256": "9ceb6ddb8cb881248f26d5290d12c5c67e8965ed12b11a6da06f5d4c4d51e0ec",
+      "input_file_stats_sha256": "16e8aa74a5c5c8fcca79164c7bf5ae929f7e403564e0c79b43c8d4cc17a78bda"
+    },
+    "queries": {
+      "count": 22495,
+      "ordered_paths_sha256": "67c98db73091d421cfcc0e5bb525baed86be903367fd7c8ce3554edb733f4aaf",
+      "input_file_stats_sha256": "b866427333b30cd0d446f0b318712ff8f3717a8c0f48697554884c1cd1cfc5d3"
+    },
+    "protocol": {
+      "type": "local GPS retrieval diagnostic, NOT RobotCar-Seasons localization protocol",
+      "day_traversals": [
+        "2015-02-06-13-57-16",
+        "2014-07-14-14-49-50",
+        "2015-08-12-15-04-18"
+      ],
+      "night_traversals": [
+        "2014-11-14-16-34-33",
+        "2014-12-16-18-44-24",
+        "2014-12-10-18-10-50"
+      ],
+      "positive": "UTM Euclidean <=25m, no heading filter",
+      "sampling": "existing gps_sampled_1m.csv; exact timestamp image join",
+      "missing_images": 0,
+      "excluded_no_positive": 561
+    },
+    "ground_truth_sha256": "812b1b02fd74ec321adcd5efdce43b2478ffdff4619d94513ad1ecd79e2cba70",
+    "metadata_sha256": {
+      "/home/admin123/github/datasets/RobotCar/day/2015-02-06-13-57-16/gps/gps_sampled_1m.csv": "81a0c18a6b0a8b743de368caac2519e671fb5a1a32e3a7db187937536465f98d",
+      "/home/admin123/github/datasets/RobotCar/day/2014-07-14-14-49-50/gps/gps_sampled_1m.csv": "fe6776357a6e5956d9a84b998e43169d8308b8cd77674924d9a602e0d4b29327",
+      "/home/admin123/github/datasets/RobotCar/day/2015-08-12-15-04-18/gps/gps_sampled_1m.csv": "80f514a5f25960543bbe3ff08d530cbf8ba48aa7d5dc968854645db94736d237",
+      "/home/admin123/github/datasets/RobotCar/night/2014-11-14-16-34-33/gps/gps_sampled_1m.csv": "3388f894be869cac7d3052458cd831689b3ca86fa30bad7daf710bdc0031e6cc",
+      "/home/admin123/github/datasets/RobotCar/night/2014-12-16-18-44-24/gps/gps_sampled_1m.csv": "fa3f09e3c5666908022dc2769716b5420100fb72f8483a0f6e29fa9c581223ea",
+      "/home/admin123/github/datasets/RobotCar/night/2014-12-10-18-10-50/gps/gps_sampled_1m.csv": "f91722e23c99ece9458fe986b8d8180b272168652bf6dc9fafd8bcd83b92f9ce"
+    },
+    "manifest_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1"
+  }
+}

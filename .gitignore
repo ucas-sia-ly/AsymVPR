@@ -1,0 +1,37 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+.venv/
+*.egg-info/
+
+# Local datasets, checkpoints, experiments and regenerable feature caches.
+/data/
+/datasets/
+/runs/
+/artifacts/
+/checkpoints/
+/已放弃/
+/results/evaluation_cache/
+/results/**/cache/
+/results/**/logs/
+/output/
+/tmp/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+
+# Machine-specific settings, local secrets and downloaded papers.
+/.marscode/
+/.vscode/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+*.pdf

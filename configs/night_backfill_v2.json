@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "operation": "fixed checkpoint night evaluation backfill; no training or checkpoint selection",
+  "models": {
+    "original": {
+      "name": "原始模型",
+      "category": "retained",
+      "checkpoint": "checkpoints/boq_b2_best.pt",
+      "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "epoch": 9,
+      "step": 74466,
+      "source_summary": "results/evaluation/summary.json",
+      "source_summary_sha256": "fb44199b79b83cf4efa16092c93683886c6bbb42a8fe333070d99259d3cc4d68"
+    },
+    "mixed": {
+      "name": "Mixed 日夜混合",
+      "category": "retained",
+      "checkpoint": "runs/boq_b2_night_v1/train/best.pt",
+      "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+      "epoch": 7,
+      "step": 6356,
+      "source_summary": "runs/boq_b2_night_v1/final_evaluation/summary.json",
+      "source_summary_sha256": "a02e43d3f0c5b44aa235f7299145d850f2100d759e773d7ccd9337dbe79b243c"
+    },
+    "mixed_camera": {
+      "name": "Mixed＋相机退化",
+      "category": "retained",
+      "checkpoint": "runs/boq_b2_mixed_camera_v1/train/best.pt",
+      "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+      "epoch": 8,
+      "step": 7264,
+      "source_summary": "runs/boq_b2_mixed_camera_v1/final_evaluation/summary.json",
+      "source_summary_sha256": "17d4b06979de9b33a731c0ebe8c31211a7a88e422a0d512b38d0c46f58a86f32"
+    }
+  },
+  "reusable_suites": [
+    "results/mixed_night_suite_v1"
+  ],
+  "config": "configs/boq_b2.json",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "output": "results/night_backfill_v2",
+  "cache": "artifacts/night_backfill_cache_v2",
+  "scope": "Only retained original, mixed and mixed_camera, per explicit user selection",
+  "config_sha256": "b8c2893044d8b711da9f3532b7366c7867b62373ad85fd9707f04a85805e32c4"
+}

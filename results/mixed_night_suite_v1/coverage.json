@@ -1,0 +1,15 @@
+{
+  "included": [
+    "msls_val_night_day",
+    "msls_test_night_day",
+    "svox_test_night",
+    "darkdriving_paired_diagnostic",
+    "robotcar_gps_night_diagnostic"
+  ],
+  "unavailable": {
+    "RobotCar-Seasons": "Local labeled query poses lack reference global poses; raw RobotCar GPS diagnostic evaluated separately",
+    "Aachen-Day-Night": "No local night-query retrieval ground truth",
+    "GardensPoint": "No verified local gardens_gt.npy; cannot assume frame alignment ground truth",
+    "NightCity/BDD10K/MUSES": "Night images alone do not provide place retrieval ground truth"
+  }
+}

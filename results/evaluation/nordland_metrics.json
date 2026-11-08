@@ -1,0 +1,95 @@
+{
+  "dataset": "nordland",
+  "root": "/home/admin123/github/icra/third_party/VLAD-BUFF/logs/nordland_official_protocol/data/Nordland",
+  "references": {
+    "count": 27592,
+    "ordered_paths_sha256": "9dd6d8782bceb9fbc18f3b143e93f389781b9394587ad533eb120a12664aeb99",
+    "input_file_stats_sha256": "f49420d3081b60e5c4a7b5678a283efc4d9fbaf79e11acd46f623b5248a01dea"
+  },
+  "queries": {
+    "count": 2760,
+    "ordered_paths_sha256": "9ea78dc6cb48dd62b671111536a2170cc24df8152a501be74c7cf66d18724555",
+    "input_file_stats_sha256": "b135979ced50ab40b85c469949655fcc0d8ef59398da776f6cdebd4d4f6b5554"
+  },
+  "protocol": {
+    "split": "VPR-Bench sampled summer queries / winter references",
+    "positives": "reference sequence frame +/- 3 inclusive",
+    "query_frame": "query ordinal * 10",
+    "protocol_variant": "paper",
+    "published_gt_differing_rows": 2760,
+    "image_layout": "original VPR-Bench release ref/query"
+  },
+  "ground_truth_sha256": "c6eb6f24deb095ff5a89ec01ee176eb8970b130411f3ec2aafca66b54c25be2d",
+  "metadata_sha256": {
+    "/home/admin123/third_party/salad/datasets/Nordland/Nordland_dbImages.npy": "57ddf16a7db2cbb6fb3933faa60df25f881a002232ddf8ffe5bbdac3a5247050",
+    "/home/admin123/third_party/salad/datasets/Nordland/Nordland_qImages.npy": "44c19608e365283b92abdcc38a725b113dfc48f0614da26fcfa9849b60b31b33",
+    "/home/admin123/third_party/salad/datasets/Nordland/Nordland_gt.npy": "0d523784bb8fb2f12adf228b445463da62f46245a5648fbe8a3d84e3d1090ea9",
+    "/home/admin123/github/icra/third_party/VLAD-BUFF/logs/nordland_official_protocol/provenance.json": "75d4732c903f3dee0764213ac757e6d98ae389bba9057c6363d14e5b783239f4"
+  },
+  "manifest_sha256": "bc1300c5c36eb6d77904652cf632804f01eed11583431348c7c837f47a23ac7e",
+  "metrics_percent": {
+    "R@1": 78.51449275362319,
+    "R@5": 88.91304347826086,
+    "R@10": 91.88405797101449
+  },
+  "paper_table1_percent": {
+    "R@1": 74.6,
+    "R@5": 88.3
+  },
+  "difference_percentage_points": {
+    "R@1": 3.9144927536231933,
+    "R@5": 0.6130434782608631
+  },
+  "search_seconds": 10.542307232040912,
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 1356201984,
+    "workspace_budget_bytes": 105906176,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 43404689408,
+    "required_bytes": 5757075456,
+    "fits": true
+  },
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/nordland/gallery.npy",
+    "feature_sha256": "ff91d07b9369b08dda2b6726b7a123a96b9c5c9738344c790d0471191864e44e",
+    "provenance": {
+      "schema": 1,
+      "role": "gallery_teacher",
+      "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 27592,
+        "ordered_paths_sha256": "9dd6d8782bceb9fbc18f3b143e93f389781b9394587ad533eb120a12664aeb99",
+        "input_file_stats_sha256": "f49420d3081b60e5c4a7b5678a283efc4d9fbaf79e11acd46f623b5248a01dea"
+      }
+    }
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/nordland/query.npy",
+    "feature_sha256": "9d189eeb8791dcf4c8946fd6501cff185c4ca90b3906d56e80b71b9b1b6df10f",
+    "provenance": {
+      "schema": 1,
+      "role": "query_student",
+      "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 2760,
+        "ordered_paths_sha256": "9ea78dc6cb48dd62b671111536a2170cc24df8152a501be74c7cf66d18724555",
+        "input_file_stats_sha256": "b135979ced50ab40b85c469949655fcc0d8ef59398da776f6cdebd4d4f6b5554"
+      }
+    }
+  },
+  "predictions_sha256": "adbd474a395b9286f1c921881de1203355338858824c2b24f6156679abc21245"
+}

@@ -1,0 +1,41 @@
+{
+  "metrics_percent": {
+    "R@1": 94.16767922235722,
+    "R@5": 98.42041312272175,
+    "R@10": 98.90643985419199
+  },
+  "hits_at_k": {
+    "1": 775,
+    "5": 810,
+    "10": 814
+  },
+  "query_count": 823,
+  "gallery_count": 17166,
+  "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+    "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/mixed_camera.npy",
+    "feature_sha256": "7ca027ffc599559ac26803f0fda4b947601a1f89ed196126f4a3f30ca9870dd3"
+  },
+  "predictions_sha256": "0dc2f124f315647cf7599485d2b68876a75a8b15f4c6946d20d8a63e398fdb69",
+  "hits_sha256": "e71e9a4a9b8c88d79b4ef822deef65a7a193075cc7dce882b3b8f3f47d6a073d",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 843743232,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49120411648,
+    "required_bytes": 5165711360,
+    "fits": true
+  }
+}

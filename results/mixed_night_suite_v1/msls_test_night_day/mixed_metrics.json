@@ -1,0 +1,43 @@
+{
+  "metrics_percent": {
+    "R@1": 39.15857605177994,
+    "R@5": 50.161812297734635,
+    "R@10": 53.07443365695793
+  },
+  "hits_at_k": {
+    "1": 121,
+    "5": 155,
+    "10": 164
+  },
+  "query_count": 309,
+  "gallery_count": 36362,
+  "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+    "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/mixed.npy",
+    "feature_sha256": "d7e489530de228a58358c3a2b60f43af485be61549bef41ed0de1814b56090f4",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/mixed.npy",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "predictions_sha256": "9c93e1d36cc33e6b39709297303cc143e9ffd8ff679e0862496d5d226a87d3d4",
+  "hits_sha256": "f6b12da9e671401e94bafd177d42c1bc24bfbbedcd99e099eb829c65b45a0b87",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 1787265024,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49118248960,
+    "required_bytes": 6109233152,
+    "fits": true
+  }
+}

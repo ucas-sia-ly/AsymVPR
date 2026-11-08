@@ -1,0 +1,90 @@
+{
+  "dataset": "tokyo247",
+  "root": "/home/admin123/github/datasets/tokyo247",
+  "references": {
+    "count": 75984,
+    "ordered_paths_sha256": "136f9d3a7bc180b55bedecc61fd7f696f2b51403a4ec34881ca0abeb023aeb8b",
+    "input_file_stats_sha256": "025c10fde7d37eba355f3279ec5be3c1d1bde1ac728731ebc0c594c9879eed01"
+  },
+  "queries": {
+    "count": 315,
+    "ordered_paths_sha256": "095239fabecea98a2a28bb72cc75555991cdb9ac50f85cb5fa0540ee999a90e2",
+    "input_file_stats_sha256": "1ad7fcaafce8d2df0a78cdb7a988a39c46a2b9b4e775e6b0e5a5c22e5c02791a"
+  },
+  "protocol": {
+    "split": "Tokyo24/7, published 315-query subset",
+    "positives": "UTM coordinates encoded in official paths; Euclidean distance <= 25 m",
+    "resolution": "original VGA, deterministic resize to configured input size"
+  },
+  "ground_truth_sha256": "9b9e4a46ba814ffebc08771a9d6c4d9e6288e78337a121ebd2b399925c2e555f",
+  "metadata_sha256": {
+    "/home/admin123/github/datasets/tokyo247/tokyo247_dbImages.npy": "c3fd5340470c52690db3b56e27c042015f4323637521faf871f813ec14548a39",
+    "/home/admin123/github/datasets/tokyo247/tokyo247_qImages.npy": "dec2f5bc78cf92739176f04eddb0647fbdfd36b4ddf7506c7d8d9ba89a7e0bcd"
+  },
+  "manifest_sha256": "54cd1f48c55f9f01e1359eb334d6b8350fca0a1e337125668986698b5ddd989c",
+  "metrics_percent": {
+    "R@1": 91.74603174603175,
+    "R@5": 96.19047619047619,
+    "R@10": 97.14285714285714
+  },
+  "paper_table1_percent": {
+    "R@1": 92.7,
+    "R@5": 96.5
+  },
+  "difference_percentage_points": {
+    "R@1": -0.9539682539682559,
+    "R@5": -0.3095238095238102
+  },
+  "search_seconds": 20.830045916954987,
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 3734765568,
+    "workspace_budget_bytes": 105906176,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 43400953856,
+    "required_bytes": 8135639040,
+    "fits": true
+  },
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/tokyo247/gallery.npy",
+    "feature_sha256": "64e1aedf306654362b5a6ce4b08e48fb47e41a0222c94616d3f086adbaa8cd77",
+    "provenance": {
+      "schema": 1,
+      "role": "gallery_teacher",
+      "model_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 75984,
+        "ordered_paths_sha256": "136f9d3a7bc180b55bedecc61fd7f696f2b51403a4ec34881ca0abeb023aeb8b",
+        "input_file_stats_sha256": "025c10fde7d37eba355f3279ec5be3c1d1bde1ac728731ebc0c594c9879eed01"
+      }
+    }
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/evaluation_cache/tokyo247/query.npy",
+    "feature_sha256": "8b78c5516b1c2a82016c357b6988e8453c7953d89b64e9cfaf9b8fb935b99346",
+    "provenance": {
+      "schema": 1,
+      "role": "query_student",
+      "model_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+      "image_size": 322,
+      "descriptor_dim": 12288,
+      "transform": "ToTensor/Resize-bicubic-antialias/ImageNet-normalize",
+      "precision": "float32",
+      "tf32": false,
+      "paths": {
+        "count": 315,
+        "ordered_paths_sha256": "095239fabecea98a2a28bb72cc75555991cdb9ac50f85cb5fa0540ee999a90e2",
+        "input_file_stats_sha256": "1ad7fcaafce8d2df0a78cdb7a988a39c46a2b9b4e775e6b0e5a5c22e5c02791a"
+      }
+    }
+  },
+  "predictions_sha256": "e17e328bb26f97ea3134fe4b3a181689e5b7fb9322ee8e77f571999e96e8b6c6"
+}

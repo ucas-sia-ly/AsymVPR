@@ -1,0 +1,1003 @@
+{
+  "status": "complete",
+  "operation": "evaluation only; fixed selected checkpoints",
+  "precision": "float32",
+  "tf32": false,
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "models": {
+    "original": {
+      "checkpoint": "/home/admin123/github/AsymVPR/checkpoints/boq_b2_best.pt",
+      "sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a"
+    },
+    "mixed": {
+      "checkpoint": "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/train/best.pt",
+      "sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2"
+    },
+    "mixed_camera": {
+      "checkpoint": "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/train/best.pt",
+      "sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c"
+    }
+  },
+  "protocols": {
+    "msls_val_night_day": {
+      "dataset": "msls_val_night_day",
+      "root": "/home/admin123/github/datasets/msls_val",
+      "references": {
+        "count": 18841,
+        "ordered_paths_sha256": "cf18e987d21284c676350b83aa4d6f721aacae9e85db94acf29fe37350f434fd",
+        "input_file_stats_sha256": "7e9066cba72ea0224ffa3c56d5a987a61a4311470774bcfdc74c76c9e7b4ee0c"
+      },
+      "queries": {
+        "count": 55,
+        "ordered_paths_sha256": "92a5235c35714186ff89ae75b9eccfb3dc422b28b4dc56f781dc02b9c9fcba6c",
+        "input_file_stats_sha256": "c9af4d145f4c867b0a62797bd5c3405d5dc4940ecea2aa3aa528b5da53eddbd6"
+      },
+      "protocol": {
+        "type": "custom night-label subset; not official all/subtask benchmark",
+        "query": "all postprocessed night=True, raw pano=False",
+        "gallery": "all night=False, pano=False",
+        "positive": "same-city UTM Euclidean <=25m",
+        "excluded_no_positive": 0
+      },
+      "ground_truth_sha256": "2cb8a377bbc07166f8ef9822b728ff4a97ae2c0ae8cbcc8490f0e689b46e2bb0",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/msls_val/cph/database/postprocessed.csv": "bc8c8817d44c1ea7b533b35e4b243da0e024037375518bb3510f2560b507b76f",
+        "/home/admin123/github/datasets/msls_val/cph/database/raw.csv": "17b3d22904e91c8204f7f4a3e72a00d9d29e8affa25c9bbb436dee74bfc4b8a0",
+        "/home/admin123/github/datasets/msls_val/cph/query/postprocessed.csv": "45a2524c7ccc36914a5b7eb4d4d757a9cfa4b352c80666cd5abbb7f81d2b40fc",
+        "/home/admin123/github/datasets/msls_val/cph/query/raw.csv": "0269a70eb12e75e7cc40d61bfbbe7a55c094e4619c5d48ab377ef5d06f9e8039",
+        "/home/admin123/github/datasets/msls_val/sf/database/postprocessed.csv": "8e791610228d0ecbbc7b849eb45adf893f81b4fc11e6a2b9f38e512e318b51bf",
+        "/home/admin123/github/datasets/msls_val/sf/database/raw.csv": "b49895af79a5abc930364179aa4b2244922cdac9b966507dad185fd7c0555da9",
+        "/home/admin123/github/datasets/msls_val/sf/query/postprocessed.csv": "10dc27969a4c3716ad745a3cf212a4d03e890f6b4604e852f1934c20db511321",
+        "/home/admin123/github/datasets/msls_val/sf/query/raw.csv": "ae79d0ea9bae4c5c3adaf0a75d13fb22cae4b1ec96627e0f372cd47cf95baa55"
+      },
+      "manifest_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01"
+    },
+    "msls_test_night_day": {
+      "dataset": "msls_test_night_day",
+      "root": "/home/admin123/github/datasets/msls_test",
+      "references": {
+        "count": 36362,
+        "ordered_paths_sha256": "e9c49929b4acc39790c21418448675ffb3633ca05f0c3b4e1e0830fb844afcfb",
+        "input_file_stats_sha256": "223d38dfef66503d2517a58a1e2ead332ccde532e4a29f7f5ea231398c942a67"
+      },
+      "queries": {
+        "count": 309,
+        "ordered_paths_sha256": "a7318ac3b73730a1db79ef01fbcbd100e3bff639e7f665cda04b794ee2fa1982",
+        "input_file_stats_sha256": "cc6a9385d7dea3d41cb59759bbe4c3e9fcee996f2c0e6806fee7e03dae5fc34b"
+      },
+      "protocol": {
+        "type": "custom night-label subset; not official all/subtask benchmark",
+        "query": "all postprocessed night=True, raw pano=False",
+        "gallery": "all night=False, pano=False",
+        "positive": "same-city UTM Euclidean <=25m",
+        "excluded_no_positive": 0
+      },
+      "ground_truth_sha256": "bff420132379b427a452093c6b2581e2437cdd7c20412a6d9119e1f9cb61cb2f",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/msls_test/miami/database/postprocessed.csv": "6c528a9485658a6ed2b65dfcb17ca8bee82fcd80cd84a8917e1e5ef132e1de44",
+        "/home/admin123/github/datasets/msls_test/miami/database/raw.csv": "fad0b98aca7301c5d536c25fab9b5e2c8e736ba8fad6e31d1570ed09899b72c9",
+        "/home/admin123/github/datasets/msls_test/miami/query/postprocessed.csv": "db80b6dd3dbd0e102d5b2b202c87ce5205eb2d9a1d656d9c7eeb9f950ea58b41",
+        "/home/admin123/github/datasets/msls_test/miami/query/raw.csv": "616fcb9bf10e73a62aaa811775369e0eaffdbe6dab7aa8ae94afa6d2564ab28f",
+        "/home/admin123/github/datasets/msls_test/athens/database/postprocessed.csv": "d52a19be76ac606b31b92577d8f2e194bab902dfc3e07e1303a2786ff0616fa4",
+        "/home/admin123/github/datasets/msls_test/athens/database/raw.csv": "bebecc161a92e235e95f36cc4f762449a00d9fe7202ae824e42eeb2a51c56f15",
+        "/home/admin123/github/datasets/msls_test/athens/query/postprocessed.csv": "1faedb9c244796fa1fd5e9bc5aaf8722652c3ab415f86a2256afe9a7e57b5b42",
+        "/home/admin123/github/datasets/msls_test/athens/query/raw.csv": "d6e7daee73705421de47969051d1557676d33038f2fad5b3b90ddf7ef1883f1a",
+        "/home/admin123/github/datasets/msls_test/buenosaires/database/postprocessed.csv": "ca055162cf67bc267fd335fa398255f577edfd377c49cc58c37f51920e00806e",
+        "/home/admin123/github/datasets/msls_test/buenosaires/database/raw.csv": "d7967327c2f91a797b65958dbf429358aafe271cf864febb930b41190aeb95c1",
+        "/home/admin123/github/datasets/msls_test/buenosaires/query/postprocessed.csv": "956ec274fc9ead3b582225914f3c3f6f3985f345008ae09d5aaad522b3e0b29c",
+        "/home/admin123/github/datasets/msls_test/buenosaires/query/raw.csv": "a6a39f2545e32b1f22c4e9dc5e68acc4442c6180ba581ebd73ecfd2079860227",
+        "/home/admin123/github/datasets/msls_test/stockholm/database/postprocessed.csv": "ce05cf913a216b21806a5f9c1a5b2a79aa82cbc40ff0978cfb39eb240294fc5a",
+        "/home/admin123/github/datasets/msls_test/stockholm/database/raw.csv": "760c9320baa21eed785519abbe43fff0525797c0fe47ea0427409e2f8bae8b25",
+        "/home/admin123/github/datasets/msls_test/stockholm/query/postprocessed.csv": "41303d50a9faf18334b8dc4fd1ec01770c4249ddc7d888af5b0fa12380ed4362",
+        "/home/admin123/github/datasets/msls_test/stockholm/query/raw.csv": "54369abcef416c58a0d395044843a871b1bc214e1b2603fddade291a177c4202",
+        "/home/admin123/github/datasets/msls_test/bengaluru/database/postprocessed.csv": "3e6a26cb142c5c52b76b3f75505088a263753ac12943a0590c6632e19700399e",
+        "/home/admin123/github/datasets/msls_test/bengaluru/database/raw.csv": "306adeed16a24c424e2d5a51ec1340a54e9afaf273e8b28f8902b4ba033fb500",
+        "/home/admin123/github/datasets/msls_test/bengaluru/query/postprocessed.csv": "59a128d0af5ec49f22c367b87b7265b2549f7114c14a09dd81b0b084d16d4f39",
+        "/home/admin123/github/datasets/msls_test/bengaluru/query/raw.csv": "cf66a6440273b1e2c5af980aafde74aa836071fa1fec71343a7d5cf1cbd1963e",
+        "/home/admin123/github/datasets/msls_test/kampala/database/postprocessed.csv": "a21ff3ff808923dfa4eb31b1fab5f8f846bef7e03ad9b3bd4960ca67ffbabc04",
+        "/home/admin123/github/datasets/msls_test/kampala/database/raw.csv": "ae35c3c7f1f23e147bd4c6d83ed4669099e7dccd809ccebdca55b4bbbf8a3578",
+        "/home/admin123/github/datasets/msls_test/kampala/query/postprocessed.csv": "3d3f1ec3e969ba0421bec4b0341af409b9624b06838fd859953d63a6cfe693d9",
+        "/home/admin123/github/datasets/msls_test/kampala/query/raw.csv": "a1e8f5157fbb9fc375a36493f294d568a47968e03e2bd1d46d503d3eb6788a1d"
+      },
+      "manifest_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43"
+    },
+    "svox_test_night": {
+      "dataset": "svox_test_night",
+      "root": "/home/admin123/github/datasets/svox/images/test",
+      "references": {
+        "count": 17166,
+        "ordered_paths_sha256": "f3f5825228e6ec7739100f78923678569621c0dcb86d020a86f73f204ea34754",
+        "input_file_stats_sha256": "6b276bcfa0588d2253a863f8110e5154b6b242545ab45458fd6d17c1d32b28bc"
+      },
+      "queries": {
+        "count": 823,
+        "ordered_paths_sha256": "e04c5189fd49d636f2e846a81b68864d9f09f4cd66841c654c129aa3bec884ac",
+        "input_file_stats_sha256": "8c16c2547f749671ac570b056212db151befd00929df87e4e611235bf818e3e6"
+      },
+      "protocol": {
+        "type": "test night queries",
+        "positive": "UTM Euclidean <=25m",
+        "queries_before_gt_filter": 823,
+        "excluded_no_positive": 0
+      },
+      "ground_truth_sha256": "f05a3da5c334b0ff3a93ae04b096b2a720973bbe637a716cb8cd5ebbae4b251e",
+      "metadata_sha256": {},
+      "manifest_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d"
+    },
+    "darkdriving_paired_diagnostic": {
+      "dataset": "darkdriving_paired_diagnostic",
+      "root": "/home/admin123/github/datasets/DarkDriving_Base",
+      "references": {
+        "count": 9530,
+        "ordered_paths_sha256": "9f9000cd61b05e50447cd328b106ee9841d15925631e33cdfee0c39417c43f88",
+        "input_file_stats_sha256": "e45a5a037867af107c49975b47e9b3daf0b81eb1d691f91cdebc146acf3430e1"
+      },
+      "queries": {
+        "count": 9530,
+        "ordered_paths_sha256": "0335b1774a625c094d77f525049b526a6cabc44e61abdb027074c7bd92338a64",
+        "input_file_stats_sha256": "44b9b1dbf74ecb3c3ae98f50de8a9954ce8924b8abb47aafe73de00ac607bdde"
+      },
+      "protocol": {
+        "type": "strict exact-pair retrieval diagnostic, NOT spatial VPR Recall",
+        "positive": "identical Day/Night basename only",
+        "split": "all locally cleaned pairs; no training on this dataset",
+        "limitation": "nearby frames may be spatial positives but count as negatives"
+      },
+      "ground_truth_sha256": "1a4041b8d670801bbf4b5ee3e51bfbd25c731560ed820c02a42af70dd9bf1b55",
+      "metadata_sha256": {},
+      "manifest_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413"
+    },
+    "robotcar_gps_night_diagnostic": {
+      "dataset": "robotcar_gps_night_diagnostic",
+      "root": "/home/admin123/github/datasets/RobotCar",
+      "references": {
+        "count": 21006,
+        "ordered_paths_sha256": "9ceb6ddb8cb881248f26d5290d12c5c67e8965ed12b11a6da06f5d4c4d51e0ec",
+        "input_file_stats_sha256": "16e8aa74a5c5c8fcca79164c7bf5ae929f7e403564e0c79b43c8d4cc17a78bda"
+      },
+      "queries": {
+        "count": 22495,
+        "ordered_paths_sha256": "67c98db73091d421cfcc0e5bb525baed86be903367fd7c8ce3554edb733f4aaf",
+        "input_file_stats_sha256": "b866427333b30cd0d446f0b318712ff8f3717a8c0f48697554884c1cd1cfc5d3"
+      },
+      "protocol": {
+        "type": "local GPS retrieval diagnostic, NOT RobotCar-Seasons localization protocol",
+        "day_traversals": [
+          "2015-02-06-13-57-16",
+          "2014-07-14-14-49-50",
+          "2015-08-12-15-04-18"
+        ],
+        "night_traversals": [
+          "2014-11-14-16-34-33",
+          "2014-12-16-18-44-24",
+          "2014-12-10-18-10-50"
+        ],
+        "positive": "UTM Euclidean <=25m, no heading filter",
+        "sampling": "existing gps_sampled_1m.csv; exact timestamp image join",
+        "missing_images": 0,
+        "excluded_no_positive": 561
+      },
+      "ground_truth_sha256": "812b1b02fd74ec321adcd5efdce43b2478ffdff4619d94513ad1ecd79e2cba70",
+      "metadata_sha256": {
+        "/home/admin123/github/datasets/RobotCar/day/2015-02-06-13-57-16/gps/gps_sampled_1m.csv": "81a0c18a6b0a8b743de368caac2519e671fb5a1a32e3a7db187937536465f98d",
+        "/home/admin123/github/datasets/RobotCar/day/2014-07-14-14-49-50/gps/gps_sampled_1m.csv": "fe6776357a6e5956d9a84b998e43169d8308b8cd77674924d9a602e0d4b29327",
+        "/home/admin123/github/datasets/RobotCar/day/2015-08-12-15-04-18/gps/gps_sampled_1m.csv": "80f514a5f25960543bbe3ff08d530cbf8ba48aa7d5dc968854645db94736d237",
+        "/home/admin123/github/datasets/RobotCar/night/2014-11-14-16-34-33/gps/gps_sampled_1m.csv": "3388f894be869cac7d3052458cd831689b3ca86fa30bad7daf710bdc0031e6cc",
+        "/home/admin123/github/datasets/RobotCar/night/2014-12-16-18-44-24/gps/gps_sampled_1m.csv": "fa3f09e3c5666908022dc2769716b5420100fb72f8483a0f6e29fa9c581223ea",
+        "/home/admin123/github/datasets/RobotCar/night/2014-12-10-18-10-50/gps/gps_sampled_1m.csv": "f91722e23c99ece9458fe986b8d8180b272168652bf6dc9fafd8bcd83b92f9ce"
+      },
+      "manifest_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1"
+    },
+    "tokyo105_night_existing": {
+      "protocol": {
+        "definition": {
+          "selection": "CSV field 6 == N; verified against bound official 105-query ID set",
+          "ground_truth": "official MAT UTM <=25 m; current full-gallery indices mapped by exact image path",
+          "selection_role": "fixed final diagnostic, never checkpoint selection",
+          "source_sha256": "f516b055a128e7af122b1858c0960e98b6c8ba577ab503f47df3036f11b53fb7",
+          "mat_sha256": "8fa9474524500bfa844664d5d7b850f4af8bd755e03e8d081cc2dbafcde4d250",
+          "csv_labels_sha256": "3c60e679cd8ed2980747ca03081c21fa1da98a8f4a155f30c096e1f04c3deb47",
+          "ground_truth_sha256": "007b1aa2633ad72c813f6cf59aad81b0974a508d592aca2975fa22d6aef8ad58",
+          "differing_gt_rows_from_main_protocol": 0,
+          "limitation": "Local queries contain all 1125-query v3 naming. Standard query names/coordinates defined by this official NetVLAD mat. Exact v2 image identity not yet independently byte-verified."
+        },
+        "query_ids": [
+          "00687.jpg",
+          "00690.jpg",
+          "00693.jpg",
+          "00732.jpg",
+          "00735.jpg",
+          "00738.jpg",
+          "00381.jpg",
+          "00384.jpg",
+          "00387.jpg",
+          "00390.jpg",
+          "00393.jpg",
+          "00396.jpg",
+          "00039.jpg",
+          "00042.jpg",
+          "00045.jpg",
+          "00399.jpg",
+          "00402.jpg",
+          "00405.jpg",
+          "00048.jpg",
+          "00051.jpg",
+          "00054.jpg",
+          "00057.jpg",
+          "00060.jpg",
+          "00063.jpg",
+          "00030.jpg",
+          "00033.jpg",
+          "00036.jpg",
+          "00408.jpg",
+          "00411.jpg",
+          "00414.jpg",
+          "00417.jpg",
+          "00420.jpg",
+          "00423.jpg",
+          "00210.jpg",
+          "00213.jpg",
+          "00216.jpg",
+          "00219.jpg",
+          "00222.jpg",
+          "00225.jpg",
+          "00201.jpg",
+          "00204.jpg",
+          "00207.jpg",
+          "00084.jpg",
+          "00087.jpg",
+          "00090.jpg",
+          "00426.jpg",
+          "00429.jpg",
+          "00432.jpg",
+          "00021.jpg",
+          "00024.jpg",
+          "00027.jpg",
+          "00192.jpg",
+          "00195.jpg",
+          "00198.jpg",
+          "00093.jpg",
+          "00096.jpg",
+          "00099.jpg",
+          "00435.jpg",
+          "00438.jpg",
+          "00441.jpg",
+          "00183.jpg",
+          "00186.jpg",
+          "00189.jpg",
+          "00102.jpg",
+          "00105.jpg",
+          "00108.jpg",
+          "00156.jpg",
+          "00159.jpg",
+          "00162.jpg",
+          "00012.jpg",
+          "00015.jpg",
+          "00018.jpg",
+          "00174.jpg",
+          "00177.jpg",
+          "00180.jpg",
+          "00111.jpg",
+          "00114.jpg",
+          "00117.jpg",
+          "00165.jpg",
+          "00168.jpg",
+          "00171.jpg",
+          "00147.jpg",
+          "00150.jpg",
+          "00153.jpg",
+          "00120.jpg",
+          "00123.jpg",
+          "00126.jpg",
+          "00129.jpg",
+          "00132.jpg",
+          "00135.jpg",
+          "00444.jpg",
+          "00447.jpg",
+          "00450.jpg",
+          "00273.jpg",
+          "00276.jpg",
+          "00279.jpg",
+          "00228.jpg",
+          "00231.jpg",
+          "00234.jpg",
+          "00264.jpg",
+          "00267.jpg",
+          "00270.jpg",
+          "00237.jpg",
+          "00240.jpg",
+          "00243.jpg"
+        ],
+        "num_queries": 105
+      },
+      "reused_evidence": {
+        "mixed": {
+          "comparison": "/home/admin123/github/AsymVPR/runs/boq_b2_night_v1/final_evaluation/comparison.json",
+          "comparison_sha256": "6237ac58ee3a1843b23e79a73c6bf8e05e809a78145da6a96483df193528a568",
+          "finalization_sha256": "15b6d33d033b12e585a0163ea4813e8a5ab5e46ae07d30e2c87a21084f8a233e"
+        },
+        "mixed_camera": {
+          "comparison": "/home/admin123/github/AsymVPR/runs/boq_b2_mixed_camera_v1/final_evaluation/comparison.json",
+          "comparison_sha256": "c213200ad744c460c56cab2e3ad5ef7403ff00b86dd9ae402ab59a6993b3bd48",
+          "finalization_sha256": "a956f2cec113055f0bee94faabb25eaa7fce4c216270e088e3fc845944994667"
+        }
+      }
+    }
+  },
+  "results": {
+    "tokyo105_night_existing": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 83.80952380952381,
+          "R@5": 92.38095238095238,
+          "R@10": 93.33333333333333
+        },
+        "query_count": 105,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "existing_evaluation": true
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 87.61904761904762,
+          "R@5": 94.28571428571428,
+          "R@10": 94.28571428571428
+        },
+        "query_count": 105,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "existing_evaluation": true
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 84.76190476190476,
+          "R@5": 93.33333333333333,
+          "R@10": 94.28571428571428
+        },
+        "query_count": 105,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "existing_evaluation": true
+      }
+    },
+    "msls_val_night_day": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 85.45454545454545,
+          "R@5": 94.54545454545455,
+          "R@10": 96.36363636363636
+        },
+        "hits_at_k": {
+          "1": 47,
+          "5": 52,
+          "10": 53
+        },
+        "query_count": 55,
+        "gallery_count": 18841,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/gallery.npy",
+          "feature_sha256": "0115c0e7d3d373a38922514a6caa5989066eebbb1f19e899f1f969a1921cbe1f",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/original.npy",
+          "feature_sha256": "fec51900d712dec9454cfbed5337c0ca030d7ca740185fcf26e15fcf0d7866b9"
+        },
+        "predictions_sha256": "a44b954bccc878c8787b14b430f272596dd1b1caef86bd1197f9c2183b3d0058",
+        "hits_sha256": "6da3c159e9848fad3efe92183c0a4227e7d585b33e28ef816fe7626870ea8059",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 926072832,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49119232000,
+          "required_bytes": 5248040960,
+          "fits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 89.0909090909091,
+          "R@5": 94.54545454545455,
+          "R@10": 98.18181818181819
+        },
+        "hits_at_k": {
+          "1": 49,
+          "5": 52,
+          "10": 54
+        },
+        "query_count": 55,
+        "gallery_count": 18841,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/gallery.npy",
+          "feature_sha256": "0115c0e7d3d373a38922514a6caa5989066eebbb1f19e899f1f969a1921cbe1f",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/mixed.npy",
+          "feature_sha256": "942a322fdb1db9f45c3967b81cace55cec033133ae34415a4b4ac0fb80a3cfb3",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "1a56a627a51f9ed42ac0bb1cc2012c5e688df07bafd7a3b33fdc7a44736cc340",
+        "hits_sha256": "ec8c4c347f6765b669c32e05b4ec6e8281a9774b74350a4a057f1484edad0827",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 926072832,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49132732416,
+          "required_bytes": 5248040960,
+          "fits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 90.9090909090909,
+          "R@5": 100.0,
+          "R@10": 100.0
+        },
+        "hits_at_k": {
+          "1": 50,
+          "5": 55,
+          "10": 55
+        },
+        "query_count": 55,
+        "gallery_count": 18841,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "0c9c58b2fd241e5aabd493b76b39f581de85e8d44b1fc5198b0679fa7511ee01",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_val_night_day/gallery.npy",
+          "feature_sha256": "0115c0e7d3d373a38922514a6caa5989066eebbb1f19e899f1f969a1921cbe1f",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_val_night_day/mixed_camera.npy",
+          "feature_sha256": "f0ad31ecf54a5fd8a124a028e59ed297bba6dcc55305770a4ded65e124f399ed"
+        },
+        "predictions_sha256": "557538b07e858981dbefa563b8e2ad956465e39697eea26c80c21ac98bf68ea7",
+        "hits_sha256": "98614310e7c08b25988e21a7c99e0768fcea2c0dc93a4d928fb889d735289950",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 926072832,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 48706224128,
+          "required_bytes": 5248040960,
+          "fits": true
+        }
+      }
+    },
+    "msls_test_night_day": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 36.24595469255664,
+          "R@5": 44.66019417475729,
+          "R@10": 46.92556634304207
+        },
+        "hits_at_k": {
+          "1": 112,
+          "5": 138,
+          "10": 145
+        },
+        "query_count": 309,
+        "gallery_count": 36362,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+          "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/original.npy",
+          "feature_sha256": "83dbf8a793131de7743f2a2326a094ae823f8d202a142fce8913b053080848b9"
+        },
+        "predictions_sha256": "bf8209b0f6f7be0eacdd58638ae3110ef1a8a6daaa51413912514ce8eacc6530",
+        "hits_sha256": "1fc6a98fe4acccffc202a23ba317969be074068c6a52f04289937365dacf83bf",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1787265024,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49130438656,
+          "required_bytes": 6109233152,
+          "fits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 39.15857605177994,
+          "R@5": 50.161812297734635,
+          "R@10": 53.07443365695793
+        },
+        "hits_at_k": {
+          "1": 121,
+          "5": 155,
+          "10": 164
+        },
+        "query_count": 309,
+        "gallery_count": 36362,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+          "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/mixed.npy",
+          "feature_sha256": "d7e489530de228a58358c3a2b60f43af485be61549bef41ed0de1814b56090f4",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "9c93e1d36cc33e6b39709297303cc143e9ffd8ff679e0862496d5d226a87d3d4",
+        "hits_sha256": "f6b12da9e671401e94bafd177d42c1bc24bfbbedcd99e099eb829c65b45a0b87",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1787265024,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49118248960,
+          "required_bytes": 6109233152,
+          "fits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 37.86407766990291,
+          "R@5": 47.57281553398058,
+          "R@10": 51.45631067961165
+        },
+        "hits_at_k": {
+          "1": 117,
+          "5": 147,
+          "10": 159
+        },
+        "query_count": 309,
+        "gallery_count": 36362,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "9e156364259f61b3477a6f4aab40fff6e8a489ce53383de997c7e161daeedf43",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/msls_test_night_day/gallery.npy",
+          "feature_sha256": "f17ac733b52977b7baf4d8c2854aae0bc833ad8491bf504f5513e34577b6e1b1",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/msls_test_night_day/mixed_camera.npy",
+          "feature_sha256": "a505bbce40687c9f2a20d882712e3b27367ee12dbec2d15212d415bfa3100ce3"
+        },
+        "predictions_sha256": "5ed8ed00726951e47887696468ff098a22bf90bd1bbb49673bab059c9d7d5995",
+        "hits_sha256": "dc2896f5340287fc8c4c71c60c04da528ed573ba8ea7858aada10ff278deba4a",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1787265024,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49131290624,
+          "required_bytes": 6109233152,
+          "fits": true
+        }
+      }
+    },
+    "svox_test_night": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 87.60631834750912,
+          "R@5": 93.80315917375455,
+          "R@10": 95.38274605103281
+        },
+        "hits_at_k": {
+          "1": 721,
+          "5": 772,
+          "10": 785
+        },
+        "query_count": 823,
+        "gallery_count": 17166,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+          "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/original.npy",
+          "feature_sha256": "c6b56e8760085bdc7ec115853fe498ceb3adef7c0016fdad8d3266433e37a110"
+        },
+        "predictions_sha256": "606dc6538b684a6692f79332dcdecced49675a7da466d88947753794aeeed645",
+        "hits_sha256": "8b92f7f0824682991ac76fb2de44358b337b4cd372bc1dc7fc84636e8ce88fe1",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 843743232,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49145708544,
+          "required_bytes": 5165711360,
+          "fits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 93.681652490887,
+          "R@5": 97.20534629404617,
+          "R@10": 98.66342648845686
+        },
+        "hits_at_k": {
+          "1": 771,
+          "5": 800,
+          "10": 812
+        },
+        "query_count": 823,
+        "gallery_count": 17166,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+          "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/mixed.npy",
+          "feature_sha256": "825019cfa83e30003560f0ac19acbf149822d2e95a5d5218df5f20b64f982462",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "e577702bac229c04daf952ded2792f211704e5fac9d8f9ea6a85c0868db394c1",
+        "hits_sha256": "7605ca0b7de1b7da3d1a80f3c39cdcee4d276fb8f8480649852f0b7eee3901cd",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 843743232,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49135419392,
+          "required_bytes": 5165711360,
+          "fits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 94.16767922235722,
+          "R@5": 98.42041312272175,
+          "R@10": 98.90643985419199
+        },
+        "hits_at_k": {
+          "1": 775,
+          "5": 810,
+          "10": 814
+        },
+        "query_count": 823,
+        "gallery_count": 17166,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+          "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/mixed_camera.npy",
+          "feature_sha256": "7ca027ffc599559ac26803f0fda4b947601a1f89ed196126f4a3f30ca9870dd3"
+        },
+        "predictions_sha256": "0dc2f124f315647cf7599485d2b68876a75a8b15f4c6946d20d8a63e398fdb69",
+        "hits_sha256": "e71e9a4a9b8c88d79b4ef822deef65a7a193075cc7dce882b3b8f3f47d6a073d",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 843743232,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49120411648,
+          "required_bytes": 5165711360,
+          "fits": true
+        }
+      }
+    },
+    "darkdriving_paired_diagnostic": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 9.00314795383001,
+          "R@5": 34.01888772298006,
+          "R@10": 53.31584470094438
+        },
+        "hits_at_k": {
+          "1": 858,
+          "5": 3242,
+          "10": 5081
+        },
+        "query_count": 9530,
+        "gallery_count": 9530,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/original.npy",
+          "feature_sha256": "dbcdf994fd82ec14ef8f7994cc2eb52ae69ed1967b1070dee4e2519eeb9e7ac8"
+        },
+        "predictions_sha256": "66426107dee801d2ee901560b9c542e2b106f64b9a76c52341461417ce29b43e",
+        "hits_sha256": "970ee731c0dfcc1fa1dcde40899aa63ecdae2c43fbe98ae9a80cbf90125e62bf",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 468418560,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49257709568,
+          "required_bytes": 4790386688,
+          "fits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 11.416579223504723,
+          "R@5": 42.23504721930745,
+          "R@10": 62.95907660020986
+        },
+        "hits_at_k": {
+          "1": 1088,
+          "5": 4025,
+          "10": 6000
+        },
+        "query_count": 9530,
+        "gallery_count": 9530,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/mixed.npy",
+          "feature_sha256": "7f6bde9824d119552c40fe56088eb61e5a2cf70691851bd6ea9479b58eba0c2e",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "4c8b8fe0ef50cc11e430303f1966adf88563f797ba447145011aa795b0ca2234",
+        "hits_sha256": "8e224102b20dc155a0e99c8e5f105f6806095dc45566579e3aa745c9f8037928",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 468418560,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49255612416,
+          "required_bytes": 4790386688,
+          "fits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 11.469045120671563,
+          "R@5": 42.696747114375654,
+          "R@10": 63.494228751311645
+        },
+        "hits_at_k": {
+          "1": 1093,
+          "5": 4069,
+          "10": 6051
+        },
+        "query_count": 9530,
+        "gallery_count": 9530,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+          "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/mixed_camera.npy",
+          "feature_sha256": "e39f2aa0ec1f0f326046955126173630236e68f1c13404e4e50a554b2acaf2c7"
+        },
+        "predictions_sha256": "db812bbc23ecfa8ed6180d34c4a9eb305e47e9ac6a7b9ebead43003dba630f2a",
+        "hits_sha256": "5dfec4113ba4816397bf041271afceee4ae4b6038f265e2aa2d0933dc12ee352",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 468418560,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49412374528,
+          "required_bytes": 4790386688,
+          "fits": true
+        }
+      }
+    },
+    "robotcar_gps_night_diagnostic": {
+      "original": {
+        "metrics_percent": {
+          "R@1": 86.21915981329184,
+          "R@5": 92.78950877972882,
+          "R@10": 94.85218937541676
+        },
+        "hits_at_k": {
+          "1": 19395,
+          "5": 20873,
+          "10": 21337
+        },
+        "query_count": 22495,
+        "gallery_count": 21006,
+        "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/original.npy",
+          "feature_sha256": "7c8d1d719e25ad13289eb38c36ff59a5a45af390e5a73761b0b202141639333d"
+        },
+        "predictions_sha256": "bf375c6e80a58182d0534dbd06ccd3bd5dd473357515cd99b875e2f6b5c367e1",
+        "hits_sha256": "54d89d39912a9dd578317c9cfa0d487b780b113dafdf937f4338ac4153dce0dd",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1032486912,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49408245760,
+          "required_bytes": 5354455040,
+          "fits": true
+        }
+      },
+      "mixed": {
+        "metrics_percent": {
+          "R@1": 93.06068015114471,
+          "R@5": 96.9637697266059,
+          "R@10": 97.98621915981329
+        },
+        "hits_at_k": {
+          "1": 20934,
+          "5": 21812,
+          "10": 22042
+        },
+        "query_count": 22495,
+        "gallery_count": 21006,
+        "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/mixed.npy",
+          "feature_sha256": "48f217dc4f4f2438923a682aa727d8911ca8d8a2d795682543e6970f84874ec4",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/mixed.npy",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "predictions_sha256": "ad756fab04e10fad332599cb9dc84771f6c520327e94ccaa3fce5fe01a064632",
+        "hits_sha256": "f6efe0f67343ed828b29d4d1d63e49b386e71b58059f3e97b0572b37bbcdbb7b",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1032486912,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49410473984,
+          "required_bytes": 5354455040,
+          "fits": true
+        }
+      },
+      "mixed_camera": {
+        "metrics_percent": {
+          "R@1": 92.9362080462325,
+          "R@5": 96.82151589242054,
+          "R@10": 98.12402756168038
+        },
+        "hits_at_k": {
+          "1": 20906,
+          "5": 21780,
+          "10": 22073
+        },
+        "query_count": 22495,
+        "gallery_count": 21006,
+        "checkpoint_sha256": "8fd5b64fbd02db3552dd6170c185a6b3fc26dc92d4d04391c579cb461772892c",
+        "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+        "protocol_sha256": "30d4a9711d23313560f8c73cbee7fc53e4ed62b34312e91f14f69ec17c07c3e1",
+        "gallery_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/robotcar_gps_night_diagnostic/gallery.npy",
+          "feature_sha256": "76fe5b24e7d28816b2137adaf595352d2a56ca8303e8aa2fa3b0ef8fec55df68",
+          "reuse": "verified hard link; no feature copy or mutation"
+        },
+        "query_cache": {
+          "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/robotcar_gps_night_diagnostic/mixed_camera.npy",
+          "feature_sha256": "c5536950ab655606bd2468015240c466759bcef9f96bbc7d7315be5a88c0fcac"
+        },
+        "predictions_sha256": "7da38a4b4d36b2b09fb9cc9e9935deb88f5f1c387e461d677212dbc4af013742",
+        "hits_sha256": "2892cb55bc2fa21307a1e290668541c3b47cf8946bd461fcc65f369b212c64e2",
+        "search_memory": {
+          "mode": "cuda_resident",
+          "reference_bank_option": "auto",
+          "device": "cuda",
+          "total_bytes": 50865438720,
+          "bank_bytes": 1032486912,
+          "workspace_budget_bytes": 27000832,
+          "reserve_bytes": 4294967296,
+          "free_bytes": 49399005184,
+          "required_bytes": 5354455040,
+          "fits": true
+        }
+      }
+    }
+  },
+  "resources": {
+    "batch_size": 8,
+    "workers": 1,
+    "cuda_allocator_budget_bytes": 8589934592,
+    "cuda_free_at_start_bytes": 49232216064,
+    "cuda_reserve_bytes": 4294967296
+  }
+}

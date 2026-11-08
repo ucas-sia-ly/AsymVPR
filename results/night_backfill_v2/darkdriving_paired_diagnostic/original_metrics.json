@@ -1,0 +1,47 @@
+{
+  "metrics_percent": {
+    "R@1": 9.00314795383001,
+    "R@5": 34.01888772298006,
+    "R@10": 53.31584470094438
+  },
+  "hits_at_k": {
+    "1": 858,
+    "5": 3242,
+    "10": 5081
+  },
+  "query_count": 9530,
+  "gallery_count": 9530,
+  "checkpoint_sha256": "d051f6cec174614a7fed1391624420308f31cac6aa59782530f582a01eacb54a",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "4800160fbb298f0ed8cb2e9b8e1cf4605311a5c7e40a7841d64f2825a740b413",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/darkdriving_paired_diagnostic/gallery.npy",
+    "feature_sha256": "fd34b97c3e0c39fa7b6c534827eb9c4603dd6b2c57fe4303c53973e29cff2634",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/darkdriving_paired_diagnostic/original.npy",
+    "feature_sha256": "dbcdf994fd82ec14ef8f7994cc2eb52ae69ed1967b1070dee4e2519eeb9e7ac8"
+  },
+  "predictions_sha256": "66426107dee801d2ee901560b9c542e2b106f64b9a76c52341461417ce29b43e",
+  "hits_sha256": "970ee731c0dfcc1fa1dcde40899aa63ecdae2c43fbe98ae9a80cbf90125e62bf",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 468418560,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49257709568,
+    "required_bytes": 4790386688,
+    "fits": true
+  },
+  "evaluation_reuse": {
+    "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+    "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+    "source_metrics_sha256": "4adfd77e2f756c38363c3e190aab6b6dafc8d9329a67328a9167a78276529436",
+    "recomputed_hits": true
+  }
+}

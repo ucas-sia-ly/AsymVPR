@@ -1,0 +1,49 @@
+{
+  "metrics_percent": {
+    "R@1": 93.681652490887,
+    "R@5": 97.20534629404617,
+    "R@10": 98.66342648845686
+  },
+  "hits_at_k": {
+    "1": 771,
+    "5": 800,
+    "10": 812
+  },
+  "query_count": 823,
+  "gallery_count": 17166,
+  "checkpoint_sha256": "c47c3ee95f6f6a92a6823cd4c98e2de2e1d8e4191e11ec735c12dbe9278459d2",
+  "teacher_sha256": "d72ee0ce899e2790be6cf6d1d57f75dfad0c76475bd2198e6dc0c3f0221b3583",
+  "protocol_sha256": "c12dfbb2ec7139ce99918cc6c80b5b5d45b98bd23fcbab78a3ecc6890b035c7d",
+  "gallery_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/gallery.npy",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/gallery.npy",
+    "feature_sha256": "3d57ced4c55576d52b1826ffbd127624a933cf1e3ed54cc411a62151ba326fb6",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "query_cache": {
+    "path": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/cache/svox_test_night/mixed.npy",
+    "feature_sha256": "825019cfa83e30003560f0ac19acbf149822d2e95a5d5218df5f20b64f982462",
+    "reused_from": "/home/admin123/github/AsymVPR/已放弃/night_confusion/results/extended_night_v1/cache/svox_test_night/mixed.npy",
+    "reuse": "verified hard link; no feature copy or mutation"
+  },
+  "predictions_sha256": "e577702bac229c04daf952ded2792f211704e5fac9d8f9ea6a85c0868db394c1",
+  "hits_sha256": "7605ca0b7de1b7da3d1a80f3c39cdcee4d276fb8f8480649852f0b7eee3901cd",
+  "search_memory": {
+    "mode": "cuda_resident",
+    "reference_bank_option": "auto",
+    "device": "cuda",
+    "total_bytes": 50865438720,
+    "bank_bytes": 843743232,
+    "workspace_budget_bytes": 27000832,
+    "reserve_bytes": 4294967296,
+    "free_bytes": 49135419392,
+    "required_bytes": 5165711360,
+    "fits": true
+  },
+  "evaluation_reuse": {
+    "source_summary": "/home/admin123/github/AsymVPR/results/mixed_night_suite_v1/summary.json",
+    "source_summary_sha256": "9942da3ad3cf78fc99f49713486eef804685830036e3ba1a851e404510c30583",
+    "source_metrics_sha256": "99aeb4f9a1dfd3fb5640c8ffc75bd12057bbc7154e5bd0375dcd5f1a20259676",
+    "recomputed_hits": true
+  }
+}
