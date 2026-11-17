@@ -54,6 +54,9 @@ def source_identity(config=None):
         files += ['reproduction/' + name for name in ('mixed_camera.py', 'night_camera.py',
             'camera_augmentation.py', 'night_finalize.py', 'mixed_reference.py', 'mixed_camera_launch.sh')]
         files += [config['camera_profile']]
+    if config and config.get('augmentation_study'):
+        files += ['reproduction/augmentation_study.py', 'reproduction/camera_augmentation.py',
+                  'configs/night_camera_exploratory_v1.json', 'reproduction/night_subset.py']
     return {name: sha256(name) for name in files}
 
 
@@ -110,6 +113,7 @@ class PairedReplay(Dataset):
         # Also tolerate snapshot implementations that expose split via load_records only.
         if not len(val_places):
             val_places = np.unique([r['label'] for r in load_records(config, 'val')])
+        val_places = np.union1d(val_places, config.get('replay_excluded_place_ids', []))
         eligible = np.flatnonzero(~np.isin(self.labels, val_places))
         if not len(eligible):
             raise ValueError('No day-replay images remain after excluding validation places')
@@ -122,6 +126,11 @@ class PairedReplay(Dataset):
         if config.get('camera_profile'):
             from reproduction.night_camera import NightCamera
             self.camera = NightCamera(config, epoch)
+        if config.get('augmentation_study'):
+            from reproduction.augmentation_study import StudyCamera
+            if self.camera is not None:
+                raise ValueError('Cannot combine legacy camera and study hook')
+            self.camera = StudyCamera(config, epoch)
 
     def __len__(self):
         return len(self.order)
@@ -306,7 +315,7 @@ def train(config, all_records, lineage, logger, max_steps=None):
             observations += 1
             samples += count * 2
             night_samples += count
-            if config.get('camera_profile'):
+            if config.get('camera_profile') or config.get('augmentation_study'):
                 camera_samples += int(batch[6].sum())
             for key, value in {'loss': loss.detach(), **details}.items():
                 accumulator[key] = accumulator.get(key, 0.) + float(value)
@@ -318,7 +327,7 @@ def train(config, all_records, lineage, logger, max_steps=None):
                     'train/grad_norm': float(grad), 'lr/backbone': optimizer.param_groups[0]['lr'],
                     'lr/aggregator': optimizer.param_groups[1]['lr'],
                     'gpu/peak_allocated_gib': torch.cuda.max_memory_allocated()/1024**3})
-                if config.get('camera_profile'):
+                if config.get('camera_profile') or config.get('augmentation_study'):
                     values.update({'train/camera_applied_fraction': camera_samples/night_samples,
                         'train/camera_applied_images': camera_samples,
                         'train/night_images_per_second': night_samples/elapsed})
@@ -377,6 +386,11 @@ def main():
     if config.get('camera_profile'):
         from reproduction.mixed_camera import validate_config
         camera_provenance = validate_config(config)
+    if config.get('augmentation_study'):
+        from reproduction.augmentation_study import study_identity
+        camera_provenance = study_identity(config)
+        if not args.skip_final_evaluation:
+            raise ValueError('Augmentation search must use --skip-final-evaluation; development only')
     out = Path(config['output_dir'])
     out.mkdir(parents=True, exist_ok=True)
     lock = (out / '.train.lock').open('a')
