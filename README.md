@@ -19,7 +19,14 @@ GitHub 仓库包含代码、测试、配置、协议及轻量评测结果。数�
 1. **日夜混合训练**：30,579 张固定生成夜图，29,050 张训练、1,529 张按地点留出；每批 32 night + 32 day。使用冻结教师日夜融合目标与白天回放，SVOX night dev 选模，并保留 MSLS 下降不超过 1 个百分点的门槛。
 2. **夜间退化**：只在学生训练夜图的原尺寸 RGB 上施加七类随机退化，再执行 **ToTensor → Resize → ImageNet Normalize**。白天回放、教师特征和验证/测试不额外退化。
 
-训练入口统一为 `reproduction.night_train`：
+新的日夜混合训练默认使用 [GSV Cities 夜间最终版配置](configs/boq_b2_gsv_night_final.json)。
+该配置从 `/home/admin123/github/datasets/GSV_cities_night` 读取 23 个城市的 61,984 个日夜地点配对。
+数据准备使用发布目录中的 `pairs/<city>/<place_id>/night.png`，校验配对和图库缓存标签，
+按地点留出 5% 作合成夜间验证，并从白天回放中排除这些验证地点。
+快照、教师特征和训练输出写入 `runs/boq_b2_gsv_night_final/`。
+仅准备并校验快照可运行 `bash reproduction/night_launch.sh --stage snapshot`。
+
+已完成实验及其配置如下。
 
 | 用途 | 配置 | 已完成结果 |
 | --- | --- | --- |

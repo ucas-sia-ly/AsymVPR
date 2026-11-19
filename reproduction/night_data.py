@@ -1,9 +1,4 @@
-"""Freeze generated night/day pairs without modifying the generation campaign.
-
-Only committed result ledgers are consumed. Pending upstream content review is
-preserved: the user's authorization to train on these images does not turn a
-``pending_verification`` receipt into an upstream quality approval.
-"""
+"""Freeze night/day pairs from a published release or committed generation ledgers."""
 from __future__ import annotations
 
 from collections import Counter
@@ -12,6 +7,7 @@ import fcntl
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import time
 
@@ -23,7 +19,14 @@ SCHEMA_VERSION = 1
 SPLIT_SEED = 2026
 VAL_FRACTION = .05
 REVIEW_FIELDS = ("status", "content_status", "passed", "eligible_for_training",
-                 "base_quality_passed", "quality_version", "verification_pending")
+                 "base_quality_passed", "quality_version", "verification_pending",
+                 "raw_quality_verdict", "quality_audit_status", "included_under_user_policy",
+                 "quality_gate_overridden_by_user")
+PAIR_FIELDS = ("sample_id", "city", "place_id", "source_path", "source_sha256",
+               "source_dimensions", "output_path", "output_sha256")
+PROVENANCE_FIELDS = ("source_sample_id", "pair_id", "seed", "style_id", "raw_output_path",
+                     "raw_output_sha256", "metadata_sha256", "result_sha256", "record_sha256",
+                     "dataset_stage", "dataset_version", "generation_campaign")
 
 
 class NightDataIntegrityError(RuntimeError):
@@ -59,10 +62,13 @@ def _write_rows(path, rows):
 
 
 def _config(config):
-    roots = sorted({str(Path(p).expanduser().resolve()) for p in config["night_roots"]})
-    if not roots:
-        raise ValueError("night_roots must contain at least one generation directory")
-    return {"schema_version": SCHEMA_VERSION, "night_roots": roots,
+    roots = sorted({str(Path(p).expanduser().resolve()) for p in config.get("night_roots", [])})
+    release = config.get("night_release_root")
+    if bool(roots) == bool(release):
+        raise ValueError("Configure either night_release_root or one or more night_roots")
+    source = ({"night_release_root": str(Path(release).expanduser().resolve())}
+              if release else {"night_roots": roots})
+    return {"schema_version": SCHEMA_VERSION, **source,
             "base_cache": str(Path(config.get("base_cache", "artifacts/gallery_cache")).resolve()),
             "split_seed": SPLIT_SEED, "validation_fraction": VAL_FRACTION,
             "pending_review_policy": "user_authorized; preserve upstream review fields"}
@@ -80,10 +86,13 @@ def _base_identity(cache):
     return identity
 
 
-def _immutable_metadata(roots):
+def _immutable_metadata(config):
+    if "night_release_root" in config:
+        root = Path(config["night_release_root"])
+        return {str(root / name): _sha256(root / name) for name in ("complete.json", "manifest.jsonl")}
     names = ("state/cohort_config.json", "state/sources.jsonl", "state/night_prompts.jsonl",
              "state/prompts_complete.json", "cluster.json")
-    return {str(path): _sha256(path) for root in roots for name in names
+    return {str(path): _sha256(path) for root in config["night_roots"] for name in names
             if (path := Path(root) / name).is_file()}
 
 
@@ -101,8 +110,7 @@ def _ledgers(roots):
     return sorted(found)
 
 
-def _copy_metadata(stage, roots, ledgers):
-    """Copy the exact bytes used for the snapshot, including append-only ledgers."""
+def _ledger_metadata(roots, ledgers):
     paths = set(ledgers)
     root_names = ("cluster.json", "ownership.json", "status.json", "state/cohort_config.json",
                  "state/sources.jsonl", "state/night_prompts.jsonl", "state/prompts_complete.json",
@@ -112,16 +120,21 @@ def _copy_metadata(stage, roots, ledgers):
     for ledger in ledgers:
         paths.update(ledger.parent / name for name in ("plan_config.json", "summary.json")
                      if (ledger.parent / name).is_file())
+    return paths
+
+
+def _copy_metadata(stage, paths):
+    """Copy the exact bytes used for the snapshot."""
     output = stage / "metadata"
     output.mkdir()
     index = []
     copied = {}
     for number, path in enumerate(sorted(paths)):
-        payload = path.read_bytes()
         relative = f"metadata/{number:05d}_{path.name}"
-        (stage / relative).write_bytes(payload)
-        item = {"source_path": str(path), "snapshot_path": relative, "size": len(payload),
-                "sha256": hashlib.sha256(payload).hexdigest()}
+        target = stage / relative
+        shutil.copyfile(path, target)
+        item = {"source_path": str(path), "snapshot_path": relative, "size": target.stat().st_size,
+                "sha256": _sha256(target)}
         index.append(item)
         copied[path] = stage / relative
     _write_json(output / "index.json", index)
@@ -144,9 +157,7 @@ def _read_receipts(copied, ledgers, excluded):
                     raise NightDataIntegrityError(f"Malformed committed ledger line: {original}:{number}")
                 excluded.append({**origin, "reason": "incomplete_ledger_tail"})
                 continue
-            required = ("sample_id", "city", "place_id", "source_path", "source_sha256",
-                        "source_dimensions", "output_path", "output_sha256")
-            if any(not row.get(key) for key in required if key != "place_id") or "place_id" not in row:
+            if any(not row.get(key) for key in PAIR_FIELDS if key != "place_id") or "place_id" not in row:
                 excluded.append({**origin, "sample_id": row.get("sample_id"),
                                  "reason": "incomplete_generation_result"})
                 continue
@@ -164,6 +175,49 @@ def _read_receipts(copied, ledgers, excluded):
     return records
 
 
+def _read_release(root, copied, hashes):
+    manifest = root / "manifest.jsonl"
+    receipt = _json(copied[root / "complete.json"])
+    if (receipt.get("version") != "night_dataset_final"
+            or receipt.get("manifest_sha256") != hashes[str(manifest)]
+            or receipt.get("count") != receipt.get("expected")):
+        raise NightDataIntegrityError(f"Invalid night release completion receipt: {root}")
+    records, places, samples = [], set(), set()
+    with copied[manifest].open(encoding="utf-8") as stream:
+        for number, line in enumerate(stream, 1):
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise NightDataIntegrityError(f"Malformed night release manifest: {manifest}:{number}") from exc
+            if (not isinstance(row, dict) or any(key not in row for key in PAIR_FIELDS)
+                    or any(not row[key] for key in PAIR_FIELDS if key != "place_id")
+                    or row.get("dataset_version") != receipt["version"]
+                    or row.get("condition") != "night"
+                    or row.get("included_under_user_policy") is not True
+                    or row.get("eligible_for_training") is not True):
+                raise NightDataIntegrityError(f"Invalid night release pair: {manifest}:{number}")
+            city, place_id = row["city"], row["place_id"]
+            if (not isinstance(city, str) or city in {".", ".."} or Path(city).name != city
+                    or type(place_id) is not int or place_id < 0):
+                raise NightDataIntegrityError(f"Invalid night release place: {manifest}:{number}")
+            place = city, place_id
+            if place in places or row["sample_id"] in samples:
+                raise NightDataIntegrityError(f"Repeated place or sample in night release: {manifest}:{number}")
+            places.add(place)
+            samples.add(row["sample_id"])
+            pair_dir = root / "pairs" / city / str(place_id)
+            source = pair_dir / "source.jpg"
+            if source.resolve() != Path(row["source_path"]).resolve():
+                raise NightDataIntegrityError(f"Night release source link differs from the manifest: {source}")
+            pair = {key: row[key] for key in (*PAIR_FIELDS, *REVIEW_FIELDS, *PROVENANCE_FIELDS) if key in row}
+            pair.update(source_path=str(source), output_path=str(pair_dir / "night.png"),
+                        raw_output_path=str(pair_dir / "night_full.png"))
+            records.append((pair, {"ledger": str(manifest), "ledger_line": number}))
+    if len(records) != receipt.get("count"):
+        raise NightDataIntegrityError(f"Night release pair count differs from the completion receipt: {root}")
+    return records
+
+
 def _join_cache(receipts, config, excluded):
     cache = Path(config["base_cache"])
     metadata = _json(cache / "manifest.json")
@@ -174,7 +228,10 @@ def _join_cache(receipts, config, excluded):
     features = np.load(cache / "train_features.npy", mmap_mode="r")
     if len(paths) != len(labels) or features.shape[0] != len(paths):
         raise NightDataIntegrityError("Base gallery-cache image, label and feature counts differ")
-    wanted = {str(Path(row["source_path"]).resolve()) for row, _ in receipts}
+    wanted = set()
+    for row, _ in receipts:
+        row["source_path"] = str(Path(row["source_path"]).resolve())
+        wanted.add(row["source_path"])
     lookup = {}
     for index, value in enumerate(paths):
         relative = value.decode() if isinstance(value, (bytes, np.bytes_)) else str(value)
@@ -187,7 +244,7 @@ def _join_cache(receipts, config, excluded):
             lookup[full] = index
     joined = []
     for row, origin in receipts:
-        source = str(Path(row["source_path"]).resolve())
+        source = row["source_path"]
         if source not in lookup:
             raise NightDataIntegrityError(f"Night source is absent from the exact base-cache image list: {source}")
         index = lookup[source]
@@ -205,8 +262,7 @@ def _join_cache(receipts, config, excluded):
                   "source_sha256": row["source_sha256"], "night_path": night,
                   "night_sha256": row["output_sha256"], "source_dimensions": row["source_dimensions"],
                   **origin, **{key: row[key] for key in REVIEW_FIELDS if key in row}}
-        for key in ("source_sample_id", "pair_id", "seed", "style_id", "raw_output_path",
-                    "raw_output_sha256", "metadata_sha256", "result_sha256", "record_sha256"):
+        for key in PROVENANCE_FIELDS:
             if key in row:
                 result[key] = row[key]
         joined.append(result)
@@ -329,15 +385,28 @@ def build_snapshot(config):
             raise NightDataIntegrityError("Incomplete nonempty night input_dir; preserve it and choose a new directory")
         started = time.monotonic()
         base_identity = _base_identity(requested["base_cache"])
-        immutable = _immutable_metadata(requested["night_roots"])
-        ledgers = _ledgers(requested["night_roots"])
-        print(f"night snapshot: freezing {len(ledgers)} completed-result ledgers", flush=True)
+        immutable = _immutable_metadata(requested)
+        release = requested.get("night_release_root")
+        if release:
+            paths = set(map(Path, immutable))
+            print(f"night snapshot: freezing published release {release}", flush=True)
+        else:
+            roots = requested["night_roots"]
+            ledgers = _ledgers(roots)
+            paths = _ledger_metadata(roots, ledgers)
+            print(f"night snapshot: freezing {len(ledgers)} completed-result ledgers", flush=True)
         with tempfile.TemporaryDirectory(prefix="." + directory.name + "-", dir=directory.parent) as temporary:
             stage = Path(temporary) / "snapshot"
             stage.mkdir()
-            copied, metadata = _copy_metadata(stage, requested["night_roots"], ledgers)
+            copied, metadata = _copy_metadata(stage, paths)
             excluded = []
-            receipts = _read_receipts(copied, ledgers, excluded)
+            if release:
+                hashes = {row["source_path"]: row["sha256"] for row in metadata}
+                if hashes != immutable:
+                    raise NightDataIntegrityError("Night release metadata changed during copy")
+                receipts = _read_release(Path(release), copied, hashes)
+            else:
+                receipts = _read_receipts(copied, ledgers, excluded)
             candidates = _join_cache(receipts, requested, excluded)
             records = []
             with ThreadPoolExecutor(max_workers=4) as workers:
@@ -374,7 +443,7 @@ def build_snapshot(config):
                     "the pretrained checkpoint has already seen the corresponding GSV daytime places.",
                 "pending_review_policy": requested["pending_review_policy"]}
             # Check immutable inputs again so a source change cannot straddle the snapshot.
-            if immutable != _immutable_metadata(requested["night_roots"]):
+            if immutable != _immutable_metadata(requested):
                 raise NightDataIntegrityError("Generation source identity changed during snapshot construction")
             if base_identity != _base_identity(requested["base_cache"]):
                 raise NightDataIntegrityError("Base gallery cache changed during snapshot construction")

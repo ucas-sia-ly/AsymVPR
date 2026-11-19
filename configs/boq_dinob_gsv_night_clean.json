@@ -1,0 +1,16 @@
+{
+  "experiment": "boq_dinob_gsv_night_clean",
+  "base_config": "configs/boq_b2_gsv_night_final.json",
+  "output_dir": "runs/boq_dinob_gsv_night_clean/train",
+  "eval_cache_dir": "runs/boq_b2_night_v1/cache/eval",
+  "epochs": 1,
+  "batch_size": 64,
+  "eval_batch_size": 64,
+  "num_workers": 8,
+  "cpu_threads": 4,
+  "lr_backbone": 1e-05,
+  "lr_aggregator": 5e-05,
+  "temperature": 0.05,
+  "save_every": 100,
+  "use_degradation": false
+}

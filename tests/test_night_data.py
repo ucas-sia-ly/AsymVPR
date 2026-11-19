@@ -131,3 +131,37 @@ def test_all_views_of_a_place_share_one_split_and_missing_output_is_excluded(tmp
     assert all(len(splits) == 1 for splits in place_splits.values())
     assert len([row for row in records if row["label"] == 0]) == 2
     assert summary["excluded_reasons"] == {"missing_night_image": 1}
+
+
+def test_published_release_uses_local_pairs_and_preserves_quality_status(tmp_path):
+    config, rows, _ = fixture(tmp_path, count=3)
+    config.pop("night_roots")
+    release = tmp_path / "published"
+    config["night_release_root"] = str(release)
+    for row in rows:
+        pair = release / "pairs" / row["city"] / str(row["place_id"])
+        pair.mkdir(parents=True)
+        (pair / "source.jpg").symlink_to(row["source_path"])
+        Path(row["output_path"]).rename(pair / "night.png")
+        row.update(dataset_version="night_dataset_final", condition="night",
+                   dataset_stage="reviewed_regeneration_162", raw_quality_verdict="not_audited",
+                   included_under_user_policy=True, eligible_for_training=True)
+    manifest = release / "manifest.jsonl"
+    manifest.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    receipt = dict(version="night_dataset_final", count=3, expected=3,
+                   manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest())
+    write_json(release / "complete.json", receipt)
+
+    summary = build_snapshot(config)
+    assert (summary["total"], summary["train"], summary["val"]) == (3, 2, 1)
+    for row in load_records(config, "all"):
+        assert Path(row["night_path"]) == release / "pairs" / "City" / str(row["place_id"]) / "night.png"
+        assert row["source_index"] == row["label"] == row["place_id"]
+        assert row["raw_quality_verdict"] == "not_audited" and row["passed"] is False
+    assert build_snapshot(config) == summary
+
+    manifest.write_text(manifest.read_text() + "\n")
+    with pytest.raises(NightDataIntegrityError, match="Frozen generation input identity differs"):
+        load_records(config, "all")
+    with pytest.raises(NightDataIntegrityError, match="Invalid night release completion receipt"):
+        build_snapshot({**config, "input_dir": str(tmp_path / "second_snapshot")})

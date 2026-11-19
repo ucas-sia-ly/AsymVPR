@@ -372,7 +372,7 @@ def train(config, all_records, lineage, logger, max_steps=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config', default='configs/boq_b2_night_v1.json')
+    parser.add_argument('--config', default='configs/boq_b2_gsv_night_final.json')
     parser.add_argument('--stage', choices=['all', 'snapshot', 'prepare', 'train'], default='all')
     parser.add_argument('--max-steps', type=int, help='Bounded, explicitly labelled training check; same run can resume')
     parser.add_argument('--skip-final-evaluation', action='store_true', help='Only train; default runs fixed final tests after completion')
