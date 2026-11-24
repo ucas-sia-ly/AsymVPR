@@ -1,0 +1,22 @@
+{
+  "root": "runs/boq_dinob_gsv_ratio_full10",
+  "base_config": "configs/boq_b2_gsv_night_final.json",
+  "backbone_weights": "/home/admin123/.cache/torch/hub/checkpoints/dinov2_vitb14_pretrain.pth",
+  "ratios": [
+    "4:1",
+    "1:1",
+    "2:1",
+    "8:1"
+  ],
+  "epochs": 10,
+  "batch_size": 90,
+  "train_image_size": 224,
+  "eval_batch_size": 128,
+  "num_workers": 8,
+  "cpu_threads": 4,
+  "lr_backbone": 1e-05,
+  "lr_aggregator": 0.0001,
+  "weight_decay": 0.0001,
+  "log_every": 20,
+  "save_every": 300
+}

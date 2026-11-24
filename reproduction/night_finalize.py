@@ -275,9 +275,8 @@ def _validate_final_summary(final, initial, best_sha, teacher_sha, cache, benche
             raise ValueError('Final top-10 predictions differ from their summary checksum')
 
 
-def tokyo_night_diagnostic(benchmark, initial_predictions, final_predictions,
-                            source_path=TOKYO_SOURCE, mat_path=TOKYO_MAT):
-    """Derive N-labeled queries from existing top-10; no additional model inference.
+def tokyo_night_layout(benchmark, source_path=TOKYO_SOURCE, mat_path=TOKYO_MAT):
+    """Return the N-labeled query indices and official 25 m ground truth.
 
     The trusted local source binds the official NetVLAD MAT SHA. CSV field 6
     supplies D/S/N labels, while official MAT coordinates define 25 m positives.
@@ -328,6 +327,26 @@ def tokyo_night_diagnostic(benchmark, initial_predictions, final_predictions,
     positives = [np.sort(official_to_current[row]) for row in gt]
     if any(not len(row) for row in positives):
         raise ValueError('Tokyo night query has no official positive; refusing silent exclusion')
+    definition = dict(selection='CSV field 6 == N; verified against bound official 105-query ID set',
+        ground_truth='official MAT UTM <=25 m; current full-gallery indices mapped by exact image path',
+        selection_role='fixed final diagnostic, never checkpoint selection',
+        source_sha256=sha256(source_path), mat_sha256=sha256(mat_path),
+        csv_labels_sha256=json_sha256(csv_hashes),
+        ground_truth_sha256=json_sha256([p.tolist() for p in positives]),
+        differing_gt_rows_from_main_protocol=sum(not np.array_equal(p, benchmark.positives[i])
+                                                for p, i in zip(positives, selected)),
+        limitation=source.get('local_query_release_note', ''))
+    return dict(available=True, indices=selected, ids=night_ids, positives=positives,
+                definition=definition)
+
+
+def tokyo_night_diagnostic(benchmark, initial_predictions, final_predictions,
+                          source_path=TOKYO_SOURCE, mat_path=TOKYO_MAT):
+    """Derive the validated night-subset score from full-query predictions."""
+    layout = tokyo_night_layout(benchmark, source_path, mat_path)
+    if not layout['available']:
+        return layout
+    selected, positives = layout['indices'], layout['positives']
     before = np.load(initial_predictions, allow_pickle=False)
     after = np.load(final_predictions, allow_pickle=False)
     if before.shape != (len(benchmark.queries), 10) or after.shape != before.shape:
@@ -338,20 +357,12 @@ def tokyo_night_diagnostic(benchmark, initial_predictions, final_predictions,
     before_correct = [np.isin(row[:1], gt).any() for row, gt in zip(before[selected], positives)]
     after_correct = [np.isin(row[:1], gt).any() for row, gt in zip(after[selected], positives)]
     return dict(available=True, num_queries=len(selected), num_references=len(benchmark.references),
-                query_indices_in_full315=selected, query_ids=night_ids,
+                query_indices_in_full315=selected, query_ids=layout['ids'],
                 initial_percent=a, final_percent=b,
                 difference_percentage_points={k: b[k] - a[k] for k in a},
                 improved_at_1=int(sum(not x and y for x, y in zip(before_correct, after_correct))),
                 regressed_at_1=int(sum(x and not y for x, y in zip(before_correct, after_correct))),
-                definition=dict(selection='CSV field 6 == N; verified against bound official 105-query ID set',
-                    ground_truth='official MAT UTM <=25 m; current full-gallery indices mapped by exact image path',
-                    selection_role='fixed final diagnostic, never checkpoint selection',
-                    source_sha256=sha256(source_path), mat_sha256=sha256(mat_path),
-                    csv_labels_sha256=json_sha256(csv_hashes),
-                    ground_truth_sha256=json_sha256([p.tolist() for p in positives]),
-                    differing_gt_rows_from_main_protocol=sum(not np.array_equal(p, benchmark.positives[i])
-                                                            for p, i in zip(positives, selected)),
-                    limitation=source.get('local_query_release_note', '')))
+                definition=layout['definition'])
 
 
 def _report(config, completed, state, baseline, comparison, tokyo, identity, mixed=None):

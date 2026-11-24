@@ -5,6 +5,12 @@
 commit `1a4965ea7dfd9bd0dd846adf7a0e430f68101d12`. Their MIT license is
 preserved in `LICENSE.boq`.
 
+Local changes remove the unused ResNet wrapper, allow injecting an already
+loaded DINOv2 backbone, correct the zero-unfrozen-block case, and optionally
+omit attention maps during descriptor extraction. Parameter names remain
+compatible with existing checkpoints; the descriptor-only attention kernels
+can differ in floating-point roundoff from the original implementation.
+
 The initial independent AsymVPR implementation in `reproduction/` and its
 tests were copied from the user's local `../Bag-of-Queries` project.
 `results/training_history.json` records the original file hashes and training
@@ -17,3 +23,11 @@ DINOv2 source and pretrained model licenses apply separately; the local
 configuration points to the existing DINOv2 checkout. EfficientViT-B2 is loaded
 through timm's `efficientvit_b2.r224_in1k` implementation and ImageNet weights.
 Dataset licenses and access conditions apply to the existing local datasets.
+
+`reproduction/boq_protocol.py` adapts the optimizer, warmup, loss/miner,
+transforms and training setup from the same pinned BoQ `train.py`, `src/model.py`
+and `src/dataloaders/datamodule.py`. Copyright and MIT terms remain in
+`LICENSE.boq`. The local runner adds indexed-data adapters, exact generated-view
+quotas and Trainroom logging. The AdaptVPR [training protocol and Table IX](https://arxiv.org/html/2609.04369v1#S4.T9)
+inform fixed-pool, equal-step real/synthetic comparisons; no AdaptVPR generation
+or verification code is vendored.

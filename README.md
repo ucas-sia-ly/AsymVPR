@@ -8,9 +8,30 @@ GitHub 仓库包含代码、测试、配置、协议及轻量评测结果。数�
 特征缓存和本地下载的论文不随仓库上传；配置中的本机绝对路径需要按运行环境调整。
 部分历史报告中的 `runs/` 链接指向本机保存的训练产物，其他环境需先准备相应数据和权重。
 
+项目维护与参考实现的具体改进见[维护说明](docs/PROJECT_MAINTENANCE.md)：精简未使用代码、
+描述子推理按需省略注意力图、按官方 BoQ 策略训练及生成图比例对照，并移除夜间评测对已放弃实验的强制依赖。
+历史实验的配置、权重和结果保持封存；修改后的代码用于新实验时应使用新的输出目录。
+
 本机此前已在 `../Bag-of-Queries` 完成这组 15 epochs 训练。本项目复用已完成的权重、缓存和原始日志，
 没有重复启动训练。训练来源与文件 SHA256 见 [training_history.json](results/training_history.json)。
 另外三种 SALAD/MobileViTv2 组合和论文全部消融不属于当前已完成实验。
+
+## 独立训练 BoQ 与生成图比例对照
+
+使用 [官方 BoQ 配方](configs/boq_dinob_official_ratios.json)：128 地点 × 4 张不同视图、
+AdamW 两组相同 lr=1e-4、10 epochs 预热、10/20 epochs 衰减、RandAugment、
+Multi-Similarity loss/miner、16-mixed、40 epochs，以 MSLS-val R@1 选模。
+固定地点、步数和生成图池，比较纯真实、真实:生成=8:1、4:1。
+这与下面已有的 EfficientViT 学生蒸馏实验分别对应不同训练任务。
+
+仅 CPU 检查比例及步数，不启动训练：
+
+```bash
+python -m reproduction.dino_gsv_ratio_sweep --preflight
+```
+
+每地点四视图不重复；不新增生成图审核模式。参数来源、官方源码与论文差异及历史配置边界见
+[维护说明](docs/PROJECT_MAINTENANCE.md)。训练依赖另见 [requirements-training.txt](requirements-training.txt)。
 
 ## 当前保留的改动
 

@@ -91,14 +91,15 @@ def summarize(plan):
     (ROOT/'SCREENING.md').write_text('\n'.join(lines))
 
 
-def run(plan):
-    lock = (ROOT/'.sweep.lock').open('a')
+def run(plan, root=ROOT, report=summarize, completion_name='screening_complete.json',
+        retry_failed=(), launch_env=()):
+    lock = (root/'.sweep.lock').open('a')
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     # Verify the entire frozen input list on CPU before scheduling GPU work.
     from reproduction.night_data import load_records
     load_records(json.loads(Path(plan['trials'][0]['config']).read_text()), 'all')
-    summarize(plan)
-    state_path = ROOT/'execution.json'
+    report(plan)
+    state_path = root/'execution.json'
     state = json.loads(state_path.read_text()) if state_path.exists() else {'trials': {}}
     for job in plan['trials']:
         if sha256(job['config']) != job['config_sha256']:
@@ -109,14 +110,28 @@ def run(plan):
             completion = json.loads(done.read_text())
             if completion['config'] != json.loads(Path(job['config']).read_text()) or completion['steps'] != plan['optimizer_steps_per_trial']:
                 raise RuntimeError('Completed trial has different config/budget')
-            summarize(plan)
+            report(plan)
             continue
+        previous = None
+        if entry is not None and job['tag'] in retry_failed:
+            old_id = entry.get('id')
+            if old_id is None:
+                raise RuntimeError(f'Cannot retry a launch with unknown task ID: {job["tag"]}')
+            old_status = helper('status', '--id', old_id)
+            old_task = old_status.get('task', old_status.get('run', old_status))
+            if old_task.get('status') == 'failed':
+                previous = entry
+                entry = None
         if entry is None:
             state['trials'][job['tag']] = dict(launch_requested=True, name=job['name'])
+            if previous is not None:
+                state['trials'][job['tag']]['previous_attempt'] = previous
             atomic_json(state_path, state)
             response = helper('launch', '--cwd', str(Path.cwd()), '--name', job['name'], '--total-steps', str(plan['optimizer_steps_per_trial']),
-                '--', '/bin/bash', 'reproduction/mixed_camera_launch.sh', '--config', job['config'],
+                '--', '/usr/bin/env', *launch_env, '/bin/bash', 'reproduction/mixed_camera_launch.sh', '--config', job['config'],
                 '--stage', 'train', '--skip-final-evaluation')
+            if previous is not None:
+                response['previous_attempt'] = previous
             # Save the full small helper response immediately; never relaunch on uncertainty.
             state['trials'][job['tag']] = response
             atomic_json(state_path, state)
@@ -134,9 +149,9 @@ def run(plan):
             if phase in {'failed', 'completed', 'stopped', 'cancelled', 'error', 'exited'}:
                 raise RuntimeError(f'Trial exited without completion: {job["tag"]}: {status}')
             time.sleep(20)
-        summarize(plan)
+        report(plan)
         print(f'Completed {job["tag"]}; development results updated.', flush=True)
-    atomic_json(ROOT/'screening_complete.json', dict(status='complete', trials=len(plan['trials']),
+    atomic_json(root/completion_name, dict(status='complete', trials=len(plan['trials']),
                 final_tests=False, selected_configuration=None))
 
 

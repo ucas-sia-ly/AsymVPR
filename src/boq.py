@@ -24,7 +24,7 @@ class BoQBlock(torch.nn.Module):
         self.norm_out = torch.nn.LayerNorm(in_dim)
         
 
-    def forward(self, x):
+    def forward(self, x, return_attention=True):
         B = x.size(0)
         x = self.encoder(x)
         
@@ -32,13 +32,13 @@ class BoQBlock(torch.nn.Module):
         
         # the following two lines are used during training.
         # for stability purposes 
-        q = q + self.self_attn(q, q, q)[0]
+        q = q + self.self_attn(q, q, q, need_weights=return_attention)[0]
         q = self.norm_q(q)
         #######
         
-        out, attn = self.cross_attn(q, x, x)        
+        out, attn = self.cross_attn(q, x, x, need_weights=return_attention)
         out = self.norm_out(out)
-        return x, out, attn.detach()
+        return x, out, attn.detach() if attn is not None else None
 
 
 class BoQ(torch.nn.Module):
@@ -53,7 +53,13 @@ class BoQ(torch.nn.Module):
         
         self.fc = torch.nn.Linear(num_layers*num_queries, row_dim)
         
-    def forward(self, x):
+    def forward(self, x, return_attention=True):
+        """Return descriptors and, optionally, detached cross-attention maps.
+
+        The default preserves the upstream API and training computation. Set
+        return_attention=False for descriptor-only inference; no parameters or
+        checkpoint keys change. Attention kernels may differ in FP32 roundoff.
+        """
         # reduce input dimension using 3x3 conv when using ResNet
         x = self.proj_c(x)
         x = x.flatten(2).permute(0, 2, 1)
@@ -62,9 +68,10 @@ class BoQ(torch.nn.Module):
         outs = []
         attns = []
         for i in range(len(self.boqs)):
-            x, out, attn = self.boqs[i](x)
+            x, out, attn = self.boqs[i](x, return_attention=return_attention)
             outs.append(out)
-            attns.append(attn)
+            if return_attention:
+                attns.append(attn)
 
         out = torch.cat(outs, dim=1)
         out = self.fc(out.permute(0, 2, 1))

@@ -1,24 +1,18 @@
-"""Evaluate retained original/mixed/mixed+camera checkpoints, never train/select.
-
-Reuse audited read-only caches via hard links after full identity/checksum checks.
-Only generic evaluation and resource I/O live here, no retired experiment logic.
-"""
+"""Evaluate retained checkpoints with resumable extraction and optional cache reuse."""
 import argparse
 import gc
 import json
 import os
 from pathlib import Path
 import signal
-import time
 
 import numpy as np
 from reproduction.benchmarks import json_sha256, sha256
-from reproduction.evaluate import (atomic_json, feature_identity, extract_features,
+from reproduction.evaluate import (atomic_json, open_feature_cache, feature_identity, extract_features,
     load_inference_checkpoint, validate_inference_checkpoint, exact_topk, recall_at_k)
 from reproduction.feature_io import BoundedFeatureRows
 from reproduction.night_benchmarks import BUILDERS
 
-ARCHIVE = Path('已放弃/night_confusion/results/extended_night_v1')
 MODELS = {
     'original': Path('checkpoints/boq_b2_best.pt'),
     'mixed': Path('runs/boq_b2_night_v1/train/best.pt'),
@@ -58,6 +52,29 @@ def reuse_cache(source, target, identity):
         atomic_json(target.with_suffix('.progress.json'),json.loads(Path(source).with_suffix('.progress.json').read_text()))
     return dict(reused_from=str(Path(source).resolve()),feature_sha256=checksum,
                 reuse='verified hard link; no feature copy or mutation')
+
+
+def prepare_cache(target, identity, source=None):
+    """Return a verified cache receipt, or None when extraction must run/resume.
+
+    Missing optional sources fall back to extraction. Foreign or corrupt cache
+    bytes raise instead of silently replacing evidence from another experiment.
+    """
+    target = Path(target)
+    sidecars = [target.with_suffix(suffix) for suffix in ('.provenance.json', '.progress.json')]
+    if target.exists() or any(path.exists() for path in sidecars):
+        if not target.exists() or not all(path.is_file() for path in sidecars):
+            raise ValueError(f'Incomplete cache metadata: {target}')
+        progress = json.loads(sidecars[1].read_text())
+        if progress.get('rows') == identity['paths']['count']:
+            return dict(feature_sha256=verify_cache(target, identity))
+        # Validate incomplete cache identity/shape before letting extraction resume.
+        values, _ = open_feature_cache(target, identity)
+        del values
+        return None
+    if source is not None and Path(source).is_file():
+        return reuse_cache(source, target, identity)
+    return None
 
 
 def existing_tokyo(checkpoints):
@@ -119,6 +136,7 @@ def report(out, summary):
 def main():
     p=argparse.ArgumentParser(__doc__)
     p.add_argument('--output',default='results/mixed_night_suite_v1')
+    p.add_argument('--reuse-from',type=Path,help='Optional previous evaluation directory with audited caches')
     p.add_argument('--datasets',nargs='+',choices=list(BUILDERS),default=list(BUILDERS))
     p.add_argument('--manifest-only',action='store_true')
     p.add_argument('--batch-size',type=int,default=8)
@@ -127,18 +145,19 @@ def main():
     out=Path(args.output);out.mkdir(parents=True,exist_ok=True)
     benches=[BUILDERS[name]() for name in args.datasets]
     descriptions={b.name:b.describe() for b in benches}
-    old_descriptions=json.loads((ARCHIVE/'manifests.json').read_text())
+    old_descriptions = (json.loads((args.reuse_from/'manifests.json').read_text())
+                        if args.reuse_from else None)
     for name,desc in descriptions.items():
-        if old_descriptions[name] != desc:
+        if old_descriptions is not None and old_descriptions.get(name) != desc:
             raise ValueError(f'Dataset differs from audited cache protocol: {name}')
         print(f'{name}: gallery={desc["references"]["count"]}, query={desc["queries"]["count"]}',flush=True)
     atomic_json(out/'manifests.json',descriptions)
-    atomic_json(out/'coverage.json',json.loads((ARCHIVE/'coverage.json').read_text()))
+    atomic_json(out/'coverage.json',dict(requested=args.datasets, available=list(descriptions)))
     if args.manifest_only:
         return
     import torch
     import reproduction.evaluate as evaluation
-    from reproduction.asym_model import EfficientViTBoQ
+    from reproduction.asym_model import EfficientViTBoQ, GalleryBoQ
     from reproduction.monitoring import TrainingLogger
     signal.signal(signal.SIGINT,evaluation.request_stop)
     signal.signal(signal.SIGTERM,evaluation.request_stop)
@@ -164,7 +183,9 @@ def main():
     summary['protocols']['tokyo105_night_existing']=tokyo_protocol
     summary['results']['tokyo105_night_existing']=tokyo
     report(out,summary)
-    with TrainingLogger(config=dict(operation='night evaluation',**vars(args))) as logger:
+    log_config = dict(operation='night evaluation', **vars(args))
+    log_config['reuse_from'] = str(args.reuse_from) if args.reuse_from else None
+    with TrainingLogger(config=log_config) as logger:
         for label,row in tokyo.items():
             logger.log(0,**{f'eval/tokyo105_night/{label}/{k}':v for k,v in row['metrics_percent'].items()})
         for stage,b in enumerate(benches,1):
@@ -172,18 +193,22 @@ def main():
                 raise SystemExit(130)
             gallery=out/'cache'/b.name/'gallery.npy'
             gi=feature_identity(b.references,config,teacher_sha,'gallery_teacher')
-            gallery_note=reuse_cache(ARCHIVE/'cache'/b.name/'gallery.npy',gallery,gi)
+            source = args.reuse_from/'cache'/b.name/'gallery.npy' if args.reuse_from else None
+            gallery_note = prepare_cache(gallery,gi,source)
+            if gallery_note is None:
+                model=GalleryBoQ(config).float().cuda().eval()
+                extract_features(model,b.references,gallery,gi,config,'cuda',args.batch_size,
+                                 args.workers,logger,b.name+'/gallery')
+                del model;gc.collect();torch.cuda.empty_cache()
+                gallery_note = dict(feature_sha256=verify_cache(gallery,gi))
             for label,ckpt in MODELS.items():
                 state=load_inference_checkpoint(ckpt)
                 validate_inference_checkpoint(state,config,teacher_sha)
                 qi=feature_identity(b.queries,config,checkpoints[label],'query_student')
                 qt=gallery.parent/f'{label}.npy'
-                query_note={}
-                if label=='mixed':
-                    query_note=reuse_cache(ARCHIVE/'cache'/b.name/'mixed.npy',qt,qi)
-                elif qt.exists() and json.loads(qt.with_suffix('.progress.json').read_text()).get('rows')==len(b.queries):
-                    verify_cache(qt,qi)
-                else:
+                source = args.reuse_from/'cache'/b.name/f'{label}.npy' if args.reuse_from else None
+                query_note=prepare_cache(qt,qi,source)
+                if query_note is None:
                     model=EfficientViTBoQ(config,pretrained=False)
                     model.load_state_dict(state['model'],strict=True)
                     del state
@@ -191,8 +216,9 @@ def main():
                     extract_features(model,b.queries,qt,qi,config,'cuda',args.batch_size,args.workers,logger,b.name+'/'+label)
                     del model;gc.collect();torch.cuda.empty_cache()
                     state=None
+                    query_note=dict(feature_sha256=verify_cache(qt,qi))
                 del state
-                query_sha=verify_cache(qt,qi)
+                query_sha=query_note['feature_sha256']
                 with BoundedFeatureRows(gallery) as refs,BoundedFeatureRows(qt) as queries:
                     search={}
                     pred,scores=exact_topk(refs,queries,10,32,2048,'cuda',reference_bank='auto',

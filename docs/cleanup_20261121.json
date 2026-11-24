@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-21",
+  "scope": "Retired regenerable feature caches and transient previews only",
+  "deleted_cache_directories": [
+    {
+      "path": "已放弃/paired_shift/runs/cache",
+      "files": 9,
+      "symlinks": 0,
+      "logical_bytes": 1429565740
+    },
+    {
+      "path": "已放弃/paired_shift/runs/paired/final_cache",
+      "files": 15,
+      "symlinks": 15,
+      "logical_bytes": 655003861
+    },
+    {
+      "path": "已放弃/paired_shift/runs/baseline/final_cache",
+      "files": 15,
+      "symlinks": 15,
+      "logical_bytes": 655003861
+    },
+    {
+      "path": "已放弃/night_confusion/results/extended_night_v1/cache",
+      "files": 60,
+      "symlinks": 0,
+      "logical_bytes": 9955312487
+    },
+    {
+      "path": "已放弃/night_confusion/runs/boq_b2_night_confusion_v1/confusion_cache",
+      "files": 6,
+      "symlinks": 0,
+      "logical_bytes": 8082305
+    },
+    {
+      "path": "已放弃/night_confusion/runs/boq_b2_night_confusion_hard_r2/confusion_cache",
+      "files": 7,
+      "symlinks": 0,
+      "logical_bytes": 8082886
+    },
+    {
+      "path": "已放弃/night_confusion/runs/boq_b2_night_confusion_hard_r2/final_cache",
+      "files": 15,
+      "symlinks": 15,
+      "logical_bytes": 655003861
+    },
+    {
+      "path": "已放弃/night_confusion/runs/boq_b2_night_confusion_r2/final_cache",
+      "files": 15,
+      "symlinks": 15,
+      "logical_bytes": 655003861
+    }
+  ],
+  "cache_totals": {
+    "files": 142,
+    "logical_bytes": 14021058862,
+    "symlinks": 60,
+    "unique_unlinked_bytes": 7330634798,
+    "unique_unlinked_allocated_bytes": 7331176448,
+    "retained_shared_inodes": 10
+  },
+  "deleted_transients": [
+    ".pytest_cache",
+    "tests/__pycache__",
+    "output/night_degradation_audit_20261115/__pycache__",
+    "reproduction/__pycache__",
+    "src/__pycache__",
+    "tmp/pdfs/method_review.png"
+  ],
+  "protected_file_count": 4093,
+  "protected_files_unchanged_by_size_and_mtime": true,
+  "note": "Hard-linked active features remain allocated. All checkpoints, training logs, metrics, predictions and source snapshots retained."
+}

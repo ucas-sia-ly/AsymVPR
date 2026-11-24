@@ -1,0 +1,55 @@
+{
+  "training_complete": false,
+  "observed_last_evaluated_epoch": 34,
+  "best_msls_epoch": 14,
+  "best_msls": {
+    "R@1": 93.24324324324324,
+    "R@5": 96.21621621621622,
+    "R@10": 96.75675675675676
+  },
+  "last_msls": {
+    "R@1": 92.97297297297298,
+    "R@5": 96.35135135135135,
+    "R@10": 96.89189189189189
+  },
+  "paper_msls_percent": {
+    "R@1": 93.8,
+    "R@5": 96.8,
+    "R@10": 97.0
+  },
+  "r1_gap_pp": 0.5567567567567551,
+  "query_count": 740,
+  "local_model": {
+    "proj_channels": 512,
+    "descriptor_dim": 8192,
+    "row_dim": 16,
+    "heads": 8,
+    "train_size": 224
+  },
+  "released_model": {
+    "proj_channels": 384,
+    "descriptor_dim": 12288,
+    "row_dim": 32,
+    "heads": 6
+  },
+  "paper_dinov2_train_size": 280,
+  "local_training_data": {
+    "raw_images": 529506,
+    "raw_places": 64394,
+    "eligible_places": 62514,
+    "eligible_images": 524701,
+    "images_per_epoch": 250056
+  },
+  "verified": {
+    "cpu_upstream_forward_max_abs_error": 0.0,
+    "cpu_upstream_gradient_max_abs_error": 0.0,
+    "optimizer_steps": 16623,
+    "checkpoint_global_steps": 16626,
+    "nonfinite_logged_loss_rows": 0
+  },
+  "sources": [
+    "https://arxiv.org/html/2405.07364v2#S4.SS5",
+    "https://github.com/amaralibey/Bag-of-Queries/blob/1a4965ea7dfd9bd0dd846adf7a0e430f68101d12/train.py",
+    "https://github.com/amaralibey/Bag-of-Queries/blob/main/hubconf.py"
+  ]
+}

@@ -22,7 +22,7 @@ class EfficientViTBoQ(nn.Module):
         )
 
     def forward(self, images):
-        return self.aggregator(self.backbone(images)[-1])[0]
+        return self.aggregator(self.backbone(images)[-1], return_attention=self.training)[0]
 
 
 class GalleryBoQ(nn.Module):
@@ -32,14 +32,7 @@ class GalleryBoQ(nn.Module):
         # Construct without a second network download; load the complete VPR state below.
         dino = torch.hub.load(config['dino_source'], 'dinov2_vitb14',
                               source='local', pretrained=False)
-        backbone = DinoV2.__new__(DinoV2)
-        nn.Module.__init__(backbone)
-        backbone.dino = dino
-        backbone.backbone_name = 'dinov2_vitb14'
-        backbone.unfreeze_n_blocks = 2
-        backbone.reshape_output = True
-        backbone.out_channels = dino.embed_dim
-        self.backbone = backbone
+        self.backbone = DinoV2(dino=dino)
         self.aggregator = BoQ(in_channels=768, proj_channels=384,
                               num_queries=64, num_layers=2, row_dim=32)
         self.load_state_dict(torch.load(config['teacher_weights'],
@@ -48,7 +41,7 @@ class GalleryBoQ(nn.Module):
         self.eval()
 
     def forward(self, images):
-        return self.aggregator(self.backbone(images))[0]
+        return self.aggregator(self.backbone(images), return_attention=self.training)[0]
 
 
 def asym_loss(q, g, place_ids, centroids, variances, temperature=0.05,

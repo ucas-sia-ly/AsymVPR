@@ -1,0 +1,17 @@
+{
+  "training_config": "configs/boq_dinob_official_real_memory_v2.json",
+  "c_config": "runs/gsv_night_comparison/configs/C.json",
+  "checkpoint": "runs/boq_dinob_official_real_memory_v2/real/best.pt",
+  "root": "runs/boq_dinob_c_distillation_v1",
+  "finetuning": {
+    "epochs": 10,
+    "batch_size": 64,
+    "train_image_size": 322,
+    "lr": 0.00001,
+    "warmup_epochs": 0,
+    "milestones": [],
+    "num_workers": 2,
+    "cpu_threads": 6,
+    "log_every": 10
+  }
+}

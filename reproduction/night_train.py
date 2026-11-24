@@ -57,6 +57,10 @@ def source_identity(config=None):
     if config and config.get('augmentation_study'):
         files += ['reproduction/augmentation_study.py', 'reproduction/camera_augmentation.py',
                   'configs/night_camera_exploratory_v1.json', 'reproduction/night_subset.py']
+    if config and config.get('gsv_camera'):
+        files += ['reproduction/gsv_night_camera.py', 'reproduction/camera_augmentation.py',
+                  'reproduction/legacy_camera_ablation.py',
+                  'configs/night_camera_exploratory_v1.json']
     return {name: sha256(name) for name in files}
 
 
@@ -123,6 +127,10 @@ class PairedReplay(Dataset):
         self.all_index = {r['night_path']: i for i, r in enumerate(all_records)}
         self.transform = transform(config['image_size'])
         self.camera = None
+        self.gsv_camera = None
+        if config.get('gsv_camera'):
+            from reproduction.gsv_night_camera import GSVCamera
+            self.gsv_camera = GSVCamera(config, epoch, self.transform)
         if config.get('camera_profile'):
             from reproduction.night_camera import NightCamera
             self.camera = NightCamera(config, epoch)
@@ -144,11 +152,14 @@ class PairedReplay(Dataset):
             applied = False
             if self.camera is not None:
                 rgb, applied = self.camera.apply(rgb, row)
-            night = self.transform(rgb)
+            if self.gsv_camera is not None:
+                night, applied = self.gsv_camera.apply(rgb, row)
+            else:
+                night = self.transform(rgb)
         with Image.open(Path(self.config['gsv_root']) / name) as image:
             day = self.transform(image.convert('RGB'))
         result = (night, day, self.all_index[row['night_path']], row['source_index'], row['label'], replay_index)
-        return (*result, applied) if self.camera is not None else result
+        return (*result, applied) if self.camera is not None or self.gsv_camera is not None else result
 
 
 class PreparationLogger:
@@ -245,8 +256,11 @@ def train(config, all_records, lineage, logger, max_steps=None):
         {'params': model.aggregator.parameters(), 'lr': config['lr_aggregator'], 'name': 'aggregator'},
     ], weight_decay=config['weight_decay'])
     ratio = config['min_lr_ratio']
+    schedule_epochs = config.get('schedule_epochs', config['epochs'])
+    if type(schedule_epochs) is not int or schedule_epochs < config['epochs']:
+        raise ValueError('Cosine schedule must cover the training horizon')
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer,
-        lambda ep: ratio + (1-ratio) * (1+math.cos(math.pi*ep/config['epochs']))/2)
+        lambda ep: ratio + (1-ratio) * (1+math.cos(math.pi*ep/schedule_epochs))/2)
     epoch0 = batch0 = step = 0
     best = baseline = None
     if (out / 'last.pt').exists():
@@ -276,6 +290,10 @@ def train(config, all_records, lineage, logger, max_steps=None):
         return
     start = time.monotonic()
     accumulator, observations, samples, night_samples, camera_samples = {}, 0, 0, 0, 0
+    gsv_counts = None
+    if config.get('gsv_camera'):
+        from reproduction.gsv_night_camera import OP_NAMES
+        gsv_counts = np.zeros(2 + len(OP_NAMES), dtype=np.int64)
     for epoch in range(epoch0, config['epochs']):
         dataset = PairedReplay(records, all_records, config, epoch)
         train_workers = config.get('train_num_workers', config['num_workers'])
@@ -315,7 +333,10 @@ def train(config, all_records, lineage, logger, max_steps=None):
             observations += 1
             samples += count * 2
             night_samples += count
-            if config.get('camera_profile') or config.get('augmentation_study'):
+            if gsv_counts is not None:
+                gsv_counts += batch[6].sum(dim=0).numpy()
+                camera_samples += int(batch[6][:, 0].sum())
+            elif config.get('camera_profile') or config.get('augmentation_study'):
                 camera_samples += int(batch[6].sum())
             for key, value in {'loss': loss.detach(), **details}.items():
                 accumulator[key] = accumulator.get(key, 0.) + float(value)
@@ -327,15 +348,22 @@ def train(config, all_records, lineage, logger, max_steps=None):
                     'train/grad_norm': float(grad), 'lr/backbone': optimizer.param_groups[0]['lr'],
                     'lr/aggregator': optimizer.param_groups[1]['lr'],
                     'gpu/peak_allocated_gib': torch.cuda.max_memory_allocated()/1024**3})
-                if config.get('camera_profile') or config.get('augmentation_study'):
+                if gsv_counts is not None or config.get('camera_profile') or config.get('augmentation_study'):
                     values.update({'train/camera_applied_fraction': camera_samples/night_samples,
                         'train/camera_applied_images': camera_samples,
                         'train/night_images_per_second': night_samples/elapsed})
+                if gsv_counts is not None and config['gsv_camera'] == 'adjusted':
+                    values.update({f'train/camera/{name}_fraction': int(n)/night_samples
+                                   for name, n in zip(OP_NAMES, gsv_counts[2:])})
+                    values['train/camera/fallback_fraction'] = int(gsv_counts[1])/night_samples
+                    values['train/camera/two_ops_fraction'] = (int(gsv_counts[2:].sum())-camera_samples)/night_samples
                 logger.log(step, **values)
                 print(f'epoch={epoch+1}/{config["epochs"]} step={step} loss={values["train/loss"]:.5f} '
                       f'night={values["train/night_asym"]:.5f} day={values["train/replay_asym"]:.5f} '
                       f'images/s={values["train/images_per_second"]:.1f}', flush=True)
                 accumulator, observations, samples, night_samples, camera_samples = {}, 0, 0, 0, 0
+                if gsv_counts is not None:
+                    gsv_counts.fill(0)
                 start = time.monotonic()
             if step % config['save_every'] == 0 or STOP or (max_steps and step >= max_steps):
                 atomic_torch_save(out / 'last.pt', checkpoint_payload(model, optimizer, scheduler,
@@ -383,6 +411,11 @@ def main():
     if config['precision'] != 'float32' or config['night_batch_size'] != config['replay_batch_size']:
         raise ValueError('This experiment uses FP32 and equally sized night/day replay batches')
     camera_provenance = None
+    if config.get('gsv_camera'):
+        if config.get('camera_profile') or config.get('augmentation_study'):
+            raise ValueError('GSV camera cannot be combined with historical camera hooks')
+        from reproduction.gsv_night_camera import identity
+        camera_provenance = identity(config)
     if config.get('camera_profile'):
         from reproduction.mixed_camera import validate_config
         camera_provenance = validate_config(config)
